@@ -1,191 +1,30 @@
-/* --- Temel Ayarlar (Mühendislik Hassasiyeti) --- */
-:root {
-    --primary-color: #2c3e50;    /* Koyu Lacivert/Gri (Profesyonellik) */
-    --accent-color: #e67e22;     /* Turuncu (Mekanik, Sanayi) */
-    --text-color: #333;
-    --light-bg: #f4f7f6;
-    --white: #ffffff;
-    --transition: all 0.3s ease;
-}
+/* GENEL AYARLAR */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body { background-color: #fff; color: #333; line-height: 1.6; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; /* Kutu Modeli (image_0.png'de bahsettiğimiz yapı) */
-}
+/* NAVBAR (MENÜ) */
+.navbar { background: #003366; padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+.navbar .container { display: flex; justify-content: space-between; align-items: center; }
+.logo { display: flex; align-items: center; text-decoration: none; }
+.nav-links { list-style: none; display: flex; }
+.nav-links li { margin-left: 25px; }
+.nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; }
+.nav-links a:hover { color: #ffcc00; }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--white);
-}
+/* SLIDER (ANASAYFA GÖRSEL ALANI) */
+.hero-slider { position: relative; height: 100vh; overflow: hidden; background: #001a33; }
+.slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }
+.slide.active { opacity: 1; }
+.hero-content { background: rgba(0, 0, 0, 0.5); padding: 40px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); }
+.hero-content h1 { font-size: 3.5rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+.hero-content p { font-size: 1.3rem; max-width: 800px; margin: 0 auto 30px; }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+/* BUTONLAR */
+.btn { padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; display: inline-block; }
+.btn-primary { background: #ffcc00; color: #003366; }
+.btn-primary:hover { background: #e6b800; transform: translateY(-3px); }
 
-/* --- Navigasyon Menüsü --- */
-.navbar {
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 15px 0;
-    position: fixed; /* Üstte sabit kalır */
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-.navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-decoration: none;
-    color: var(--white);
-    letter-spacing: 1px;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--white);
-    font-weight: 500;
-    transition: var(--transition);
-}
-
-.nav-links a:hover {
-    color: var(--accent-color);
-}
-
-/* --- Hero Section --- */
-.hero {
-    height: 100vh;
-    background-color: var(--light-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding-top: 80px; /* Navbar'ın altında kalmasın diye */
-}
-
-.hero-content h1 {
-    font-size: 3rem;
-    color: var(--primary-color);
-    margin-bottom: 20px;
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    color: #666;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* --- Butonlar --- */
-.btn {
-    display: inline-block;
-    padding: 12px 30px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: var(--transition);
-}
-
-.btn-primary {
-    background-color: var(--accent-color);
-    color: var(--white);
-}
-
-.btn-primary:hover {
-    background-color: #d35400;
-    transform: translateY(-2px); /* Hafifçe yukarı kalkma efekti */
-}
-
-/* --- Hizmetler Grid Yapısı (Modern Düzen) --- */
-.section {
-    padding: 80px 0;
-}
-
-.section-title {
-    text-align: center;
-    font-size: 2.2rem;
-    color: var(--primary-color);
-    margin-bottom: 50px;
-}
-
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Mobil uyumlu grid */
-    gap: 30px;
-}
-
-.service-card {
-    background: var(--white);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05); /* Hafif gölge */
-    text-align: center;
-    border-bottom: 3px solid transparent;
-    transition: var(--transition);
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-    border-bottom: 3px solid var(--accent-color);
-}
-
-.service-card .icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    display: block;
-}
-
-.service-card h3 {
-    margin-bottom: 15px;
-    color: var(--primary-color);
-}
-
-/* --- Footer --- */
-.footer {
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 20px 0;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-/* --- Mobil Uyum (Responsive) --- */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none; /* Basitlik için mobil menüyü gizledik */
-    }
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-}
-.btn-linkedin {
-    border: 2px solid #0077b5;
-    padding: 8px 20px;
-    border-radius: 25px;
-    transition: all 0.3s ease;
-}
-
-.btn-linkedin:hover {
-    background-color: #0077b5;
-    color: white !important;
-    transform: scale(1.05);
-}
+/* Arka Plan Resimleri (Buraya kendi resimlerini yükleyince isimlerini yazarsın) */
+.slide:nth-child(1) { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('resim1.jpg') no-repeat center/cover; }
+.slide:nth-child(2) { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('resim2.jpg') no-repeat center/cover; }
