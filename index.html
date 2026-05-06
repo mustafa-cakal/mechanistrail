@@ -3,116 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mechanist Rail | Mühendislik ve Tasarım</title>
-    <!-- Stil dosyamızı bağlıyoruz -->
+    <title>Mechanist Rail | Anasayfa</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Navigasyon Menüsü -->
     <nav class="navbar">
         <div class="container">
-            <a href="#" class="logo">MECHANIST RAIL</a>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Logo" style="height: 50px; vertical-align: middle;">
+                <span style="color: white; font-weight: bold; margin-left: 10px;">MECHANIST RAIL</span>
+            </a>
             <ul class="nav-links">
-                <li><a href="#">Anasayfa</a></li>
-                <li><a href="#hizmetler">Hizmetler</a></li>
-                <li><a href="#portfolyo">Portfolyo</a></li>
-                <li><a href="#iletisim">İletişim</a></li>
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="hizmetler.html">Hizmetler</a></li>
+                <li><a href="portfolyo.html">Portfolyo</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Ana Giriş (Hero Section) -->
-    <header class="hero">
-        <div class="container hero-content">
-            <h1>Geleceğin Mekaniğini Tasarlıyoruz</h1>
-            <p>Mekanist Rail, Bir lokomotif olarak bize bağlı bütün vagonları bir sonraki istasyona taşımayı hedefler.</p>
-            <a href="#hizmetler" class="btn btn-primary">Hizmetlerimizi İncele</a>
+    <header class="hero-slider">
+        <div class="slide-container">
+            <div class="slide active">
+                <div class="container hero-content">
+                    <h1>Mekanik Tasarımın Lokomotif Gücü</h1>
+                    <p>10 yıllık tecrübeyi, rayın disiplini ve vagonların uyumuyla geleceğe taşıyoruz.</p>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="container hero-content">
+                    <h1>İnsansız Deniz Sistemleri</h1>
+                    <p>Mühendislik disipliniyle su altı ve su üstü robotik çözümler.</p>
+                </div>
+            </div>
         </div>
     </header>
 
-    <!-- Hizmetler Bölümü -->
-    <main class="container">
-        <section id="hizmetler" class="section">
-            <h2 class="section-title">Uzmanlık Alanlarımız</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="icon">⚙️</div>
-                    <h3>3D Mekanik Tasarım</h3>
-                    <p>Fikirlerinizi üretime hazır 3 boyutlu modellere dönüştürüyoruz.</p>
-                </div>
-                <div class="service-card">
-                    <div class="icon">🔧</div>
-                    <h3>Prototip Geliştirme</h3>
-                    <p>Tarımsal mekanizasyon ve endüstriyel prototiplerinizi üretiyoruz.</p>
-                </div>
-                <div class="service-card">
-                    <div class="icon">📊</div>
-                    <h3>Üretim Danışmanlığı</h3>
-                    <p>Verimli üretim süreçleri ve malzeme seçimi konusunda destek.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-    <!-- Hakkımızda Section -->
-<section id="hakkimizda" class="section container">
-    <div style="background: #f9f9f9; padding: 40px; border-radius: 15px; border-left: 5px solid #003366;">
-        <h2 class="section-title" style="text-align: left; margin-bottom: 20px;">Hakkımızda</h2>
-        <p style="font-size: 1.1rem; line-height: 1.8; color: #444;">
-            <strong>Mechanist Rail</strong>, bir makine mühendisinin 10 yıllık endüstriyel tasarım ve üretim tecrübesiyle şekillenmiş bir mühendislik platformudur. İsmini mühendislik disiplininin sarsılmaz rotasından (Rail) ve bu süreci ileriye taşıyan mekanik tasarımcı kimliğinden (Mechanist) alır. Tekstil, inşaat ve robotik gibi farklı sektörlerdeki birikimimizi, bir lokomotifin çekici gücüyle tek bir çatı altında topluyoruz.
-        </p>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 30px;">
-            <!-- Misyon -->
-            <div class="mission-box">
-                <h3 style="color: #003366; border-bottom: 2px solid #003366; display: inline-block; margin-bottom: 15px;">Misyonumuz</h3>
-                <p>Mühendislik projelerini sadece birer tasarım olarak değil, birbirine bağlı ve uyumla çalışan bir vagonlar katarı olarak görüyoruz. Temel görevimiz, en karmaşık mekanik problemleri disiplinli bir rota üzerinde, en verimli ve yenilikçi çözümlerle sonuca ulaştırmaktır.</p>
-            </div>
-
-            <!-- Vizyon -->
-            <div class="vision-box">
-                <h3 style="color: #003366; border-bottom: 2px solid #003366; display: inline-block; margin-bottom: 15px;">Vizyonumuz</h3>
-                <p>Mekanik tasarımın lokomotif gücüyle; insansız sistemlerden 3D prototiplemeye kadar her alanda, mühendislik disiplininden ödün vermeden geleceğin teknolojilerine yön veren ve bu rotada global standartları belirleyen bir marka olmaktır.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Mechanist Rail. Tüm Hakları Saklıdır.</p>
-        </div>
-    </footer>
-
-    <!-- JavaScript dosyamızı bağlıyoruz -->
     <script src="functions.js"></script>
 </body>
 </html>
-<!-- Navigasyon Kısmı (Logo Güncelleme) -->
-
-
-<!-- ... (Hero ve Hizmetler kısımları aynı kalabilir) ... -->
-
-<!-- İletişim Bölümü (Yeni) -->
-<section id="iletisim" class="section container">
-    <h2 class="section-title">Bizimle İletişime Geçin</h2>
-    <div class="contact-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-        <div class="contact-card" style="padding: 20px; background: #f9f9f9; border-radius: 8px; text-align: center;">
-            <h3>E-posta</h3>
-            <p><a href="mailto:info@mechanistrail.com">info@mechanistrail.com</a></p>
-           <!-- ... (mustafa maili eklenebilir)-->
-        </div>
-        <div class="contact-card" style="padding: 20px; background: #f9f9f9; border-radius: 8px; text-align: center;">
-            <h3>Lokasyon</h3>
-            <p>Antalya / Muratpaşa Bölgesi</p>
-        </div>
-    </div>
-</section>
-<div class="contact-card" style="padding: 20px; background: #f9f9f9; border-radius: 8px; text-align: center;">
-    <h3>Sosyal Medya</h3>
-    <p>Profesyonel ağımıza katılın:</p>
-    <a href="https://www.linkedin.com/in/mechanist-rail-79884b407/?skipRedirect=true" target="_blank" class="btn-linkedin" style="text-decoration: none; color: #0077b5; font-weight: bold; display: inline-block; margin-top: 10px;">
-        <span style="font-size: 1.2rem;">in</span> LinkedIn Profilim
-    </a>
-</div>
