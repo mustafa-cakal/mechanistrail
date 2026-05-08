@@ -1,91 +1,115 @@
-/* NAVBAR ANA ŞASİ */
+/* style.css - Mechanist Rail Görsel Döngülü Modern Tema */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body, html {
+    height: 100%;
+    font-family: 'Lato', sans-serif;
+    color: white;
+    background-color: #000b1a;
+    overflow: hidden;
+}
+
+/* ARKA PLAN SLAYDERI */
+.bg-slider {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+}
+
+.bg-slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.bg-slide.active { opacity: 1; }
+
+.bg-slide::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(rgba(0, 11, 26, 0.90), rgba(0, 11, 26, 0.85));
+}
+
+/* NAVBAR */
 .navbar {
-    background: #001a33;
-    height: 80px; /* Sabit yükseklik */
+    background: rgba(0, 26, 51, 0.98);
+    height: 80px;
     width: 100%;
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     z-index: 1000;
     display: flex;
     align-items: center;
     border-bottom: 2px solid #004080;
-    padding: 0 5%; /* Kenarlardan %5 boşluk */
+    padding: 0 5%;
 }
 
 .nav-container {
     width: 100%;
     display: flex;
-    align-items: center; /* Dikeyde her şeyi tam ortalar */
-}
-
-/* LOGO VE İSİM SOLDA */
-.brand {
-    display: flex;
+    justify-content: space-between;
     align-items: center;
-    text-decoration: none;
-    gap: 15px;
 }
 
-.logo-img {
-    height: 50px; /* Logonun boyutu */
-    width: auto;
-}
+.brand { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+.brand i { font-size: 32px; color: #0088ff; }
+.brand-text { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 700; color: #ffffff; letter-spacing: 1px; }
 
-.brand-text {
-    font-family: 'Poppins', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: #ffffff;
-    line-height: 50px; /* Logo yüksekliğiyle aynı yaparak tam hizalıyoruz */
-}
-
-/* MENÜ BUTONLARI SAĞA YASLI */
-.nav-links {
-    margin-left: auto; /* TÜM MENÜYÜ SAĞA İTER */
-    display: flex;
-    list-style: none;
-    gap: 20px;
-}
-
+.nav-links { display: flex; list-style: none; gap: 20px; }
 .nav-links a {
     color: #cbd5e1;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 13px;
     text-transform: uppercase;
     transition: 0.3s;
-    padding: 10px 5px;
+    cursor: pointer;
+}
+.nav-links a:hover { color: #0088ff; }
+
+/* SLAYT MOTORU */
+.presentation-wrapper { width: 100vw; height: 100vh; padding-top: 80px; display: flex; }
+#master-slider {
+    display: flex;
+    width: 700vw; 
+    height: calc(100vh - 80px);
+    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-.nav-links a:hover {
+.slide-container {
+    min-width: 100vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+}
+
+.slide-content { width: 100%; max-width: 1100px; text-align: center; }
+h1.main-title { font-family: 'Poppins', sans-serif; font-size: clamp(40px, 8vw, 80px); margin-bottom: 10px; }
+h2.slide-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(24px, 5vw, 48px);
     color: #0088ff;
-    border-bottom: 2px solid #0088ff;
+    margin-bottom: 25px;
+    border-left: 10px solid #0088ff;
+    padding-left: 25px;
+    text-align: left;
 }
 
-/* MOBİL UYUM */
-@media (max-width: 1024px) {
-    .nav-links {
-        gap: 10px;
-    }
-    .nav-links a {
-        font-size: 11px;
-    }
-}
+p.description { font-size: clamp(16px, 3vw, 22px); line-height: 1.6; color: #e2e8f0; }
 
 @media (max-width: 768px) {
-    .nav-container {
-        flex-direction: column;
-        justify-content: center;
-    }
-    .nav-links {
-        margin-left: 0;
-        margin-top: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    .navbar {
-        height: auto;
-        padding: 15px;
-    }
+    .navbar { height: auto; padding: 15px; }
+    .nav-container { flex-direction: column; gap: 10px; }
+    .nav-links { flex-wrap: wrap; justify-content: center; }
 }
