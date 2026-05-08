@@ -7,43 +7,56 @@
     <title>Mechanist Rail | Driving Your Engineering to the Next Station</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-        /* 1. ANA ŞASİ AYARLARI VE ARKA PLAN */
+        /* 1. ANA ŞASİ AYARLARI */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body, html {
             height: 100%;
             font-family: 'Lato', sans-serif;
             color: white;
-            background-color: #000b1a; /* Koyu Lacivert Şasi */
-            overflow: hidden; /* Slaytların taşmaması için */
+            background-color: #000b1a;
+            overflow: hidden;
         }
 
-        /* DİŞLİ ARKA PLAN GÖRSELİ (SENİN İSTEDİĞİN) */
-        .master-background {
+        /* 2. DİNAMİK ARKA PLAN (GÖRSELLER BURADA DÖNECEK) */
+        .bg-slider {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* İşte buraya profesyonel bir mekanik dişli görseli koydum abi */
-            background-image: linear-gradient(rgba(0, 11, 26, 0.90), rgba(0, 11, 26, 0.85)), url('https://images.unsplash.com/photo-1533036440798-25102a0a20f9?q=80&w=2560');
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+        }
+
+        .bg-slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-size: cover;
             background-position: center;
-            z-index: -1; /* En arkada kalması için */
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
         }
 
-        /* 2. SABİT NAVİGASYON (ÜST MENÜ) */
+        .bg-slide.active { opacity: 1; }
+
+        /* Senin istediğin o koyu lacivert degrade kaplama */
+        .bg-slide::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(rgba(0, 11, 26, 0.90), rgba(0, 11, 26, 0.85));
+        }
+
+        /* 3. SABİT NAVİGASYON (ÜST MENÜ) */
         .navbar {
             background: rgba(0, 26, 51, 0.98);
             height: 80px;
             width: 100%;
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             z-index: 1000;
             display: flex;
             align-items: center;
@@ -54,7 +67,7 @@
         .nav-container {
             width: 100%;
             display: flex;
-            justify-content: space-between; /* LOGO SOLDA, MENÜ SAĞDA */
+            justify-content: space-between;
             align-items: center;
         }
 
@@ -65,12 +78,7 @@
             text-decoration: none;
         }
 
-        /* Logo yerine dişli ikonu koydum, logo.png yüklersen img ile değiştirirsin */
-        .brand i.logo-icon {
-            font-size: 32px;
-            color: #0088ff;
-        }
-
+        .brand i.logo-icon { font-size: 32px; color: #0088ff; }
         .brand-text {
             font-family: 'Poppins', sans-serif;
             font-size: 24px;
@@ -79,14 +87,7 @@
             letter-spacing: 1px;
         }
 
-        /* MENÜ BUTONLARI SAĞA YASLI */
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-            margin-left: auto; /* MENÜYÜ SAĞA İTER */
-        }
-
+        .nav-links { display: flex; list-style: none; gap: 20px; margin-left: auto; }
         .nav-links a {
             color: #cbd5e1;
             text-decoration: none;
@@ -95,27 +96,24 @@
             text-transform: uppercase;
             transition: 0.3s;
             padding: 10px 5px;
-            border-bottom: 2px solid transparent;
+            cursor: pointer;
         }
 
-        .nav-links a:hover {
-            color: #0088ff;
-            border-bottom: 2px solid #0088ff;
-        }
+        .nav-links a:hover { color: #0088ff; }
 
-        /* 3. SLAYT KONTEYNERI (FULL SCREEN) */
+        /* 4. SLAYT KONTEYNERI */
         .presentation-wrapper {
             width: 100vw;
             height: 100vh;
-            padding-top: 80px; /* Navbar boşluğu */
+            padding-top: 80px;
             display: flex;
         }
 
         #master-slider {
             display: flex;
-            width: 700vw; /* 7 Slayt için genişlik */
+            width: 700vw; 
             height: calc(100vh - 80px);
-            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1); /* Yumuşak geçiş */
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
         .slide-container {
@@ -128,23 +126,12 @@
             padding: 60px;
         }
 
-        /* 4. TİPOGRAFİ VE İÇERİK */
-        .slide-content {
-            width: 100%;
-            max-width: 1100px;
-            text-align: center;
-        }
-
-        h1.main-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 80px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
+        /* 5. TİPOGRAFİ VE İÇERİK */
+        .slide-content { width: 100%; max-width: 1100px; text-align: center; }
+        h1.main-title { font-family: 'Poppins', sans-serif; font-size: clamp(40px, 8vw, 80px); margin-bottom: 10px; text-transform: uppercase; }
         h2.slide-title {
             font-family: 'Poppins', sans-serif;
-            font-size: 48px;
+            font-size: clamp(24px, 5vw, 48px);
             color: #0088ff;
             margin-bottom: 25px;
             text-transform: uppercase;
@@ -153,46 +140,27 @@
             text-align: left;
             width: 100%;
         }
+        p.description { font-size: clamp(16px, 3vw, 22px); line-height: 1.6; color: #e2e8f0; max-width: 850px; margin: 0 auto; }
 
-        p.description {
-            font-size: 22px;
-            line-height: 1.6;
-            color: #e2e8f0;
-            max-width: 850px;
-            margin: 0 auto;
-        }
-
-        /* 5. ÖZEL DÜZENLER */
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            text-align: left;
-        }
-
-        /* 6. MOBİL UYUM (RESPONSIVE) */
-        @media (max-width: 1024px) {
-            h1.main-title { font-size: 50px; }
-            h2.slide-title { font-size: 36px; }
-            .nav-links { gap: 10px; }
-            .nav-links a { font-size: 11px; }
-        }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; text-align: left; }
 
         @media (max-width: 768px) {
             .navbar { height: auto; padding: 15px; }
             .nav-container { flex-direction: column; gap: 10px; }
-            .nav-links { margin-left: 0; flex-wrap: wrap; justify-content: center; gap: 8px; }
-            
+            .nav-links { margin-left: 0; flex-wrap: wrap; justify-content: center; }
             .two-column { grid-template-columns: 1fr; text-align: center; }
-            .slide-container { padding: 30px; }
             h2.slide-title { text-align: center; border-left: none; padding-left: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="master-background"></div>
+    <div class="bg-slider">
+        <div class="bg-slide active" style="background-image: url('https://images.unsplash.com/photo-1533036440798-25102a0a20f9?q=80&w=2560');"></div>
+        <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2560');"></div>
+        <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1516012828019-2efc3d56d781?q=80&w=2560');"></div>
+        <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=2560');"></div>
+    </div>
 
     <nav class="navbar">
         <div class="nav-container">
@@ -201,13 +169,12 @@
                 <span class="brand-text">MECHANIST RAIL</span>
             </a>
             <ul class="nav-links">
-                <li><a href="#" onclick="manualMove(0)">Ana Sayfa</a></li>
-                <li><a href="#" onclick="manualMove(1)">Hizmetler</a></li>
-                <li><a href="#" onclick="manualMove(2)">Çözümlerimiz</a></li>
-                <li><a href="#" onclick="manualMove(3)">Ürünlerimiz</a></li>
-                <li><a href="#" onclick="manualMove(4)">Portfolyo</a></li>
-                <li><a href="#" onclick="manualMove(5)">Hakkımızda</a></li>
-                <li><a href="#" onclick="manualMove(6)">İletişim</a></li>
+                <li><a onclick="manualMove(0)">Ana Sayfa</a></li>
+                <li><a onclick="manualMove(1)">Hizmetler</a></li>
+                <li><a onclick="manualMove(2)">Çözümler</a></li>
+                <li><a onclick="manualMove(3)">Ürünler</a></li>
+                <li><a onclick="manualMove(4)">Hakkımızda</a></li>
+                <li><a onclick="manualMove(5)">İletişim</a></li>
             </ul>
         </div>
     </nav>
@@ -227,86 +194,39 @@
                 <h2 class="slide-title">Mühendislik Hizmetleri</h2>
                 <div class="slide-content">
                     <div class="two-column">
-                        <p class="description">Karmaşık montaj yönetimi, DFM (Üretilebilirlik için Tasarım) ve SolidWorks analiz destekli mekanik tasarım çözümleri sunuyoruz.</p>
+                        <p class="description">Karmaşık montaj yönetimi, DFM ve SolidWorks analiz destekli mekanik tasarım çözümleri sunuyoruz.</p>
                         <p style="color: #0088ff; font-weight: bold; font-size: 24px;">Tasarım, Analiz, İmalat Yönetimi.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="slide-container">
-                <h2 class="slide-title">ROV & Su Altı Sistemleri</h2>
-                <div class="slide-content">
-                    <div class="two-column">
-                        <p class="description">Su altı akustiği ve ROV (İnsansız Su Altı Araçları) konusunda derin tecrübe. Basınç, korozyon ve sızdırmazlık gibi zorlu ortam mühendisliği uzmanlığı.</p>
-                        <p style="color: #0088ff; font-weight: bold; font-size: 24px;">Zorlu Ortamlar İçin Sarsılmaz Mühendislik.</p>
-                    </div>
-                </div>
             </div>
-
-            <div class="slide-container">
-                <h2 class="slide-title">3D Eklemeli İmalat</h2>
-                <div class="slide-content">
-                    <div class="two-column">
-                        <p class="description">Geleneksel yöntemlerle üretilemeyen geometrileri 3D baskı ile hayata geçiriyoruz. Hızlı prototipleme ile ürün geliştirme süresinde %60 tasarruf.</p>
-                        <p style="color: #0088ff; font-weight: bold; font-size: 24px;">Prototipten Fonksiyonel Son Ürüne.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="slide-container">
-                <h2 class="slide-title">Rakamlarla Tecrübemiz</h2>
-                <div class="slide-content" style="text-align: left; font-size: 28px;">
-                    <p>Maliyet Tasarrufu (DFM) : <span style="color: #0088ff; font-weight: bold;">%35</span></p>
-                    <p>Pazara Çıkış Hızı : <span style="color: #0088ff; font-weight: bold;">%60</span></p>
-                    <p>Hata Oranı Azalışı : <span style="color: #008cff; font-weight: bold;">%45</span></p>
-                </div>
-            </div>
-
-            <div class="slide-container">
-                <h2 class="slide-title">Hikayemiz ve Vizyonumuz</h2>
-                <div class="slide-content">
-                    <p style="font-style: italic; font-size: 32px; margin-bottom: 30px;">"Sadece tasarım yapmıyoruz. Gömülü sistem tecrübemizle projenize ruh üflüyoruz."</p>
-                    <p class="description">Çeşitli sektörlerin üretim tecrübesi, bugün 10 yılı aşkın bir mühendislik kariyerine ve Mechanistrail çatısı altında profesyonel bir yapıya dönüştü.</p>
-                </div>
-            </div>
-
-            <div class="slide-container">
-                <div class="slide-content">
-                    <h1 class="main-title" style="color: #0088ff;">Mechanist Rail</h1>
-                    <p style="font-size: 36px; margin: 30px 0;">"Kahve eşliğinde tanışmaya hazırız."</p>
-                    <div style="font-size: 24px; line-height: 2;">
-                        <p><i class="fa-solid fa-envelope"></i> info@mechanistrail.com</p>
-                        <p><i class="fa-solid fa-phone"></i> +90 5___ __ __</p>
-                        <p><i class="fa-solid fa-location-dot"></i> Tekirdağ / Kocaeli / Global</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
     </div>
 
     <script>
         let currentPos = 0;
         const slider = document.getElementById('master-slider');
-        const totalSlides = 7;
+        const bgSlides = document.querySelectorAll('.bg-slide');
+        const totalSlides = 6; // Toplam slayt sayın
 
-        // Slaytı istenen indexe kaydırır
         function moveSlide(index) {
             currentPos = index;
+            // Metinleri kaydır
             slider.style.transform = `translateX(-${currentPos * 100}vw)`;
+            
+            // Arka plan görsellerini değiştir (Eğer görseller slayt sayısından azsa mod alıyoruz)
+            bgSlides.forEach(s => s.classList.remove('active'));
+            bgSlides[currentPos % bgSlides.length].classList.add('active');
         }
 
-        // 10 Saniyelik (10000ms) Otomatik Döngü
         let autoInterval = setInterval(() => {
             currentPos = (currentPos + 1) % totalSlides;
             moveSlide(currentPos);
         }, 10000);
 
-        // Menüye tıklandığında otomatik süreyi sıfırlar
         function manualMove(index) {
-            clearInterval(autoInterval); // Eski süreyi iptal et
+            clearInterval(autoInterval);
             moveSlide(index);
-            // Yeni süreyi başlat
             autoInterval = setInterval(() => {
                 currentPos = (currentPos + 1) % totalSlides;
                 moveSlide(currentPos);
