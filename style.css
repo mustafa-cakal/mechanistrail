@@ -3,6 +3,17 @@
    Tüm site stilleri burada toplanmıştır.
    ============================================= */
 
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Mechanistrail | Mekanik Tasarım ve Mühendislik Çözümleri</title>
+    
+    <meta name="description" content="Mechanistrail: Mekanik tasarım, termal analiz, PCB tasarımı ve gömülü yazılım çözümleri. Antalya merkezli profesyonel mühendislik danışmanlığı.">
+    
+    <meta name="robots" content="index, follow">
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
