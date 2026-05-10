@@ -1,0 +1,287 @@
+/* =============================================
+   MECHANISTRAIL - style.css
+   Tüm site stilleri burada toplanmıştır.
+   ============================================= */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #0a1628;
+  color: #fff;
+}
+
+/* ---- NAV ---- */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 28px;
+  background: #0d1e35;
+  border-bottom: 1px solid rgba(55,138,221,0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Logo resmi */
+.nav-logo img {
+  height: 48px;          /* Logo yüksekliği — istediğin gibi değiştir */
+  width: auto;
+  cursor: pointer;
+  display: block;
+}
+
+.nav-links { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+
+.nav-btn {
+  font-size: 13px;
+  color: #c8d8f0;
+  cursor: pointer;
+  padding: 7px 13px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  font-weight: 400;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.nav-btn:hover  { color: #fff; background: rgba(55,138,221,0.15); }
+.nav-btn.active { color: #fff; background: rgba(55,138,221,0.2); border: 0.5px solid rgba(55,138,221,0.35); }
+
+/* ---- SAYFA GEÇİŞ ANİMASYONU ---- */
+.page { display: none; animation: fadeIn 0.3s ease; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ---- HERO ---- */
+.hero {
+  padding: 60px 28px 52px;
+  background: #0a1628;
+  position: relative;
+  overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(24,95,165,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24,95,165,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.hero-inner { position: relative; z-index: 1; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px;
+  background: rgba(24,95,165,0.15);
+  color: #85B7EB;
+  border: 0.5px solid rgba(55,138,221,0.3);
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 22px;
+}
+
+.hero h1 { font-size: 30px; font-weight: 500; line-height: 1.25; margin-bottom: 14px; max-width: 500px; }
+.hero h1 span { color: #378ADD; }
+.hero p { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.7; max-width: 460px; margin-bottom: 28px; }
+
+.hero-btns { display: flex; gap: 12px; margin-bottom: 28px; }
+.btn-blue    { padding: 11px 24px; background: #185FA5; color: #fff; border-radius: 8px; font-size: 14px; cursor: pointer; border: none; transition: background 0.2s; }
+.btn-blue:hover { background: #1e74c8; }
+.btn-outline { padding: 11px 24px; background: transparent; color: rgba(255,255,255,0.8); border: 0.5px solid rgba(255,255,255,0.3); border-radius: 8px; font-size: 14px; cursor: pointer; }
+
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 0.5px solid rgba(55,138,221,0.3); color: rgba(255,255,255,0.55); }
+
+/* =============================================
+   ANA SAYFA FOTOĞRAF GALERİSİ (Photo Gallery)
+   
+   NASIL KULLANILIR?
+   script.js içindeki "galleryPhotos" dizisine
+   resim yollarını ekle. Örnek:
+     { src: "images/proje1.jpg", caption: "Proje Adı" }
+   Resimler images/ klasörüne koy.
+   ============================================= */
+.gallery-section { padding: 0 28px 28px; }
+.gallery-label { font-size: 11px; font-weight: 500; color: #378ADD; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+.gallery-title { font-size: 18px; font-weight: 500; color: #fff; margin-bottom: 14px; }
+
+.gallery-wrap {
+  position: relative;
+  border-radius: 12px;
+  border: 0.5px solid rgba(55,138,221,0.2);
+  overflow: hidden;
+  height: 320px;           /* Galeri yüksekliği */
+  background: #0d1e35;
+}
+
+/* Resimler üst üste gelir, aktif olan görünür */
+.gallery-slide {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.gallery-slide.active { opacity: 1; }
+
+.gallery-slide img {
+  width: 100%; height: 100%;
+  object-fit: cover;       /* Resmi kutuya sığdır, kırp */
+}
+
+/* Resim üzerindeki yazı bandı */
+.gallery-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 16px 20px 14px;
+  background: linear-gradient(transparent, rgba(7,16,32,0.85));
+  font-size: 14px; color: #fff;
+}
+
+/* Placeholder: resim yokken gösterilir */
+.gallery-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 10px;
+  color: rgba(255,255,255,0.3);
+  font-size: 13px;
+}
+.gallery-placeholder i { font-size: 48px; color: rgba(55,138,221,0.3); }
+
+/* Ok butonları */
+.gallery-prev, .gallery-next {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px;
+  background: rgba(10,22,40,0.7); border: 0.5px solid rgba(55,138,221,0.3);
+  color: #85B7EB; border-radius: 8px;
+  cursor: pointer; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 5; transition: background 0.2s;
+}
+.gallery-prev { left: 12px; }
+.gallery-next { right: 12px; }
+.gallery-prev:hover, .gallery-next:hover { background: rgba(24,95,165,0.5); }
+
+/* Nokta göstergeleri */
+.gallery-dots { display: flex; gap: 6px; justify-content: center; margin-top: 10px; }
+.gallery-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(55,138,221,0.25); cursor: pointer; border: none;
+  transition: all 0.2s;
+}
+.gallery-dot.active { background: #378ADD; width: 18px; border-radius: 4px; }
+
+/* İlerleme çubuğu (10 sn) */
+.gallery-prog-bar { height: 2px; background: rgba(55,138,221,0.1); margin-top: 4px; }
+.gallery-prog-fill { height: 100%; background: #378ADD; width: 0%; transition: width 0.1s linear; }
+
+/* ---- ANA PROJE SLİDER (mevcut) ---- */
+.slider-wrap { position: relative; overflow: hidden; border-radius: 12px; border: 0.5px solid rgba(55,138,221,0.2); margin: 0 28px 28px; }
+.slides { display: flex; transition: transform 0.5s ease; }
+.slide { min-width: 100%; padding: 28px; background: rgba(255,255,255,0.03); display: flex; gap: 24px; align-items: center; }
+.slide-visual { width: 160px; min-width: 160px; height: 120px; border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 0.5px solid rgba(55,138,221,0.15); overflow: hidden; }
+.slide-visual img { width: 100%; height: 100%; object-fit: cover; }
+.slide-num { font-size: 11px; color: #378ADD; font-weight: 500; letter-spacing: 1px; margin-bottom: 6px; }
+.slide h3 { font-size: 16px; font-weight: 500; color: #fff; margin-bottom: 8px; line-height: 1.3; }
+.slide p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+.slide-tags { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.stag { font-size: 11px; padding: 3px 8px; border-radius: 12px; background: rgba(55,138,221,0.1); color: #85B7EB; border: 0.5px solid rgba(55,138,221,0.2); }
+.slider-footer { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 0; }
+.dots { display: flex; gap: 6px; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(55,138,221,0.25); cursor: pointer; border: none; transition: all 0.2s; }
+.dot.active { background: #378ADD; width: 18px; border-radius: 4px; }
+.arrows { display: flex; gap: 8px; }
+.arr { width: 30px; height: 30px; border-radius: 8px; background: rgba(55,138,221,0.1); border: 0.5px solid rgba(55,138,221,0.2); color: #85B7EB; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+.prog-bar { height: 2px; background: rgba(55,138,221,0.1); margin-top: 12px; }
+.prog-fill { height: 100%; background: #378ADD; transition: width 0.1s linear; }
+
+/* ---- İSTATİSTİKLER ---- */
+.stats-row { display: grid; grid-template-columns: repeat(4,1fr); background: #0d1e35; border-top: 0.5px solid rgba(55,138,221,0.1); border-bottom: 0.5px solid rgba(55,138,221,0.1); }
+.stat { padding: 22px 16px; text-align: center; border-right: 0.5px solid rgba(55,138,221,0.1); }
+.stat:last-child { border-right: none; }
+.stat-n { font-size: 22px; font-weight: 500; color: #378ADD; }
+.stat-l { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+/* ---- SAYFA İÇİ GENEL ---- */
+.page-inner { padding: 40px 28px; }
+.sec-label { font-size: 11px; font-weight: 500; color: #378ADD; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+.sec-title { font-size: 22px; font-weight: 500; color: #fff; margin-bottom: 8px; }
+.sec-sub { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 28px; max-width: 520px; }
+
+/* ---- HİZMET KARTLARI ---- */
+.svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 14px; }
+.svc-card { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(55,138,221,0.15); border-radius: 12px; padding: 20px; }
+.svc-icon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; font-size: 20px; }
+.svc-card h3 { font-size: 14px; font-weight: 500; color: #fff; margin-bottom: 8px; }
+.svc-card p { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+.svc-card ul { margin-top: 10px; padding-left: 0; list-style: none; }
+.svc-card ul li { font-size: 12px; color: rgba(255,255,255,0.45); padding: 3px 0; display: flex; align-items: center; gap: 6px; }
+.svc-card ul li::before { content: ''; width: 4px; height: 4px; background: #378ADD; border-radius: 50%; flex-shrink: 0; }
+
+/* ---- HAKKIMIZDA ---- */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
+.about-text p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.8; margin-bottom: 14px; }
+.about-vals { display: flex; flex-direction: column; gap: 12px; }
+.val-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(55,138,221,0.12); border-radius: 8px; }
+.val-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.val-item h4 { font-size: 13px; font-weight: 500; color: #fff; margin-bottom: 4px; }
+.val-item p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 10px; }
+.skill-bar { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(55,138,221,0.12); border-radius: 8px; padding: 12px 14px; }
+.skill-bar p { font-size: 12px; color: rgba(255,255,255,0.65); margin-bottom: 8px; }
+.bar-bg { height: 4px; background: rgba(55,138,221,0.15); border-radius: 2px; }
+.bar-fill { height: 100%; background: #378ADD; border-radius: 2px; }
+
+/* =============================================
+   PROJELER SAYFASI
+   
+   Her proje kartı .proj-card sınıfına sahip.
+   Resim eklemek için .proj-thumb içine <img> koy:
+     <img src="images/proje1.jpg" alt="Proje Adı">
+   ============================================= */
+.proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 14px; }
+.proj-card { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(55,138,221,0.15); border-radius: 12px; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
+.proj-card:hover { border-color: rgba(55,138,221,0.4); transform: translateY(-2px); }
+.proj-thumb { height: 140px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.proj-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.proj-body { padding: 14px; }
+.proj-body h3 { font-size: 13px; font-weight: 500; color: #fff; margin-bottom: 6px; }
+.proj-body p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.5; margin-bottom: 10px; }
+.proj-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+.ptag { font-size: 11px; padding: 2px 7px; border-radius: 10px; background: rgba(55,138,221,0.1); color: #85B7EB; border: 0.5px solid rgba(55,138,221,0.2); }
+
+/* ---- İLETİŞİM ---- */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.contact-info { display: flex; flex-direction: column; gap: 12px; }
+.citem { display: flex; align-items: center; gap: 12px; padding: 14px; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(55,138,221,0.12); border-radius: 8px; }
+.cicon { width: 36px; height: 36px; background: rgba(24,95,165,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #85B7EB; font-size: 17px; }
+.citem-text p { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 2px; }
+.citem-text a, .citem-text span { font-size: 13px; color: #85B7EB; text-decoration: none; }
+.cform { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(55,138,221,0.15); border-radius: 12px; padding: 20px; }
+.cform h3 { font-size: 15px; font-weight: 500; color: #fff; margin-bottom: 16px; }
+.frow { margin-bottom: 12px; }
+.frow label { font-size: 12px; color: rgba(255,255,255,0.5); display: block; margin-bottom: 4px; }
+.frow input, .frow textarea { width: 100%; font-size: 13px; padding: 9px 12px; border: 0.5px solid rgba(55,138,221,0.2); border-radius: 8px; background: rgba(255,255,255,0.05); color: #fff; outline: none; }
+.frow input:focus, .frow textarea:focus { border-color: rgba(55,138,221,0.5); }
+.frow textarea { height: 80px; resize: none; }
+.sbtn { width: 100%; padding: 11px; background: #185FA5; color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; margin-top: 4px; }
+
+/* ---- FOOTER ---- */
+.footer {
+  padding: 14px 28px;
+  border-top: 0.5px solid rgba(55,138,221,0.1);
+  display: flex; justify-content: space-between; align-items: center;
+  background: #071020;
+}
+.footer p { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+/* ---- SLOGAN BANNER ---- */
+.slogan-banner {
+  margin-top: 28px; padding: 20px;
+  background: rgba(24,95,165,0.08);
+  border: 0.5px solid rgba(55,138,221,0.25);
+  border-radius: 12px;
+  display: flex; align-items: center; gap: 16px;
+}
+.slogan-banner .emoji { font-size: 32px; }
+.slogan-banner h4 { font-size: 14px; font-weight: 500; color: #fff; margin-bottom: 4px; }
+.slogan-banner p { font-size: 13px; color: rgba(255,255,255,0.5); }
