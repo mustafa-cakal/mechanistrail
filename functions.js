@@ -32,13 +32,14 @@
    ============================================= */
 const galleryPhotos = [
   /* --- KENDİ RESİMLERİNİ BURAYA EKLE --- */
-  /* Örnek format (# işaretini kaldır ve düzenle):
-  { src: "images/lokomotif_1.jpg",    caption: "Mechanistrail Atölyesi" },
-  { src: "images/makine1.jpg",        caption: "Endüstriyel Konveyör Sistemi" },
-  { src: "images/cad-tasarim.jpg",    caption: "CAD Tasarım Çalışması" },
-  { src: "images/pcb.jpg",            caption: "PCB Kart Tasarımı" },
-  { src: "images/analiz.jpg",         caption: "CFD Akış Analizi" },
-  */
+  { src: "images/lokomotif_1.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
+  { src: "images/lokomotif_2.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
+  { src: "images/lokomotif_3.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
+  { src: "images/lokomotif_4.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
+  { src: "images/lokomotif_5.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
+  { src: "images/lokomotif_6.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
+  { src: "images/lokomotif_7.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
+];
 
   /* Resim ekleyene kadar yer tutucu gösterilir (placeholder).
      En az bir resim ekledikten sonra placeholder kaybolur. */
@@ -69,7 +70,7 @@ const projects = [
   {
     title: "Endüstriyel Konveyör Sistemi",
     desc: "Mekanik tasarım, PLC yazılımı ve termal analiz içeren komple proje.",
-    img: "",   /* ← Resim varsa: "images/konveyor.jpg" */
+    img: "lokomotif_1",   /* ← Resim varsa: "images/konveyor.jpg" */
     icon: "ti-robot",
     iconColor: "#378ADD",
     iconBg: "rgba(24,95,165,0.1)",
@@ -78,7 +79,7 @@ const projects = [
   {
     title: "HVAC Akış Optimizasyonu",
     desc: "CFD simülasyonu ile enerji verimliliği %23 artırıldı.",
-    img: "",
+    img: "lokomotif_2",
     icon: "ti-wind",
     iconColor: "#EF9F27",
     iconBg: "rgba(186,117,23,0.1)",
@@ -87,7 +88,7 @@ const projects = [
   {
     title: "Akıllı Sensör PCB Kartı",
     desc: "Çok katmanlı PCB tasarımı ve gömülü yazılım geliştirme.",
-    img: "",
+    img: "lokomotif_3",
     icon: "ti-cpu",
     iconColor: "#5DCAA5",
     iconBg: "rgba(29,158,117,0.1)",
@@ -96,7 +97,7 @@ const projects = [
   {
     title: "Soğutma Termal Analizi",
     desc: "Yüksek güçlü elektronik için soğutma sistemi simülasyonu.",
-    img: "",
+    img: "lokomotif_4",
     icon: "ti-ripple",
     iconColor: "#AFA9EC",
     iconBg: "rgba(127,119,221,0.1)",
@@ -105,7 +106,7 @@ const projects = [
   {
     title: "Özel Makine Tasarımı",
     desc: "Kinematik analiz, yapısal hesap ve prototip üretimi.",
-    img: "",
+    img: "lokomotif_5",
     icon: "ti-3d-cube-sphere",
     iconColor: "#378ADD",
     iconBg: "rgba(24,95,165,0.1)",
@@ -114,7 +115,7 @@ const projects = [
   {
     title: "Motor Kontrol Sistemi",
     desc: "Servo motor sürücü kartı ve gerçek zamanlı kontrol yazılımı.",
-    img: "",
+    img: "lokomotif_6",
     icon: "ti-engine",
     iconColor: "#5DCAA5",
     iconBg: "rgba(29,158,117,0.1)",
