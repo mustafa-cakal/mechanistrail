@@ -31,18 +31,13 @@
    3. İstediğin kadar resim ekleyebilirsin.
    ============================================= */
 const galleryPhotos = [
-  /* --- KENDİ RESİMLERİNİ BURAYA EKLE --- */
-  { src: "images/lokomotif_1.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
-  { src: "images/lokomotif_2.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
-  { src: "images/lokomotif_3.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
-  { src: "images/lokomotif_4.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
-  { src: "images/lokomotif_5.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
-  { src: "images/lokomotif_6.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
-  { src: "images/lokomotif_7.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
-  */
-
-  /* Resim ekleyene kadar yer tutucu gösterilir (placeholder).
-     En az bir resim ekledikten sonra placeholder kaybolur. */
+  { src: "lokomotif_1.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
+  { src: "lokomotif_2.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
+  { src: "lokomotif_3.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
+  { src: "lokomotif_4.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
+  { src: "lokomotif_5.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
+  { src: "lokomotif_6.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
+  { src: "lokomotif_7.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
 ];
 
 /* Galeri geçiş süresi (milisaniye) — 10000 = 10 saniye */
@@ -70,7 +65,7 @@ const projects = [
   {
     title: "Endüstriyel Konveyör Sistemi",
     desc: "Mekanik tasarım, PLC yazılımı ve termal analiz içeren komple proje.",
-    img: "images/lokomotif_1.jpg",   /* ← Resim varsa: "images/konveyor.jpg" */
+    img: "lokomotif_1.jpg",
     icon: "ti-robot",
     iconColor: "#378ADD",
     iconBg: "rgba(24,95,165,0.1)",
@@ -79,7 +74,7 @@ const projects = [
   {
     title: "HVAC Akış Optimizasyonu",
     desc: "CFD simülasyonu ile enerji verimliliği %23 artırıldı.",
-    img: "images/lokomotif_2.jpg",
+    img: "lokomotif_2.jpg",
     icon: "ti-wind",
     iconColor: "#EF9F27",
     iconBg: "rgba(186,117,23,0.1)",
@@ -88,7 +83,7 @@ const projects = [
   {
     title: "Akıllı Sensör PCB Kartı",
     desc: "Çok katmanlı PCB tasarımı ve gömülü yazılım geliştirme.",
-    img: "images/lokomotif_3.jpg",
+    img: "lokomotif_3.jpg",
     icon: "ti-cpu",
     iconColor: "#5DCAA5",
     iconBg: "rgba(29,158,117,0.1)",
@@ -97,7 +92,7 @@ const projects = [
   {
     title: "Soğutma Termal Analizi",
     desc: "Yüksek güçlü elektronik için soğutma sistemi simülasyonu.",
-    img: "images/lokomotif_4.jpg",
+    img: "lokomotif_4.jpg",
     icon: "ti-ripple",
     iconColor: "#AFA9EC",
     iconBg: "rgba(127,119,221,0.1)",
@@ -106,7 +101,7 @@ const projects = [
   {
     title: "Özel Makine Tasarımı",
     desc: "Kinematik analiz, yapısal hesap ve prototip üretimi.",
-    img: "images/lokomotif_5.jpg",
+    img: "lokomotif_5.jpg",
     icon: "ti-3d-cube-sphere",
     iconColor: "#378ADD",
     iconBg: "rgba(24,95,165,0.1)",
@@ -115,7 +110,7 @@ const projects = [
   {
     title: "Motor Kontrol Sistemi",
     desc: "Servo motor sürücü kartı ve gerçek zamanlı kontrol yazılımı.",
-    img: "images/lokomotif_6.jpg",
+    img: "lokomotif_6.jpg",
     icon: "ti-engine",
     iconColor: "#5DCAA5",
     iconBg: "rgba(29,158,117,0.1)",
