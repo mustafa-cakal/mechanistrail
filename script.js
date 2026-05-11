@@ -33,7 +33,7 @@
 const galleryPhotos = [
   /* --- KENDİ RESİMLERİNİ BURAYA EKLE --- */
   /* Örnek format (# işaretini kaldır ve düzenle):
-  { src: "images/proje-genel.jpg",    caption: "Mechanistrail Atölyesi" },
+  { src: "images/lokomotif_1.jpg",    caption: "Mechanistrail Atölyesi" },
   { src: "images/makine1.jpg",        caption: "Endüstriyel Konveyör Sistemi" },
   { src: "images/cad-tasarim.jpg",    caption: "CAD Tasarım Çalışması" },
   { src: "images/pcb.jpg",            caption: "PCB Kart Tasarımı" },
