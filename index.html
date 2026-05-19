@@ -94,7 +94,11 @@
       <div class="nav-dropdown-menu">
         <a onclick="showPage('calc');openTool('weight');closeMenu()">⚖️ Hacim & Ağırlık</a>
         <a onclick="showPage('calc');openTool('converter');closeMenu()">🔄 Birim Dönüştürücü</a>
-        <a onclick="showPage('calc');openTool('torque');closeMenu()">⚙️ Motor Torku Hesaplayıcı</a>
+        <a onclick="showPage('calc');openTool('torque');closeMenu()">⚙️ Motor Torku</a>
+        <a onclick="showPage('calc');openTool('inertia');closeMenu()">📐 Atalet Momenti</a>
+        <a onclick="showPage('calc');openTool('beam');closeMenu()">💪 Kiriş Analizi</a>
+        <a onclick="showPage('calc');openTool('thermal');closeMenu()">🌡️ Isıl Genleşme</a>
+        <a onclick="showPage('calc');openTool('bolt');closeMenu()">🔩 Vida & Cıvata</a>
       </div>
     </div>
     <button class="nav-btn"        id="nb-projects"    onclick="showPage('projects');closeMenu()">Projeler</button>
@@ -425,28 +429,29 @@
           <p>Güç, devir ve tork arasındaki ilişkiyi hesaplayın. Kuvvet & yarıçap desteği.</p>
           <div class="tool-card-tags"><span>Tork</span><span>Güç</span><span>Devir</span><span>BG</span></div>
         </div>
-        <div class="tool-card tool-card-soon">
+        <div class="tool-card" onclick="openTool('inertia')">
+          <div class="tool-card-icon">📐</div>
           <h3>Atalet Momenti</h3>
           <p>Kesit atalet momenti ve mukavemet modülü hesabı.</p>
-          <div class="tool-card-badge">Yakında</div>
+          <div class="tool-card-tags"><span>Ix</span><span>Iy</span><span>Wx</span><span>Kesit</span></div>
         </div>
-        <div class="tool-card tool-card-soon">
+        <div class="tool-card" onclick="openTool('beam')">
           <div class="tool-card-icon">💪</div>
           <h3>Kiriş Analizi</h3>
           <p>Basit ve konsol kirişlerde gerilme ve sehim hesabı.</p>
-          <div class="tool-card-badge">Yakında</div>
+          <div class="tool-card-tags"><span>Gerilme</span><span>Sehim</span><span>Moment</span></div>
         </div>
-        <div class="tool-card tool-card-soon">
+        <div class="tool-card" onclick="openTool('thermal')">
           <div class="tool-card-icon">🌡️</div>
           <h3>Isıl Genleşme</h3>
           <p>Malzemenin sıcaklık değişimine bağlı boyutsal değişimi.</p>
-          <div class="tool-card-badge">Yakında</div>
+          <div class="tool-card-tags"><span>ΔL</span><span>Sıcaklık</span><span>Gerilme</span></div>
         </div>
-        <div class="tool-card tool-card-soon">
-          <div class="tool-card-icon">⚙️</div>
+        <div class="tool-card" onclick="openTool('bolt')">
+          <div class="tool-card-icon">🔩</div>
           <h3>Vida & Cıvata</h3>
           <p>Sıkma momenti, öngerme kuvveti ve güvenlik katsayısı.</p>
-          <div class="tool-card-badge">Yakında</div>
+          <div class="tool-card-tags"><span>Moment</span><span>Öngerme</span><span>Güvenlik</span></div>
         </div>
       </div>
     </div>
@@ -612,9 +617,101 @@
   </div>
 </div>
 
+    <!-- ATAlet MOMENTİ -->
+    <div id="panel-inertia" style="display:none;">
+      <div class="tool-back-bar"><button class="tool-back-btn" onclick="closeTool()">← Araçlara Dön</button><span>Atalet Momenti Hesaplayıcı</span></div>
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <div class="calc-field"><label class="calc-lbl">Kesit Tipi</label><select id="in-shape" onchange="calcInertia()"><option value="rect">Dikdörtgen Kesit</option><option value="circle">Daire Kesit (Dolu)</option><option value="tube">Boru (İçi Boş)</option><option value="box">Dikdörtgen Kutu Profil</option><option value="ibeam">I Profil</option></select></div>
+          <div id="in-f-b"><label class="calc-lbl" id="in-l-b">Genişlik b (mm)</label><input class="calc-inp" type="number" id="in-b" value="50" min="1" oninput="calcInertia()"></div>
+          <div id="in-f-h"><label class="calc-lbl" id="in-l-h">Yükseklik h (mm)</label><input class="calc-inp" type="number" id="in-h" value="100" min="1" oninput="calcInertia()"></div>
+          <div id="in-f-d" style="display:none"><label class="calc-lbl">Dış Çap D (mm)</label><input class="calc-inp" type="number" id="in-d" value="80" min="1" oninput="calcInertia()"></div>
+          <div id="in-f-di" style="display:none"><label class="calc-lbl">İç Çap d (mm)</label><input class="calc-inp" type="number" id="in-di" value="60" min="1" oninput="calcInertia()"></div>
+          <div id="in-f-t" style="display:none"><label class="calc-lbl">Et Kalınlığı t (mm)</label><input class="calc-inp" type="number" id="in-t" value="5" min="0.5" oninput="calcInertia()"></div>
+          <div id="in-f-tf" style="display:none"><label class="calc-lbl">Flanş Kalınlığı tf (mm)</label><input class="calc-inp" type="number" id="in-tf" value="8" min="0.5" oninput="calcInertia()"></div>
+        </div>
+        <div class="calc-right"><div class="calc-results"><h4>Hesap Sonuçları</h4><div class="result-cards-grid">
+          <div class="result-card highlight"><span class="result-icon">📊</span><div><p class="result-label">Atalet Momenti Ix</p><p class="result-val" id="in-r-ix">—</p></div></div>
+          <div class="result-card highlight"><span class="result-icon">📊</span><div><p class="result-label">Atalet Momenti Iy</p><p class="result-val" id="in-r-iy">—</p></div></div>
+          <div class="result-card"><span class="result-icon">📏</span><div><p class="result-label">Mukavemet Modülü Wx</p><p class="result-val" id="in-r-wx">—</p></div></div>
+          <div class="result-card"><span class="result-icon">📏</span><div><p class="result-label">Mukavemet Modülü Wy</p><p class="result-val" id="in-r-wy">—</p></div></div>
+          <div class="result-card"><span class="result-icon">🔵</span><div><p class="result-label">Kesit Alanı A</p><p class="result-val" id="in-r-a">—</p></div></div>
+          <div class="result-card"><span class="result-icon">📐</span><div><p class="result-label">Atalet Yarıçapı ix</p><p class="result-val" id="in-r-rx">—</p></div></div>
+        </div></div></div>
+      </div>
+    </div>
 
-  </div>
-</div>
+    <!-- KİRİŞ ANALİZİ -->
+    <div id="panel-beam" style="display:none;">
+      <div class="tool-back-bar"><button class="tool-back-btn" onclick="closeTool()">← Araçlara Dön</button><span>Kiriş Analizi Hesaplayıcı</span></div>
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <div class="calc-field"><label class="calc-lbl">Kiriş Tipi</label><select id="bm-type" onchange="calcBeam()"><option value="ss_center">İki Mesnetli — Orta Yük</option><option value="ss_uniform">İki Mesnetli — Yayılı Yük</option><option value="cant_end">Konsol — Uç Yük</option><option value="cant_uniform">Konsol — Yayılı Yük</option></select></div>
+          <div><label class="calc-lbl">Kiriş Boyu L (mm)</label><input class="calc-inp" type="number" id="bm-L" value="2000" min="1" oninput="calcBeam()"></div>
+          <div id="bm-f-F"><label class="calc-lbl">Tekil Yük F (N)</label><input class="calc-inp" type="number" id="bm-F" value="5000" min="0" oninput="calcBeam()"></div>
+          <div id="bm-f-w" style="display:none"><label class="calc-lbl">Yayılı Yük w (N/mm)</label><input class="calc-inp" type="number" id="bm-w" value="10" min="0" step="0.1" oninput="calcBeam()"></div>
+          <div><label class="calc-lbl">Atalet Momenti I (mm⁴)</label><input class="calc-inp" type="number" id="bm-I" value="833333" min="1" oninput="calcBeam()"></div>
+          <div><label class="calc-lbl">Nötr Eksen Uzaklığı c (mm)</label><input class="calc-inp" type="number" id="bm-c" value="50" min="1" oninput="calcBeam()"></div>
+          <div class="calc-field"><label class="calc-lbl">Elastisite Modülü E</label><select id="bm-E" onchange="calcBeam()"><option value="210000">Çelik — 210,000 MPa</option><option value="70000">Alüminyum — 70,000 MPa</option><option value="120000">Bakır — 120,000 MPa</option><option value="110000">Titanyum — 110,000 MPa</option><option value="170000">Dökme Demir — 170,000 MPa</option></select></div>
+        </div>
+        <div class="calc-right"><div class="calc-results"><h4>Hesap Sonuçları</h4><div class="result-cards-grid">
+          <div class="result-card highlight"><span class="result-icon">💥</span><div><p class="result-label">Maks. Eğilme Momenti</p><p class="result-val" id="bm-r-M">—</p></div></div>
+          <div class="result-card highlight"><span class="result-icon">💪</span><div><p class="result-label">Maks. Eğilme Gerilmesi</p><p class="result-val" id="bm-r-s">—</p></div></div>
+          <div class="result-card"><span class="result-icon">📉</span><div><p class="result-label">Maks. Sehim</p><p class="result-val" id="bm-r-d">—</p></div></div>
+          <div class="result-card"><span class="result-icon">✂️</span><div><p class="result-label">Maks. Kesme Kuvveti</p><p class="result-val" id="bm-r-V">—</p></div></div>
+          <div class="result-card"><span class="result-icon">📐</span><div><p class="result-label">Sehim / Boy (L/δ)</p><p class="result-val" id="bm-r-ratio">—</p></div></div>
+          <div class="result-card"><span class="result-icon">⚠️</span><div><p class="result-label">L/300 Sınırı</p><p class="result-val" id="bm-r-limit">—</p></div></div>
+        </div></div></div>
+      </div>
+    </div>
+
+    <!-- ISIL GENLEŞme -->
+    <div id="panel-thermal" style="display:none;">
+      <div class="tool-back-bar"><button class="tool-back-btn" onclick="closeTool()">← Araçlara Dön</button><span>Isıl Genleşme Hesaplayıcı</span></div>
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <div><label class="calc-lbl">Başlangıç Uzunluğu L₀ (mm)</label><input class="calc-inp" type="number" id="th-L" value="1000" min="0" oninput="calcThermal()"></div>
+          <div><label class="calc-lbl">Başlangıç Sıcaklığı T₁ (°C)</label><input class="calc-inp" type="number" id="th-T1" value="20" oninput="calcThermal()"></div>
+          <div><label class="calc-lbl">Son Sıcaklık T₂ (°C)</label><input class="calc-inp" type="number" id="th-T2" value="150" oninput="calcThermal()"></div>
+          <div class="calc-field"><label class="calc-lbl">Malzeme</label><select id="th-mat" onchange="calcThermal()"><option value="12">Yapısal Çelik — α: 12×10⁻⁶/°C</option><option value="17">Paslanmaz Çelik 304 — α: 17×10⁻⁶/°C</option><option value="23">Alüminyum — α: 23×10⁻⁶/°C</option><option value="17b">Bakır — α: 17×10⁻⁶/°C</option><option value="8.6">Titanyum — α: 8.6×10⁻⁶/°C</option><option value="10.8">Dökme Demir — α: 10.8×10⁻⁶/°C</option><option value="150">Polipropilen PP — α: 150×10⁻⁶/°C</option><option value="70">ABS — α: 70×10⁻⁶/°C</option><option value="custom">Özel Alpha Gir</option></select></div>
+          <div id="th-f-custom" style="display:none"><label class="calc-lbl">Özel α (×10⁻⁶/°C)</label><input class="calc-inp" type="number" id="th-custom" value="12" step="0.1" oninput="calcThermal()"></div>
+          <div class="calc-field"><label class="calc-lbl">Elastisite Modülü E (MPa)</label><select id="th-E" onchange="calcThermal()"><option value="210000">Çelik — 210,000 MPa</option><option value="70000">Alüminyum — 70,000 MPa</option><option value="120000">Bakır — 120,000 MPa</option><option value="110000">Titanyum — 110,000 MPa</option></select></div>
+        </div>
+        <div class="calc-right"><div class="calc-results"><h4>Hesap Sonuçları</h4><div class="result-cards-grid">
+          <div class="result-card"><span class="result-icon">🌡️</span><div><p class="result-label">Sıcaklık Farkı ΔT</p><p class="result-val" id="th-r-dT">—</p></div></div>
+          <div class="result-card highlight"><span class="result-icon">📏</span><div><p class="result-label">Uzunluk Değişimi ΔL</p><p class="result-val" id="th-r-dL">—</p></div></div>
+          <div class="result-card highlight"><span class="result-icon">📐</span><div><p class="result-label">Son Uzunluk L</p><p class="result-val" id="th-r-Lf">—</p></div></div>
+          <div class="result-card"><span class="result-icon">📊</span><div><p class="result-label">Birim Uzama ε</p><p class="result-val" id="th-r-eps">—</p></div></div>
+          <div class="result-card"><span class="result-icon">⚠️</span><div><p class="result-label">Termal Gerilme (Sabit Uç)</p><p class="result-val" id="th-r-sig">—</p></div></div>
+          <div class="result-card"><span class="result-icon">🔥</span><div><p class="result-label">Isıl Kuvvet (A=1mm²)</p><p class="result-val" id="th-r-F">—</p></div></div>
+        </div></div></div>
+      </div>
+    </div>
+
+    <!-- VİDA & CIVATA -->
+    <div id="panel-bolt" style="display:none;">
+      <div class="tool-back-bar"><button class="tool-back-btn" onclick="closeTool()">← Araçlara Dön</button><span>Vida & Cıvata Hesaplayıcı</span></div>
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <div class="calc-field"><label class="calc-lbl">Vida Standardı</label><select id="bt-std" onchange="calcBolt()"><option value="custom">Manuel Giriş</option><optgroup label="── Metrik ──"><option value="M4|0.7|8.78">M4 — Adım: 0.7mm</option><option value="M5|0.8|14.2">M5 — Adım: 0.8mm</option><option value="M6|1.0|20.1">M6 — Adım: 1.0mm</option><option value="M8|1.25|36.6">M8 — Adım: 1.25mm</option><option value="M10|1.5|58.0">M10 — Adım: 1.5mm</option><option value="M12|1.75|84.3">M12 — Adım: 1.75mm</option><option value="M16|2.0|157">M16 — Adım: 2.0mm</option><option value="M20|2.5|245">M20 — Adım: 2.5mm</option><option value="M24|3.0|353">M24 — Adım: 3.0mm</option></optgroup></select></div>
+          <div id="bt-f-d"><label class="calc-lbl">Nominal Çap d (mm)</label><input class="calc-inp" type="number" id="bt-d" value="10" min="1" oninput="calcBolt()"></div>
+          <div id="bt-f-p"><label class="calc-lbl">Adım P (mm)</label><input class="calc-inp" type="number" id="bt-p" value="1.5" min="0.1" step="0.1" oninput="calcBolt()"></div>
+          <div id="bt-f-as"><label class="calc-lbl">Gerilme Alanı As (mm²)</label><input class="calc-inp" type="number" id="bt-as" value="58.0" min="0.1" oninput="calcBolt()"></div>
+          <div class="calc-field"><label class="calc-lbl">Malzeme Sınıfı</label><select id="bt-grade" onchange="calcBolt()"><option value="640">8.8 — Rp0.2: 640 MPa</option><option value="900">10.9 — Rp0.2: 900 MPa</option><option value="1080">12.9 — Rp0.2: 1080 MPa</option><option value="240">4.6 — Rp0.2: 240 MPa</option><option value="400">5.8 — Rp0.2: 400 MPa</option></select></div>
+          <div><label class="calc-lbl">Sürtünme Katsayısı μ</label><input class="calc-inp" type="number" id="bt-mu" value="0.15" min="0.05" max="0.5" step="0.01" oninput="calcBolt()"></div>
+          <div><label class="calc-lbl">Ön Yükleme Oranı (%)</label><input class="calc-inp" type="number" id="bt-load" value="70" min="10" max="100" oninput="calcBolt()"></div>
+        </div>
+        <div class="calc-right"><div class="calc-results"><h4>Hesap Sonuçları</h4><div class="result-cards-grid">
+          <div class="result-card highlight"><span class="result-icon">🔩</span><div><p class="result-label">Sıkma Momenti MA</p><p class="result-val" id="bt-r-MA">—</p></div></div>
+          <div class="result-card highlight"><span class="result-icon">⚡</span><div><p class="result-label">Öngerme Kuvveti F₀</p><p class="result-val" id="bt-r-F0">—</p></div></div>
+          <div class="result-card"><span class="result-icon">💪</span><div><p class="result-label">İzin. Çekme Gerilmesi</p><p class="result-val" id="bt-r-st">—</p></div></div>
+          <div class="result-card"><span class="result-icon">🔄</span><div><p class="result-label">Maks. Öngerme Kuvveti</p><p class="result-val" id="bt-r-Fmax">—</p></div></div>
+          <div class="result-card"><span class="result-icon">📊</span><div><p class="result-label">Kullanım Oranı</p><p class="result-val" id="bt-r-util">—</p></div></div>
+          <div class="result-card"><span class="result-icon">✅</span><div><p class="result-label">Durum</p><p class="result-val" id="bt-r-status">—</p></div></div>
+        </div><div style="margin-top:14px;padding:12px;background:rgba(55,138,221,0.06);border-radius:8px;font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;"><strong style="color:#85B7EB;">Formüller (VDI 2230):</strong><br>MA ≈ 0.16·P·d·F₀ + 0.58·d₂·μ·F₀<br>F₀ = η · Rp0.2 · As</div></div></div>
+      </div>
+    </div>
+
 
 <!-- =============================================
      PROJELER SAYFASI

@@ -567,3 +567,186 @@ function calcTorque() {
   setText('tq-r-hp',     f2(hp) + ' hp');
   setText('tq-r-useful', f2(useful) + ' kW');
 }
+
+/* =============================================
+   ATAlet MOMENTİ
+   ============================================= */
+function calcInertia() {
+  var s = document.getElementById('in-shape').value;
+  var b = parseFloat(document.getElementById('in-b').value)||0;
+  var h = parseFloat(document.getElementById('in-h').value)||0;
+  var D = parseFloat(document.getElementById('in-d').value)||0;
+  var di= parseFloat(document.getElementById('in-di').value)||0;
+  var t = parseFloat(document.getElementById('in-t').value)||0;
+  var tf= parseFloat(document.getElementById('in-tf').value)||0;
+
+  // Girişleri göster/gizle
+  ['in-f-b','in-f-h','in-f-d','in-f-di','in-f-t','in-f-tf'].forEach(function(id){ document.getElementById(id).style.display='none'; });
+  if(s==='rect')   { show2('in-f-b','in-f-h'); }
+  if(s==='circle') { document.getElementById('in-l-b').textContent='Çap D (mm)'; show2('in-f-b',null); }
+  if(s==='tube')   { show2('in-f-d','in-f-di'); }
+  if(s==='box')    { show2('in-f-b','in-f-h'); document.getElementById('in-f-t').style.display=''; }
+  if(s==='ibeam')  { show2('in-f-b','in-f-h'); document.getElementById('in-f-t').style.display=''; document.getElementById('in-f-tf').style.display=''; }
+
+  var Ix=0,Iy=0,A=0;
+  if(s==='rect')   { Ix=b*h*h*h/12; Iy=h*b*b*b/12; A=b*h; }
+  if(s==='circle') { var r=b/2; Ix=Iy=Math.PI*r*r*r*r/4; A=Math.PI*r*r; }
+  if(s==='tube')   { var ro=D/2,ri=di/2; Ix=Iy=Math.PI*(ro*ro*ro*ro-ri*ri*ri*ri)/4; A=Math.PI*(ro*ro-ri*ri); }
+  if(s==='box')    { var bi=b-2*t,hi=h-2*t; Ix=(b*h*h*h-bi*hi*hi*hi)/12; Iy=(h*b*b*b-hi*bi*bi*bi)/12; A=b*h-bi*hi; }
+  if(s==='ibeam')  { var tw=t,bw=b,hw=h-2*tf; Ix=(bw*h*h*h-(bw-tw)*hw*hw*hw)/12; Iy=(2*tf*bw*bw*bw+(h-2*tf)*tw*tw*tw)/12; A=2*bw*tf+hw*tw; }
+
+  var Wx = h>0 ? Ix/(h/2) : (b>0 ? Ix/(b/2) : 0);
+  var Wy = b>0 ? Iy/(b/2) : 0;
+  var rx = A>0 ? Math.sqrt(Ix/A) : 0;
+
+  function fi(n){ if(n>=1e8) return (n/1e8).toFixed(2)+' ×10⁸ mm⁴'; if(n>=1e6) return (n/1e6).toFixed(2)+' ×10⁶ mm⁴'; return Math.round(n)+' mm⁴'; }
+  function fw(n){ if(n>=1e6) return (n/1e6).toFixed(2)+' ×10⁶ mm³'; if(n>=1e3) return (n/1e3).toFixed(2)+' ×10³ mm³'; return Math.round(n)+' mm³'; }
+  setText('in-r-ix', fi(Ix)); setText('in-r-iy', fi(Iy));
+  setText('in-r-wx', fw(Wx)); setText('in-r-wy', fw(Wy));
+  setText('in-r-a',  Math.round(A)+' mm²');
+  setText('in-r-rx', rx.toFixed(2)+' mm');
+}
+function show2(a,b){ if(a) document.getElementById(a).style.display=''; if(b) document.getElementById(b).style.display=''; }
+
+/* =============================================
+   KİRİŞ ANALİZİ
+   ============================================= */
+function calcBeam() {
+  var type= document.getElementById('bm-type').value;
+  var L   = parseFloat(document.getElementById('bm-L').value)||0;
+  var F   = parseFloat(document.getElementById('bm-F').value)||0;
+  var w   = parseFloat(document.getElementById('bm-w').value)||0;
+  var I   = parseFloat(document.getElementById('bm-I').value)||0;
+  var c   = parseFloat(document.getElementById('bm-c').value)||0;
+  var E   = parseFloat(document.getElementById('bm-E').value)||210000;
+
+  var isUniform = type.includes('uniform');
+  document.getElementById('bm-f-F').style.display = isUniform ? 'none' : '';
+  document.getElementById('bm-f-w').style.display = isUniform ? '' : 'none';
+
+  var M=0, V=0, delta=0;
+  if(type==='ss_center')  { M=F*L/4;          V=F/2;    delta=F*L*L*L/(48*E*I); }
+  if(type==='ss_uniform') { M=w*L*L/8;         V=w*L/2;  delta=5*w*L*L*L*L/(384*E*I); }
+  if(type==='cant_end')   { M=F*L;             V=F;      delta=F*L*L*L/(3*E*I); }
+  if(type==='cant_uniform'){ M=w*L*L/2;        V=w*L;    delta=w*L*L*L*L/(8*E*I); }
+
+  var sigma = I>0 ? M*c/I : 0;
+  var ratio = delta>0 ? L/delta : 0;
+  var limit = L/300;
+
+  function fn(n,u){ return isNaN(n)||!isFinite(n)?'—':n.toFixed(2)+' '+u; }
+  setText('bm-r-M',     fn(M,'N·mm'));
+  setText('bm-r-s',     fn(sigma,'MPa'));
+  setText('bm-r-d',     fn(delta,'mm'));
+  setText('bm-r-V',     fn(V,'N'));
+  setText('bm-r-ratio', isFinite(ratio)&&ratio>0 ? 'L/'+Math.round(ratio) : '—');
+  setText('bm-r-limit', limit.toFixed(2)+' mm');
+}
+
+/* =============================================
+   ISIL GENLEŞme
+   ============================================= */
+function calcThermal() {
+  var L0  = parseFloat(document.getElementById('th-L').value)||0;
+  var T1  = parseFloat(document.getElementById('th-T1').value)||0;
+  var T2  = parseFloat(document.getElementById('th-T2').value)||0;
+  var mat = document.getElementById('th-mat').value;
+  var E   = parseFloat(document.getElementById('th-E').value)||210000;
+
+  document.getElementById('th-f-custom').style.display = mat==='custom' ? '' : 'none';
+  var alpha;
+  if(mat==='custom') alpha = parseFloat(document.getElementById('th-custom').value)||12;
+  else alpha = parseFloat(mat)||12;
+
+  var dT   = T2 - T1;
+  var eps  = alpha * 1e-6 * dT;
+  var dL   = eps * L0;
+  var Lf   = L0 + dL;
+  var sigma= eps * E;
+  var Fth  = sigma * 1; // A=1mm² varsayımı
+
+  function fn(n,u,dec){ return n.toFixed(dec||3)+' '+u; }
+  setText('th-r-dT',  dT.toFixed(1)+' °C');
+  setText('th-r-dL',  fn(dL,'mm'));
+  setText('th-r-Lf',  fn(Lf,'mm'));
+  setText('th-r-eps', (eps*1e6).toFixed(3)+' ×10⁻⁶');
+  setText('th-r-sig', fn(sigma,'MPa'));
+  setText('th-r-F',   fn(Fth,'N'));
+}
+
+/* =============================================
+   VİDA & CIVATA
+   ============================================= */
+function calcBolt() {
+  var std = document.getElementById('bt-std').value;
+  var isCustom = std==='custom';
+  document.getElementById('bt-f-d').style.display  = isCustom ? '' : 'none';
+  document.getElementById('bt-f-p').style.display  = isCustom ? '' : 'none';
+  document.getElementById('bt-f-as').style.display = isCustom ? '' : 'none';
+
+  var d, p, As;
+  if(!isCustom) {
+    var parts = std.split('|');
+    d=parseFloat(parts[0].replace('M',''));
+    p=parseFloat(parts[1]);
+    As=parseFloat(parts[2]);
+    document.getElementById('bt-d').value = d;
+    document.getElementById('bt-p').value = p;
+    document.getElementById('bt-as').value= As;
+  } else {
+    d  = parseFloat(document.getElementById('bt-d').value)||10;
+    p  = parseFloat(document.getElementById('bt-p').value)||1.5;
+    As = parseFloat(document.getElementById('bt-as').value)||58;
+  }
+
+  var Rp    = parseFloat(document.getElementById('bt-grade').value)||640;
+  var mu    = parseFloat(document.getElementById('bt-mu').value)||0.15;
+  var eta   = (parseFloat(document.getElementById('bt-load').value)||70)/100;
+
+  var d2    = d - 0.6495*p;   // Orta çap
+  var F0    = eta * Rp * As;   // Öngerme kuvveti
+  var Fmax  = Rp * As;         // Maks. öngerme
+  var MA    = F0 * (0.16*p + 0.58*d2*mu + 0*d*mu/2); // Sıkma momenti (basitleştirilmiş)
+  var sigma_t = Rp * 0.9;      // İzin. çekme gerilmesi
+  var util    = (F0 / Fmax)*100;
+
+  function fn(n,u){ return n.toFixed(1)+' '+u; }
+  setText('bt-r-MA',    fn(MA,'N·mm') + ' (' + (MA/1000).toFixed(2) + ' N·m)');
+  setText('bt-r-F0',    fn(F0,'N') + ' (' + (F0/1000).toFixed(2) + ' kN)');
+  setText('bt-r-st',    fn(sigma_t,'MPa'));
+  setText('bt-r-Fmax',  fn(Fmax,'N') + ' (' + (Fmax/1000).toFixed(2) + ' kN)');
+  setText('bt-r-util',  util.toFixed(1)+'%');
+  var ok = util <= 100;
+  setText('bt-r-status', ok ? '✅ Güvenli' : '❌ Aşıldı!');
+}
+
+/* openTool güncelle — yeni araçları ekle */
+var _origOpenTool = openTool;
+function openTool(tool) {
+  var allPanels = ['weight','converter','torque','inertia','beam','thermal','bolt'];
+  document.getElementById('tool-selector').style.display = 'none';
+  allPanels.forEach(function(t){
+    var el=document.getElementById('panel-'+t); if(el) el.style.display='none';
+  });
+  var el = document.getElementById('panel-'+tool);
+  if(el) el.style.display='';
+  if(tool==='weight')   { setTimeout(doCalc,50); }
+  if(tool==='converter'){ convAll(); }
+  if(tool==='torque')   { calcTorque(); }
+  if(tool==='inertia')  { calcInertia(); }
+  if(tool==='beam')     { calcBeam(); }
+  if(tool==='thermal')  { calcThermal(); }
+  if(tool==='bolt')     { calcBolt(); }
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
+  var nb=document.getElementById('nb-calc'); if(nb) nb.classList.add('active');
+}
+
+var _origCloseTool = closeTool;
+function closeTool() {
+  var allPanels = ['weight','converter','torque','inertia','beam','thermal','bolt'];
+  allPanels.forEach(function(t){
+    var el=document.getElementById('panel-'+t); if(el) el.style.display='none';
+  });
+  var ts=document.getElementById('tool-selector'); if(ts) ts.style.display='';
+  window.scrollTo(0,0);
+}
