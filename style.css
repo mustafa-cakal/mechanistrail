@@ -136,7 +136,7 @@ body {
   gap: 40px;
   align-items: start;
 }
-.hero-left { max-width: 520px; }
+.hero-left { width: 100%; }
 
 /* Sağ panel - 2x2 grid */
 .hero-right {
@@ -182,7 +182,7 @@ body {
   border-radius: 20px;
   margin-bottom: 22px;
 }
-.hero h1 { font-size: 30px; font-weight: 500; line-height: 1.25; margin-bottom: 14px; }
+.hero h1 { font-size: 38px; font-weight: 500; line-height: 1.2; margin-bottom: 16px; }
 .hero h1 span { color: #378ADD; }
 .hero p { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 28px; }
 .hero-btns { display: flex; gap: 12px; margin-bottom: 28px; }
@@ -395,7 +395,7 @@ body {
 /* ---- GENEL MOBİL DÜZENLEMELER ---- */
 @media (max-width: 700px) {
   .hero { padding: 36px 16px 36px; }
-  .hero h1 { font-size: 22px; }
+  .hero h1 { font-size: 26px; }
   .hero p { font-size: 14px; }
   .hero-btns { flex-direction: column; gap: 8px; }
   .hero-btns button { width: 100%; }
