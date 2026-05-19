@@ -27,6 +27,7 @@
     <button class="nav-btn active" id="nb-home"        onclick="showPage('home');closeMenu()">Ana Sayfa</button>
     <button class="nav-btn"        id="nb-engineering" onclick="showPage('engineering');closeMenu()">Mühendislik Hizmetleri</button>
     <button class="nav-btn"        id="nb-services"    onclick="showPage('services');closeMenu()">Hizmetler</button>
+    <button class="nav-btn"        id="nb-calc"        onclick="showPage('calc');closeMenu()">🔧 Hesaplayıcılar</button>
     <button class="nav-btn"        id="nb-projects"    onclick="showPage('projects');closeMenu()">Projeler</button>
     <button class="nav-btn"        id="nb-about"       onclick="showPage('about');closeMenu()">Hakkımızda</button>
     <button class="nav-btn"        id="nb-contact"     onclick="showPage('contact');closeMenu()">İletişim</button>
@@ -277,6 +278,110 @@
         <h3>Danışmanlık</h3>
         <p>Projenizin her aşamasında teknik rehberlik ve süreç yönetimi.</p>
         <ul><li>Fizibilite analizi</li><li>Malzeme seçimi</li><li>Üretim süreç danışmanlığı</li><li>Kalite ve test stratejisi</li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- =============================================
+     HESAPLAYICILAR SAYFASI
+     ============================================= -->
+<div class="page" id="page-calc">
+  <div class="page-inner">
+    <p class="sec-label">Mühendislik Araçları</p>
+    <p class="sec-title">Hacim & Ağırlık Hesaplayıcı</p>
+    <p class="sec-sub">Geometri ve malzeme seçerek hacim, ağırlık ve kesit özelliklerini anında hesaplayın.</p>
+
+    <!-- Şekil sekmeleri -->
+    <div class="calc-tabs">
+      <button class="calc-tab active" id="tb-box"        onclick="selShape('box')">📦 Blok</button>
+      <button class="calc-tab"        id="tb-cylinder"   onclick="selShape('cylinder')">🔵 Silindir</button>
+      <button class="calc-tab"        id="tb-tube"       onclick="selShape('tube')">⭕ Boru</button>
+      <button class="calc-tab"        id="tb-sphere"     onclick="selShape('sphere')">🔮 Küre</button>
+      <button class="calc-tab"        id="tb-sq_solid"   onclick="selShape('sq_solid')">⬛ Kare Profil</button>
+      <button class="calc-tab"        id="tb-sq_tube"    onclick="selShape('sq_tube')">🟫 Kare Kutu</button>
+      <button class="calc-tab"        id="tb-rect_solid" onclick="selShape('rect_solid')">▬ Dikdörtgen Profil</button>
+      <button class="calc-tab"        id="tb-rect_tube"  onclick="selShape('rect_tube')">▭ Dikdörtgen Kutu</button>
+    </div>
+
+    <div class="calc-grid">
+      <!-- Girişler -->
+      <div class="calc-inputs">
+        <div id="cf-a"><label class="calc-lbl" id="cl-a">Uzunluk — mm</label><input class="calc-inp" type="number" id="cv-a" value="200" min="1" oninput="doCalc()"></div>
+        <div id="cf-b"><label class="calc-lbl" id="cl-b">Genişlik — mm</label><input class="calc-inp" type="number" id="cv-b" value="100" min="1" oninput="doCalc()"></div>
+        <div id="cf-c"><label class="calc-lbl" id="cl-c">Yükseklik — mm</label><input class="calc-inp" type="number" id="cv-c" value="80"  min="1" oninput="doCalc()"></div>
+        <div id="cf-d" style="display:none"><label class="calc-lbl" id="cl-d">Et kalınlığı — mm</label><input class="calc-inp" type="number" id="cv-d" value="3" min="0.5" step="0.5" oninput="doCalc()"></div>
+        <div id="cf-e" style="display:none"><label class="calc-lbl" id="cl-e">İç çap — mm</label><input class="calc-inp" type="number" id="cv-e" value="40" min="1" oninput="doCalc()"></div>
+
+        <div class="calc-field">
+          <label class="calc-lbl">Malzeme</label>
+          <select id="c-mat" onchange="doCalc()">
+            <optgroup label="── Çelikler ──">
+              <option value="7850">Yapısal Çelik S235/S355 — 7850 kg/m³</option>
+              <option value="7900">Paslanmaz Çelik 304 — 7900 kg/m³</option>
+              <option value="7750">Takım Çeliği — 7750 kg/m³</option>
+            </optgroup>
+            <optgroup label="── Alüminyum ──">
+              <option value="2700">Alüminyum 6061 — 2700 kg/m³</option>
+              <option value="2810">Alüminyum 7075 — 2810 kg/m³</option>
+            </optgroup>
+            <optgroup label="── Diğer Metaller ──">
+              <option value="8900">Bakır — 8900 kg/m³</option>
+              <option value="8500">Pirinç — 8500 kg/m³</option>
+              <option value="7200">Dökme Demir — 7200 kg/m³</option>
+              <option value="4500">Titanyum Ti-6Al-4V — 4500 kg/m³</option>
+            </optgroup>
+            <optgroup label="── Plastikler ──">
+              <option value="950">Polipropilen PP — 950 kg/m³</option>
+              <option value="1050">Polietilen PE — 1050 kg/m³</option>
+              <option value="1200">ABS — 1200 kg/m³</option>
+              <option value="1420">Poliamid PA6 — 1420 kg/m³</option>
+              <option value="1300">PVC — 1300 kg/m³</option>
+            </optgroup>
+            <optgroup label="── Kompozit & Diğer ──">
+              <option value="1600">Karbon Fiber CFRP — 1600 kg/m³</option>
+              <option value="2000">Cam Fiber GFRP — 2000 kg/m³</option>
+              <option value="2300">Beton — 2300 kg/m³</option>
+              <option value="600">Ahşap (Ortalama) — 600 kg/m³</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="calc-field">
+          <label class="calc-lbl">Adet</label>
+          <input class="calc-inp" type="number" id="c-qty" value="1" min="1" oninput="doCalc()">
+        </div>
+      </div>
+
+      <!-- Sağ panel: Önizleme + Sonuçlar -->
+      <div>
+        <!-- 3D Şekil önizleme -->
+        <div class="calc-preview">
+          <p class="calc-preview-label" id="c-slabel">Dikdörtgen blok</p>
+          <canvas id="c-canvas" width="320" height="200" style="max-width:100%"></canvas>
+          <p class="calc-preview-dim" id="c-dlabel"></p>
+        </div>
+
+        <!-- Sonuç kartları -->
+        <div class="calc-results">
+          <h4>Hesap Sonuçları</h4>
+          <div class="result-card"><span class="result-icon">📦</span><div><p class="result-label">Hacim</p><p class="result-val" id="cr-vol">—</p></div></div>
+          <div class="result-card"><span class="result-icon">📐</span><div><p class="result-label">Yüzey Alanı</p><p class="result-val" id="cr-area">—</p></div></div>
+          <div class="result-card"><span class="result-icon">⚖️</span><div><p class="result-label">Ağırlık (1 adet)</p><p class="result-val" id="cr-w1">—</p></div></div>
+          <div class="result-card highlight"><span class="result-icon">🔢</span><div><p class="result-label">Toplam Ağırlık</p><p class="result-val" id="cr-tot">—</p></div></div>
+        </div>
+
+        <!-- Profil kesit bilgileri (sadece profillerde görünür) -->
+        <div id="c-pinfo" style="display:none;margin-top:14px;">
+          <div class="calc-results">
+            <h4>Kesit Özellikleri</h4>
+            <div class="result-card"><span class="result-icon">🔲</span><div><p class="result-label">Kesit Alanı</p><p class="result-val" id="cr-cs">—</p></div></div>
+            <div class="result-card"><span class="result-icon">📏</span><div><p class="result-label">Ağırlık (kg/m)</p><p class="result-val" id="cr-kgm">—</p></div></div>
+            <div class="result-card"><span class="result-icon">📊</span><div><p class="result-label">Atalet Momenti Ix</p><p class="result-val" id="cr-ix">—</p></div></div>
+            <div class="result-card"><span class="result-icon">📊</span><div><p class="result-label">Atalet Momenti Iy</p><p class="result-val" id="cr-iy">—</p></div></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
