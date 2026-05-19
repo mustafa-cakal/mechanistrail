@@ -129,7 +129,6 @@ body {
     linear-gradient(90deg, rgba(24,95,165,0.06) 1px, transparent 1px);
   background-size: 40px 40px;
 }
-/* Hero iki sütun */
 .hero-inner {
   position: relative; z-index: 1;
   display: grid;
@@ -139,35 +138,39 @@ body {
 }
 .hero-left { max-width: 520px; }
 
-/* Sağ panel */
+/* Sağ panel - 2x2 grid */
 .hero-right {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 .hero-stat-card {
-  display: flex; align-items: center; gap: 12px;
   background: rgba(255,255,255,0.04);
   border: 0.5px solid rgba(55,138,221,0.18);
-  border-radius: 12px; padding: 16px;
+  border-radius: 12px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 .hero-stat-card.highlight-card {
   background: rgba(24,95,165,0.12);
   border-color: rgba(55,138,221,0.35);
 }
-.hero-stat-icon { font-size: 24px; flex-shrink: 0; }
-.hero-stat-num  { font-size: 20px; font-weight: 600; color: #85B7EB; line-height: 1.1; }
+.hero-stat-icon { font-size: 20px; margin-bottom: 4px; }
+.hero-stat-num  { font-size: 22px; font-weight: 600; color: #85B7EB; line-height: 1.1; }
 .hero-stat-lbl  { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
 
 .hero-services {
   grid-column: 1 / -1;
   background: rgba(255,255,255,0.03);
   border: 0.5px solid rgba(55,138,221,0.15);
-  border-radius: 12px; padding: 16px;
+  border-radius: 12px;
+  padding: 14px 16px;
 }
-.hero-services-title { font-size: 12px; font-weight: 500; color: #85B7EB; margin-bottom: 10px; letter-spacing: 0.5px; }
-.hero-service-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 13px; color: rgba(255,255,255,0.65); }
-.hero-service-dot { width: 6px; height: 6px; background: #378ADD; border-radius: 50%; flex-shrink: 0; }
+.hero-services-title { font-size: 11px; font-weight: 500; color: #85B7EB; margin-bottom: 10px; letter-spacing: 0.5px; text-transform: uppercase; }
+.hero-service-row { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 13px; color: rgba(255,255,255,0.65); }
+.hero-service-dot { width: 5px; height: 5px; background: #378ADD; border-radius: 50%; flex-shrink: 0; }
 
 .badge {
   display: inline-flex; align-items: center; gap: 6px;
@@ -179,18 +182,21 @@ body {
   border-radius: 20px;
   margin-bottom: 22px;
 }
-
 .hero h1 { font-size: 30px; font-weight: 500; line-height: 1.25; margin-bottom: 14px; }
 .hero h1 span { color: #378ADD; }
 .hero p { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 28px; }
-
 .hero-btns { display: flex; gap: 12px; margin-bottom: 28px; }
 .btn-blue    { padding: 11px 24px; background: #185FA5; color: #fff; border-radius: 8px; font-size: 14px; cursor: pointer; border: none; transition: background 0.2s; }
 .btn-blue:hover { background: #1e74c8; }
 .btn-outline { padding: 11px 24px; background: transparent; color: rgba(255,255,255,0.8); border: 0.5px solid rgba(255,255,255,0.3); border-radius: 8px; font-size: 14px; cursor: pointer; }
-
 .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .tag { font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 0.5px solid rgba(55,138,221,0.3); color: rgba(255,255,255,0.55); }
+
+/* Mobilde hero tek sütun */
+@media (max-width: 800px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-right  { grid-template-columns: 1fr 1fr; }
+}
 
 /* =============================================
    ANA SAYFA FOTOĞRAF GALERİSİ (Photo Gallery)
@@ -546,6 +552,4 @@ body {
   .calc-tab  { font-size: 11px; padding: 7px 10px; }
   .calc-inputs > div, .calc-field { grid-template-columns: 120px 1fr; }
   .result-cards-grid { grid-template-columns: 1fr; }
-  .hero-inner { grid-template-columns: 1fr; }
-  .hero-right { grid-template-columns: 1fr 1fr; }
 }
