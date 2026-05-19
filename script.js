@@ -236,3 +236,248 @@ function initGallery(){
 }
 
 document.addEventListener('DOMContentLoaded',function(){renderProjects();initSlider();initGallery();});
+
+/* =============================================
+   BİRİM DÖNÜŞTÜRÜCÜ
+   ============================================= */
+
+function switchCalcPanel(panel) {
+  var pw = document.getElementById('panel-weight');
+  var pc = document.getElementById('panel-converter');
+  if(pw) pw.style.display = panel==='weight' ? '' : 'none';
+  if(pc) pc.style.display = panel==='converter' ? '' : 'none';
+  document.querySelectorAll('.calc-tab').forEach(function(b){ b.classList.remove('active'); });
+  if(panel==='converter'){
+    var tb=document.getElementById('tb-converter'); if(tb) tb.classList.add('active');
+    convAll();
+  } else {
+    var tb2=document.getElementById('tb-'+calcShape); if(tb2) tb2.classList.add('active');
+  }
+}
+
+function fmtN(n){
+  if(n===0) return '0';
+  var abs=Math.abs(n);
+  if(abs>=1e12) return (n/1e12).toFixed(4)+' (×10¹²)';
+  if(abs>=1e9)  return (n/1e9).toFixed(4)+' (×10⁹)';
+  if(abs>=1e6)  return (n/1e6).toFixed(4)+' (×10⁶)';
+  if(abs>=1e3)  return n.toFixed(4);
+  if(abs>=1)    return n.toFixed(6);
+  if(abs>=1e-3) return n.toFixed(8);
+  return n.toExponential(4);
+}
+
+function renderConv(elId, units, valueInBase, activeIdx) {
+  var el = document.getElementById(elId);
+  if(!el) return;
+  var html = '';
+  units.forEach(function(u, i){
+    var val = valueInBase / u.factor;
+    var isActive = i === activeIdx;
+    html += '<div class="conv-result-row'+(isActive?' active-unit':'')+'">'+
+      '<span class="conv-unit">'+u.label+'</span>'+
+      '<span class="conv-val">'+fmtN(val)+'</span>'+
+      '</div>';
+  });
+  el.innerHTML = html;
+}
+
+/* UZUNLUK */
+var LEN_UNITS = [
+  {label:'nm (nanometre)',    factor:1e-9},
+  {label:'µm (mikrometre)',   factor:1e-6},
+  {label:'mm (milimetre)',    factor:1e-3},
+  {label:'cm (santimetre)',   factor:1e-2},
+  {label:'dm (desimetre)',    factor:1e-1},
+  {label:'m (metre)',         factor:1},
+  {label:'km (kilometre)',    factor:1e3},
+  {label:'in (inç)',          factor:0.0254},
+  {label:'ft (fit)',          factor:0.3048},
+  {label:'yd (yarda)',        factor:0.9144},
+  {label:'mi (mil)',          factor:1609.344},
+  {label:'NM (deniz mili)',   factor:1852},
+  {label:'au (astronomik)',   factor:1.496e11},
+];
+function convLen(){
+  var val=parseFloat(document.getElementById('len-val').value)||0;
+  var fromIdx=document.getElementById('len-from').selectedIndex;
+  var base=val*LEN_UNITS[fromIdx].factor;
+  renderConv('len-results', LEN_UNITS, base, fromIdx);
+}
+
+/* KÜTLE */
+var MASS_UNITS = [
+  {label:'µg (mikrogram)',    factor:1e-9},
+  {label:'mg (miligram)',     factor:1e-6},
+  {label:'g (gram)',          factor:1e-3},
+  {label:'kg (kilogram)',     factor:1},
+  {label:'t (ton/metrik)',    factor:1e3},
+  {label:'oz (ons)',          factor:0.0283495},
+  {label:'lb (pound)',        factor:0.453592},
+  {label:'st (stone)',        factor:6.35029},
+  {label:'kip (kilopound)',   factor:453.592},
+  {label:'slug',              factor:14.5939},
+];
+function convMass(){
+  var val=parseFloat(document.getElementById('mass-val').value)||0;
+  var fromIdx=document.getElementById('mass-from').selectedIndex;
+  var base=val*MASS_UNITS[fromIdx].factor;
+  renderConv('mass-results', MASS_UNITS, base, fromIdx);
+}
+
+/* HACİM */
+var VOL_UNITS = [
+  {label:'mm³ (milimetre küp)',  factor:1e-9},
+  {label:'cm³ / ml',             factor:1e-6},
+  {label:'dl (desilitre)',       factor:1e-4},
+  {label:'l (litre)',            factor:1e-3},
+  {label:'m³ (metre küp)',       factor:1},
+  {label:'in³ (inç küp)',        factor:1.6387e-5},
+  {label:'ft³ (fit küp)',        factor:0.0283168},
+  {label:'yd³ (yarda küp)',      factor:0.764555},
+  {label:'gal-US (galon ABD)',   factor:0.0037854},
+  {label:'gal-UK (galon İng)',   factor:0.00454609},
+  {label:'fl oz US',             factor:2.9574e-5},
+  {label:'bbl (varil petrol)',   factor:0.158987},
+];
+function convVol(){
+  var val=parseFloat(document.getElementById('vol-val').value)||0;
+  var fromIdx=document.getElementById('vol-from').selectedIndex;
+  var base=val*VOL_UNITS[fromIdx].factor;
+  renderConv('vol-results', VOL_UNITS, base, fromIdx);
+}
+
+/* BASINÇ */
+var PRES_UNITS = [
+  {label:'Pa (pascal)',       factor:1},
+  {label:'hPa (hektopaskal)', factor:1e2},
+  {label:'kPa (kilopaskal)',  factor:1e3},
+  {label:'MPa (megapaskal)',  factor:1e6},
+  {label:'GPa (gigapaskal)',  factor:1e9},
+  {label:'bar',               factor:1e5},
+  {label:'mbar (milibar)',    factor:1e2},
+  {label:'atm (atmosfer)',    factor:101325},
+  {label:'psi (lb/in²)',      factor:6894.76},
+  {label:'ksi (kip/in²)',     factor:6894760},
+  {label:'mmHg (torr)',       factor:133.322},
+  {label:'inHg',              factor:3386.39},
+  {label:'kgf/cm²',           factor:98066.5},
+];
+function convPres(){
+  var val=parseFloat(document.getElementById('pres-val').value)||0;
+  var fromIdx=document.getElementById('pres-from').selectedIndex;
+  var base=val*PRES_UNITS[fromIdx].factor;
+  renderConv('pres-results', PRES_UNITS, base, fromIdx);
+}
+
+/* SICAKLIK */
+function convTemp(){
+  var val=parseFloat(document.getElementById('temp-val').value)||0;
+  var from=document.getElementById('temp-from').value;
+  var C; // Her şeyi önce Celsius'a çevir
+  if(from==='C') C=val;
+  else if(from==='F') C=(val-32)/1.8;
+  else if(from==='K') C=val-273.15;
+  else if(from==='R') C=(val-491.67)/1.8;
+  var results=[
+    {label:'°C (Celsius)',    val:C},
+    {label:'°F (Fahrenheit)', val:C*1.8+32},
+    {label:'K (Kelvin)',      val:C+273.15},
+    {label:'°R (Rankine)',    val:(C+273.15)*1.8},
+  ];
+  var fromMap={C:0,F:1,K:2,R:3};
+  var el=document.getElementById('temp-results'); if(!el) return;
+  var html='';
+  results.forEach(function(r,i){
+    var isActive=(i===fromMap[from]);
+    html+='<div class="conv-result-row'+(isActive?' active-unit':'')+'">'+
+      '<span class="conv-unit">'+r.label+'</span>'+
+      '<span class="conv-val">'+r.val.toFixed(4)+'</span></div>';
+  });
+  el.innerHTML=html;
+}
+
+/* KUVVET */
+var FORCE_UNITS = [
+  {label:'N (newton)',     factor:1},
+  {label:'kN (kilonewton)',factor:1e3},
+  {label:'MN (meganewton)',factor:1e6},
+  {label:'dyn (dyne)',     factor:1e-5},
+  {label:'kgf (kilogram-kuvvet)', factor:9.80665},
+  {label:'tf (ton-kuvvet)',factor:9806.65},
+  {label:'lbf (pound-kuvvet)', factor:4.44822},
+  {label:'kip (kilopound-kuvvet)', factor:4448.22},
+  {label:'ozf (ons-kuvvet)', factor:0.278014},
+];
+function convForce(){
+  var val=parseFloat(document.getElementById('force-val').value)||0;
+  var fromIdx=document.getElementById('force-from').selectedIndex;
+  var base=val*FORCE_UNITS[fromIdx].factor;
+  renderConv('force-results', FORCE_UNITS, base, fromIdx);
+}
+
+/* GÜÇ */
+var POWER_UNITS = [
+  {label:'W (watt)',        factor:1},
+  {label:'kW (kilowatt)',   factor:1e3},
+  {label:'MW (megawatt)',   factor:1e6},
+  {label:'GW (gigawatt)',   factor:1e9},
+  {label:'hp (BG/beygir)',  factor:745.7},
+  {label:'PS (metrik BG)',  factor:735.499},
+  {label:'BTU/s',           factor:1055.06},
+  {label:'BTU/h',           factor:0.293071},
+  {label:'kcal/s',          factor:4186.8},
+  {label:'erg/s',           factor:1e-7},
+];
+function convPower(){
+  var val=parseFloat(document.getElementById('power-val').value)||0;
+  var fromIdx=document.getElementById('power-from').selectedIndex;
+  var base=val*POWER_UNITS[fromIdx].factor;
+  renderConv('power-results', POWER_UNITS, base, fromIdx);
+}
+
+/* ALAN */
+var AREA_UNITS = [
+  {label:'mm² (milimetre kare)', factor:1e-6},
+  {label:'cm² (santimetre kare)',factor:1e-4},
+  {label:'dm² (desimetre kare)', factor:1e-2},
+  {label:'m² (metre kare)',      factor:1},
+  {label:'a (ar)',               factor:100},
+  {label:'ha (hektar)',          factor:1e4},
+  {label:'km² (kilometre kare)', factor:1e6},
+  {label:'in² (inç kare)',       factor:6.4516e-4},
+  {label:'ft² (fit kare)',       factor:0.0929030},
+  {label:'yd² (yarda kare)',     factor:0.836127},
+  {label:'mi² (mil kare)',       factor:2.58999e6},
+  {label:'acre (dönüm-ABD)',     factor:4046.86},
+];
+function convArea(){
+  var val=parseFloat(document.getElementById('area-val').value)||0;
+  var fromIdx=document.getElementById('area-from').selectedIndex;
+  var base=val*AREA_UNITS[fromIdx].factor;
+  renderConv('area-results', AREA_UNITS, base, fromIdx);
+}
+
+/* HIZ */
+var SPD_UNITS = [
+  {label:'mm/s',              factor:1e-3},
+  {label:'cm/s',              factor:1e-2},
+  {label:'m/s',               factor:1},
+  {label:'km/h (kph)',        factor:0.277778},
+  {label:'km/min',            factor:16.6667},
+  {label:'mph (mil/saat)',    factor:0.44704},
+  {label:'ft/s (fit/saniye)', factor:0.3048},
+  {label:'knot (deniz mili/sa)', factor:0.514444},
+  {label:'Mach (deniz sev.)', factor:340.29},
+];
+function convSpd(){
+  var val=parseFloat(document.getElementById('spd-val').value)||0;
+  var fromIdx=document.getElementById('spd-from').selectedIndex;
+  var base=val*SPD_UNITS[fromIdx].factor;
+  renderConv('spd-results', SPD_UNITS, base, fromIdx);
+}
+
+function convAll(){
+  convLen(); convMass(); convVol(); convPres();
+  convTemp(); convForce(); convPower(); convArea(); convSpd();
+}

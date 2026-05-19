@@ -563,3 +563,53 @@ body {
   .calc-inputs > div, .calc-field { grid-template-columns: 120px 1fr; }
   .result-cards-grid { grid-template-columns: 1fr; }
 }
+
+/* =============================================
+   BİRİM DÖNÜŞTÜRÜCÜ
+   ============================================= */
+.conv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+.conv-card {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(55,138,221,0.15);
+  border-radius: 12px;
+  padding: 18px;
+}
+.conv-title {
+  font-size: 13px; font-weight: 500; color: #85B7EB;
+  margin-bottom: 12px;
+}
+.conv-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.conv-inp, .conv-sel {
+  padding: 8px 10px; font-size: 13px;
+  background: rgba(255,255,255,0.07);
+  border: 0.5px solid rgba(55,138,221,0.2);
+  border-radius: 8px; color: #fff; outline: none;
+  width: 100%;
+}
+.conv-inp:focus, .conv-sel:focus { border-color: rgba(55,138,221,0.5); }
+.conv-sel option { background: #0d1e35; }
+.conv-results { display: flex; flex-direction: column; gap: 5px; }
+.conv-result-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 10px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 6px;
+  font-size: 13px;
+}
+.conv-result-row .conv-unit { color: rgba(255,255,255,0.45); font-size: 12px; }
+.conv-result-row .conv-val  { color: #85B7EB; font-weight: 500; }
+.conv-result-row.active-unit { background: rgba(24,95,165,0.15); border: 0.5px solid rgba(55,138,221,0.3); }
+.conv-result-row.active-unit .conv-val { color: #5DCAA5; }
+
+@media (max-width: 700px) {
+  .conv-grid { grid-template-columns: 1fr; }
+}

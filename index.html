@@ -337,16 +337,18 @@
 
     <!-- Şekil sekmeleri -->
     <div class="calc-tabs">
-      <button class="calc-tab active" id="tb-box"        onclick="selShape('box')">📦 Blok</button>
-      <button class="calc-tab"        id="tb-cylinder"   onclick="selShape('cylinder')">🔵 Silindir</button>
-      <button class="calc-tab"        id="tb-tube"       onclick="selShape('tube')">⭕ Boru</button>
-      <button class="calc-tab"        id="tb-sphere"     onclick="selShape('sphere')">🔮 Küre</button>
-      <button class="calc-tab"        id="tb-sq_solid"   onclick="selShape('sq_solid')">⬛ Kare Profil</button>
-      <button class="calc-tab"        id="tb-sq_tube"    onclick="selShape('sq_tube')">🟫 Kare Kutu</button>
-      <button class="calc-tab"        id="tb-rect_solid" onclick="selShape('rect_solid')">▬ Dikdörtgen Profil</button>
-      <button class="calc-tab"        id="tb-rect_tube"  onclick="selShape('rect_tube')">▭ Dikdörtgen Kutu</button>
+      <button class="calc-tab active" id="tb-box"        onclick="selShape('box');switchCalcPanel('weight')">📦 Blok</button>
+      <button class="calc-tab"        id="tb-cylinder"   onclick="selShape('cylinder');switchCalcPanel('weight')">🔵 Silindir</button>
+      <button class="calc-tab"        id="tb-tube"       onclick="selShape('tube');switchCalcPanel('weight')">⭕ Boru</button>
+      <button class="calc-tab"        id="tb-sphere"     onclick="selShape('sphere');switchCalcPanel('weight')">🔮 Küre</button>
+      <button class="calc-tab"        id="tb-sq_solid"   onclick="selShape('sq_solid');switchCalcPanel('weight')">⬛ Kare Profil</button>
+      <button class="calc-tab"        id="tb-sq_tube"    onclick="selShape('sq_tube');switchCalcPanel('weight')">🟫 Kare Kutu</button>
+      <button class="calc-tab"        id="tb-rect_solid" onclick="selShape('rect_solid');switchCalcPanel('weight')">▬ Dikdörtgen Profil</button>
+      <button class="calc-tab"        id="tb-rect_tube"  onclick="selShape('rect_tube');switchCalcPanel('weight')">▭ Dikdörtgen Kutu</button>
+      <button class="calc-tab"        id="tb-converter"  onclick="switchCalcPanel('converter')">🔄 Birim Dönüştürücü</button>
     </div>
 
+    <div id="panel-weight">
     <div class="calc-grid">
       <!-- Girişler -->
       <div class="calc-inputs">
@@ -430,17 +432,149 @@
         </div>
       </div>
     </div>
+    </div><!-- /panel-weight -->
+
+    <!-- ======= BİRİM DÖNÜŞTÜRÜCÜ ======= -->
+    <div id="panel-converter" style="display:none;">
+      <div class="conv-grid">
+
+        <div class="conv-card">
+          <p class="conv-title">📏 Uzunluk</p>
+          <div class="conv-row">
+            <input type="number" class="conv-inp" id="len-val" value="1" oninput="convLen()">
+            <select class="conv-sel" id="len-from" onchange="convLen()">
+              <option>nm</option><option>µm</option><option>mm</option><option>cm</option>
+              <option>dm</option><option selected>m</option><option>km</option>
+              <option>in</option><option>ft</option><option>yd</option>
+              <option>mi</option><option>NM</option><option>au</option>
+            </select>
+          </div>
+          <div class="conv-results" id="len-results"></div>
+        </div>
+
+        <div class="conv-card">
+          <p class="conv-title">⚖️ Kütle</p>
+          <div class="conv-row">
+            <input type="number" class="conv-inp" id="mass-val" value="1" oninput="convMass()">
+            <select class="conv-sel" id="mass-from" onchange="convMass()">
+              <option>µg</option><option>mg</option><option>g</option>
+              <option selected>kg</option><option>t</option>
+              <option>oz</option><option>lb</option><option>st</option>
+              <option>kip</option><option>slug</option>
+            </select>
+          </div>
+          <div class="conv-results" id="mass-results"></div>
+        </div>
+
+        <div class="conv-card">
+          <p class="conv-title">🧊 Hacim</p>
+          <div class="conv-row">
+            <input type="number" class="conv-inp" id="vol-val" value="1" oninput="convVol()">
+            <select class="conv-sel" id="vol-from" onchange="convVol()">
+              <option>mm³</option><option>cm³/ml</option><option>dl</option>
+              <option>l</option><option selected>m³</option>
+              <option>in³</option><option>ft³</option><option>yd³</option>
+              <option>gal-US</option><option>gal-UK</option>
+              <option>fl oz US</option><option>bbl</option>
+            </select>
+          </div>
+          <div class="conv-results" id="vol-results"></div>
+        </div>
+
+        <div class="conv-card">
+          <p class="conv-title">🔵 Basınç</p>
+          <div class="conv-row">
+            <input type="number" class="conv-inp" id="pres-val" value="1" oninput="convPres()">
+            <select class="conv-sel" id="pres-from" onchange="convPres()">
+              <option selected>Pa</option><option>hPa</option><option>kPa</option>
+              <option>MPa</option><option>GPa</option><option>bar</option>
+              <option>mbar</option><option>atm</option><option>psi</option>
+              <option>ksi</option><option>mmHg</option><option>inHg</option>
+              <option>kgf/cm²</option>
+            </select>
+          </div>
+          <div class="conv-results" id="pres-results"></div>
+        </div>
+
+        <div class="conv-card">
+          <p class="conv-title">🌡️ Sıcaklık</p>
+          <div class="conv-row">
+            <input type="number" class="conv-inp" id="temp-val" value="100" oninput="convTemp()">
+            <select class="conv-sel" id="temp-from" onchange="convTemp()">
+              <option value="C" selected>°C</option>
+              <option value="F">°F</option>
+              <option value="K">K</option>
+              <option value="R">°R</option>
+            </select>
+          </div>
+          <div class="conv-results" id="temp-results"></div>
+        </div>
+
+        <div class="conv-card">
+          <p class="conv-title">💪 Kuvvet</p>
+          <div class="conv-row">
+            <input type="number" class="conv-inp" id="force-val" value="1" oninput="convForce()">
+            <select class="conv-sel" id="force-from" onchange="convForce()">
+              <option selected>N</option><option>kN</option><option>MN</option>
+              <option>dyn</option><option>kgf</option><option>tf</option>
+              <option>lbf</option><option>kip</option><option>ozf</option>
+            </select>
+          </div>
+          <div class="conv-results" id="force-results"></div>
+        </div>
+
+        <div class="conv-card">
+          <p class="conv-title">⚡ Güç</p>
+          <div class="conv-row">
+            <input type="number" class="conv-inp" id="power-val" value="1" oninput="convPower()">
+            <select class="conv-sel" id="power-from" onchange="convPower()">
+              <option selected>W</option><option>kW</option><option>MW</option>
+              <option>GW</option><option>hp</option><option>PS</option>
+              <option>BTU/s</option><option>BTU/h</option>
+              <option>kcal/s</option><option>erg/s</option>
+            </select>
+          </div>
+          <div class="conv-results" id="power-results"></div>
+        </div>
+
+        <div class="conv-card">
+          <p class="conv-title">📐 Alan</p>
+          <div class="conv-row">
+            <input type="number" class="conv-inp" id="area-val" value="1" oninput="convArea()">
+            <select class="conv-sel" id="area-from" onchange="convArea()">
+              <option>mm²</option><option>cm²</option><option>dm²</option>
+              <option selected>m²</option><option>a</option><option>ha</option>
+              <option>km²</option><option>in²</option><option>ft²</option>
+              <option>yd²</option><option>mi²</option><option>acre</option>
+            </select>
+          </div>
+          <div class="conv-results" id="area-results"></div>
+        </div>
+
+        <div class="conv-card">
+          <p class="conv-title">🚀 Hız</p>
+          <div class="conv-row">
+            <input type="number" class="conv-inp" id="spd-val" value="1" oninput="convSpd()">
+            <select class="conv-sel" id="spd-from" onchange="convSpd()">
+              <option>mm/s</option><option>cm/s</option>
+              <option selected>m/s</option><option>km/h</option>
+              <option>km/min</option><option>mph</option>
+              <option>ft/s</option><option>knot</option><option>Mach</option>
+            </select>
+          </div>
+          <div class="conv-results" id="spd-results"></div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </div>
 
-
 <!-- =============================================
      PROJELER SAYFASI
-     
      Yeni proje eklemek için script.js dosyasındaki
-     "projects" dizisini düzenle. Her proje bir
-     nesne olarak tanımlanır. Detaylı açıklama
-     script.js içinde mevcut.
+     "projects" dizisini düzenle.
      ============================================= -->
 <div class="page" id="page-projects">
   <div class="page-inner">
