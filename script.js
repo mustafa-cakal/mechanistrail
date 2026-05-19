@@ -481,3 +481,89 @@ function convAll(){
   convLen(); convMass(); convVol(); convPres();
   convTemp(); convForce(); convPower(); convArea(); convSpd();
 }
+
+/* --- Araç Seçim Sistemi --- */
+function openTool(tool) {
+  document.getElementById('tool-selector').style.display  = 'none';
+  document.getElementById('panel-weight').style.display   = 'none';
+  document.getElementById('panel-converter').style.display= 'none';
+  document.getElementById('panel-torque').style.display   = 'none';
+  var el = document.getElementById('panel-' + tool);
+  if (el) {
+    el.style.display = '';
+    if (tool === 'weight')    { setTimeout(doCalc, 50); }
+    if (tool === 'converter') { convAll(); }
+    if (tool === 'torque')    { calcTorque(); }
+  }
+  // nb-calc aktif yap
+  document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  var nb = document.getElementById('nb-calc'); if(nb) nb.classList.add('active');
+}
+
+function closeTool() {
+  document.getElementById('panel-weight').style.display   = 'none';
+  document.getElementById('panel-converter').style.display= 'none';
+  document.getElementById('panel-torque').style.display   = 'none';
+  document.getElementById('tool-selector').style.display  = '';
+  window.scrollTo(0, 0);
+}
+
+/* --- Motor Torku Hesaplayıcı --- */
+function calcTorque() {
+  var method = document.getElementById('tq-method').value;
+  var eff    = (parseFloat(document.getElementById('tq-eff').value) || 95) / 100;
+
+  // Alanları göster/gizle
+  var showPower  = ['pn','tp'].includes(method);
+  var showRpm    = ['pn','tn'].includes(method);
+  var showTorque = ['tn','tp'].includes(method);
+  var showForce  = method === 'force';
+
+  document.getElementById('tq-f-power').style.display  = (showPower  || method==='pn') ? '' : 'none';
+  document.getElementById('tq-f-rpm').style.display    = showRpm    ? '' : 'none';
+  document.getElementById('tq-f-torque').style.display = showTorque ? '' : 'none';
+  document.getElementById('tq-f-force').style.display  = showForce  ? '' : 'none';
+  document.getElementById('tq-f-radius').style.display = showForce  ? '' : 'none';
+
+  var P = parseFloat(document.getElementById('tq-power').value) || 0;      // kW
+  var n = parseFloat(document.getElementById('tq-rpm').value)   || 0;      // rpm
+  var T_in = parseFloat(document.getElementById('tq-torque-in').value) || 0; // N·m
+  var F = parseFloat(document.getElementById('tq-force').value) || 0;      // N
+  var r = (parseFloat(document.getElementById('tq-radius').value) || 0) / 1000; // mm→m
+
+  var T, power_kw, rpm, omega, hp, useful;
+
+  if (method === 'pn') {
+    // Güç & Devir → Tork
+    power_kw = P;
+    rpm = n;
+    T = (power_kw * 1000 * 9.5488) / Math.max(n, 0.001);
+  } else if (method === 'tn') {
+    // Tork & Devir → Güç
+    T = T_in;
+    rpm = n;
+    power_kw = (T * n) / 9548.8;
+  } else if (method === 'tp') {
+    // Tork & Güç → Devir
+    T = T_in;
+    power_kw = P;
+    rpm = (power_kw * 1000 * 9.5488) / Math.max(T, 0.001);
+  } else if (method === 'force') {
+    // Kuvvet & Yarıçap → Tork
+    T = F * r;
+    power_kw = 0;
+    rpm = 0;
+  }
+
+  omega  = (2 * Math.PI * (rpm || 0)) / 60;
+  hp     = (power_kw || 0) / 0.7457;
+  useful = (power_kw || 0) * eff;
+
+  function f2(n){ return isNaN(n)||!isFinite(n) ? '—' : n.toFixed(2); }
+  setText('tq-r-torque', f2(T) + ' N·m');
+  setText('tq-r-power',  f2(power_kw) + ' kW');
+  setText('tq-r-rpm',    f2(rpm) + ' rpm');
+  setText('tq-r-omega',  f2(omega) + ' rad/s');
+  setText('tq-r-hp',     f2(hp) + ' hp');
+  setText('tq-r-useful', f2(useful) + ' kW');
+}

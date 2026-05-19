@@ -27,7 +27,14 @@
     <button class="nav-btn active" id="nb-home"        onclick="showPage('home');closeMenu()">Ana Sayfa</button>
     <button class="nav-btn"        id="nb-engineering" onclick="showPage('engineering');closeMenu()">Mühendislik Hizmetleri</button>
     <button class="nav-btn"        id="nb-services"    onclick="showPage('services');closeMenu()">Hizmetler</button>
-    <button class="nav-btn"        id="nb-calc"        onclick="showPage('calc');closeMenu()">🔧 Hesaplayıcılar</button>
+    <div class="nav-dropdown">
+      <button class="nav-btn" id="nb-calc" onclick="showPage('calc');closeMenu()">🔧 Hesaplayıcılar ▾</button>
+      <div class="nav-dropdown-menu">
+        <a onclick="showPage('calc');openTool('weight');closeMenu()">⚖️ Hacim & Ağırlık</a>
+        <a onclick="showPage('calc');openTool('converter');closeMenu()">🔄 Birim Dönüştürücü</a>
+        <a onclick="showPage('calc');openTool('torque');closeMenu()">⚙️ Motor Torku Hesaplayıcı</a>
+      </div>
+    </div>
     <button class="nav-btn"        id="nb-projects"    onclick="showPage('projects');closeMenu()">Projeler</button>
     <button class="nav-btn"        id="nb-about"       onclick="showPage('about');closeMenu()">Hakkımızda</button>
     <button class="nav-btn"        id="nb-contact"     onclick="showPage('contact');closeMenu()">İletişim</button>
@@ -331,242 +338,218 @@
      ============================================= -->
 <div class="page" id="page-calc">
   <div class="page-inner">
-    <p class="sec-label">Mühendislik Araçları</p>
-    <p class="sec-title">Hacim & Ağırlık Hesaplayıcı</p>
-    <p class="sec-sub">Geometri ve malzeme seçerek hacim, ağırlık ve kesit özelliklerini anında hesaplayın.</p>
 
-    <!-- Şekil sekmeleri -->
-    <div class="calc-tabs">
-      <button class="calc-tab active" id="tb-box"        onclick="selShape('box');switchCalcPanel('weight')">📦 Blok</button>
-      <button class="calc-tab"        id="tb-cylinder"   onclick="selShape('cylinder');switchCalcPanel('weight')">🔵 Silindir</button>
-      <button class="calc-tab"        id="tb-tube"       onclick="selShape('tube');switchCalcPanel('weight')">⭕ Boru</button>
-      <button class="calc-tab"        id="tb-sphere"     onclick="selShape('sphere');switchCalcPanel('weight')">🔮 Küre</button>
-      <button class="calc-tab"        id="tb-sq_solid"   onclick="selShape('sq_solid');switchCalcPanel('weight')">⬛ Kare Profil</button>
-      <button class="calc-tab"        id="tb-sq_tube"    onclick="selShape('sq_tube');switchCalcPanel('weight')">🟫 Kare Kutu</button>
-      <button class="calc-tab"        id="tb-rect_solid" onclick="selShape('rect_solid');switchCalcPanel('weight')">▬ Dikdörtgen Profil</button>
-      <button class="calc-tab"        id="tb-rect_tube"  onclick="selShape('rect_tube');switchCalcPanel('weight')">▭ Dikdörtgen Kutu</button>
-      <button class="calc-tab"        id="tb-converter"  onclick="switchCalcPanel('converter')">🔄 Birim Dönüştürücü</button>
-    </div>
-
-    <div id="panel-weight">
-    <div class="calc-grid">
-      <!-- Girişler -->
-      <div class="calc-inputs">
-        <div id="cf-a"><label class="calc-lbl" id="cl-a">Uzunluk — mm</label><input class="calc-inp" type="number" id="cv-a" value="200" min="1" oninput="doCalc()"></div>
-        <div id="cf-b"><label class="calc-lbl" id="cl-b">Genişlik — mm</label><input class="calc-inp" type="number" id="cv-b" value="100" min="1" oninput="doCalc()"></div>
-        <div id="cf-c"><label class="calc-lbl" id="cl-c">Yükseklik — mm</label><input class="calc-inp" type="number" id="cv-c" value="80"  min="1" oninput="doCalc()"></div>
-        <div id="cf-d" style="display:none"><label class="calc-lbl" id="cl-d">Et kalınlığı — mm</label><input class="calc-inp" type="number" id="cv-d" value="3" min="0.5" step="0.5" oninput="doCalc()"></div>
-        <div id="cf-e" style="display:none"><label class="calc-lbl" id="cl-e">İç çap — mm</label><input class="calc-inp" type="number" id="cv-e" value="40" min="1" oninput="doCalc()"></div>
-
-        <div class="calc-field">
-          <label class="calc-lbl">Malzeme</label>
-          <select id="c-mat" onchange="doCalc()">
-            <optgroup label="── Çelikler ──">
-              <option value="7850">Yapısal Çelik S235/S355 — 7850 kg/m³</option>
-              <option value="7900">Paslanmaz Çelik 304 — 7900 kg/m³</option>
-              <option value="7750">Takım Çeliği — 7750 kg/m³</option>
-            </optgroup>
-            <optgroup label="── Alüminyum ──">
-              <option value="2700">Alüminyum 6061 — 2700 kg/m³</option>
-              <option value="2810">Alüminyum 7075 — 2810 kg/m³</option>
-            </optgroup>
-            <optgroup label="── Diğer Metaller ──">
-              <option value="8900">Bakır — 8900 kg/m³</option>
-              <option value="8500">Pirinç — 8500 kg/m³</option>
-              <option value="7200">Dökme Demir — 7200 kg/m³</option>
-              <option value="4500">Titanyum Ti-6Al-4V — 4500 kg/m³</option>
-            </optgroup>
-            <optgroup label="── Plastikler ──">
-              <option value="950">Polipropilen PP — 950 kg/m³</option>
-              <option value="1050">Polietilen PE — 1050 kg/m³</option>
-              <option value="1200">ABS — 1200 kg/m³</option>
-              <option value="1420">Poliamid PA6 — 1420 kg/m³</option>
-              <option value="1300">PVC — 1300 kg/m³</option>
-            </optgroup>
-            <optgroup label="── Kompozit & Diğer ──">
-              <option value="1600">Karbon Fiber CFRP — 1600 kg/m³</option>
-              <option value="2000">Cam Fiber GFRP — 2000 kg/m³</option>
-              <option value="2300">Beton — 2300 kg/m³</option>
-              <option value="600">Ahşap (Ortalama) — 600 kg/m³</option>
-            </optgroup>
-          </select>
+    <!-- ARAÇ SEÇİM EKRANI -->
+    <div id="tool-selector">
+      <p class="sec-label">Mühendislik Araçları</p>
+      <p class="sec-title">Hesaplayıcılar</p>
+      <p class="sec-sub">Kullanmak istediğiniz hesaplayıcıyı seçin.</p>
+      <div class="tool-cards">
+        <div class="tool-card" onclick="openTool('weight')">
+          <div class="tool-card-icon">⚖️</div>
+          <h3>Hacim & Ağırlık</h3>
+          <p>Geometri ve malzeme seçerek hacim, ağırlık ve yüzey alanı hesaplayın.</p>
+          <div class="tool-card-tags"><span>Blok</span><span>Silindir</span><span>Boru</span><span>Profil</span></div>
         </div>
-
-        <div class="calc-field">
-          <label class="calc-lbl">Adet</label>
-          <input class="calc-inp" type="number" id="c-qty" value="1" min="1" oninput="doCalc()">
+        <div class="tool-card" onclick="openTool('converter')">
+          <div class="tool-card-icon">🔄</div>
+          <h3>Birim Dönüştürücü</h3>
+          <p>Uzunluk, kütle, hacim, basınç, sıcaklık ve daha fazlasını dönüştürün.</p>
+          <div class="tool-card-tags"><span>Uzunluk</span><span>Kütle</span><span>Hacim</span><span>Basınç</span></div>
+        </div>
+        <div class="tool-card" onclick="openTool('torque')">
+          <div class="tool-card-icon">⚙️</div>
+          <h3>Motor Torku</h3>
+          <p>Güç, devir ve tork arasındaki ilişkiyi hesaplayın. Kuvvet & yarıçap desteği.</p>
+          <div class="tool-card-tags"><span>Tork</span><span>Güç</span><span>Devir</span><span>BG</span></div>
+        </div>
+        <div class="tool-card tool-card-soon">
+          <h3>Atalet Momenti</h3>
+          <p>Kesit atalet momenti ve mukavemet modülü hesabı.</p>
+          <div class="tool-card-badge">Yakında</div>
+        </div>
+        <div class="tool-card tool-card-soon">
+          <div class="tool-card-icon">💪</div>
+          <h3>Kiriş Analizi</h3>
+          <p>Basit ve konsol kirişlerde gerilme ve sehim hesabı.</p>
+          <div class="tool-card-badge">Yakında</div>
+        </div>
+        <div class="tool-card tool-card-soon">
+          <div class="tool-card-icon">🌡️</div>
+          <h3>Isıl Genleşme</h3>
+          <p>Malzemenin sıcaklık değişimine bağlı boyutsal değişimi.</p>
+          <div class="tool-card-badge">Yakında</div>
+        </div>
+        <div class="tool-card tool-card-soon">
+          <div class="tool-card-icon">⚙️</div>
+          <h3>Vida & Cıvata</h3>
+          <p>Sıkma momenti, öngerme kuvveti ve güvenlik katsayısı.</p>
+          <div class="tool-card-badge">Yakında</div>
         </div>
       </div>
+    </div>
 
-      <!-- Sağ panel: Önizleme + Sonuçlar -->
-      <div class="calc-right">
-        <!-- 3D Şekil önizleme -->
-        <div class="calc-preview">
-          <p class="calc-preview-label" id="c-slabel">Dikdörtgen blok</p>
-          <canvas id="c-canvas" width="320" height="200" style="max-width:100%"></canvas>
-          <p class="calc-preview-dim" id="c-dlabel"></p>
-        </div>
-
-        <!-- Sonuç kartları 2 sütun -->
-        <div class="calc-results">
-          <h4>Hesap Sonuçları</h4>
-          <div class="result-cards-grid">
-            <div class="result-card"><span class="result-icon">📦</span><div><p class="result-label">Hacim</p><p class="result-val" id="cr-vol">—</p></div></div>
-            <div class="result-card"><span class="result-icon">📐</span><div><p class="result-label">Yüzey Alanı</p><p class="result-val" id="cr-area">—</p></div></div>
-            <div class="result-card"><span class="result-icon">⚖️</span><div><p class="result-label">Ağırlık (1 adet)</p><p class="result-val" id="cr-w1">—</p></div></div>
-            <div class="result-card highlight"><span class="result-icon">🔢</span><div><p class="result-label">Toplam Ağırlık</p><p class="result-val" id="cr-tot">—</p></div></div>
+    <!-- AĞIRLIK HESAPLAYICI -->
+    <div id="panel-weight" style="display:none;">
+      <div class="tool-back-bar">
+        <button class="tool-back-btn" onclick="closeTool()">← Araçlara Dön</button>
+        <span>Hacim & Ağırlık Hesaplayıcı</span>
+      </div>
+      <div class="calc-tabs">
+        <button class="calc-tab active" id="tb-box"        onclick="selShape('box')">📦 Blok</button>
+        <button class="calc-tab"        id="tb-cylinder"   onclick="selShape('cylinder')">🔵 Silindir</button>
+        <button class="calc-tab"        id="tb-tube"       onclick="selShape('tube')">⭕ Boru</button>
+        <button class="calc-tab"        id="tb-sphere"     onclick="selShape('sphere')">🔮 Küre</button>
+        <button class="calc-tab"        id="tb-sq_solid"   onclick="selShape('sq_solid')">⬛ Kare Profil</button>
+        <button class="calc-tab"        id="tb-sq_tube"    onclick="selShape('sq_tube')">🟫 Kare Kutu</button>
+        <button class="calc-tab"        id="tb-rect_solid" onclick="selShape('rect_solid')">▬ Dikdörtgen Profil</button>
+        <button class="calc-tab"        id="tb-rect_tube"  onclick="selShape('rect_tube')">▭ Dikdörtgen Kutu</button>
+      </div>
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <div id="cf-a"><label class="calc-lbl" id="cl-a">Uzunluk — mm</label><input class="calc-inp" type="number" id="cv-a" value="200" min="1" oninput="doCalc()"></div>
+          <div id="cf-b"><label class="calc-lbl" id="cl-b">Genişlik — mm</label><input class="calc-inp" type="number" id="cv-b" value="100" min="1" oninput="doCalc()"></div>
+          <div id="cf-c"><label class="calc-lbl" id="cl-c">Yükseklik — mm</label><input class="calc-inp" type="number" id="cv-c" value="80" min="1" oninput="doCalc()"></div>
+          <div id="cf-d" style="display:none"><label class="calc-lbl" id="cl-d">Et kalınlığı — mm</label><input class="calc-inp" type="number" id="cv-d" value="3" min="0.5" step="0.5" oninput="doCalc()"></div>
+          <div id="cf-e" style="display:none"><label class="calc-lbl" id="cl-e">İç çap — mm</label><input class="calc-inp" type="number" id="cv-e" value="40" min="1" oninput="doCalc()"></div>
+          <div class="calc-field">
+            <label class="calc-lbl">Malzeme</label>
+            <select id="c-mat" onchange="doCalc()">
+              <optgroup label="── Çelikler ──">
+                <option value="7850">Yapısal Çelik S235/S355 — 7850 kg/m³</option>
+                <option value="7900">Paslanmaz Çelik 304 — 7900 kg/m³</option>
+                <option value="7750">Takım Çeliği — 7750 kg/m³</option>
+              </optgroup>
+              <optgroup label="── Alüminyum ──">
+                <option value="2700">Alüminyum 6061 — 2700 kg/m³</option>
+                <option value="2810">Alüminyum 7075 — 2810 kg/m³</option>
+              </optgroup>
+              <optgroup label="── Diğer Metaller ──">
+                <option value="8900">Bakır — 8900 kg/m³</option>
+                <option value="8500">Pirinç — 8500 kg/m³</option>
+                <option value="7200">Dökme Demir — 7200 kg/m³</option>
+                <option value="4500">Titanyum Ti-6Al-4V — 4500 kg/m³</option>
+              </optgroup>
+              <optgroup label="── Plastikler ──">
+                <option value="950">Polipropilen PP — 950 kg/m³</option>
+                <option value="1050">Polietilen PE — 1050 kg/m³</option>
+                <option value="1200">ABS — 1200 kg/m³</option>
+                <option value="1420">Poliamid PA6 — 1420 kg/m³</option>
+                <option value="1300">PVC — 1300 kg/m³</option>
+              </optgroup>
+              <optgroup label="── Kompozit & Diğer ──">
+                <option value="1600">Karbon Fiber CFRP — 1600 kg/m³</option>
+                <option value="2000">Cam Fiber GFRP — 2000 kg/m³</option>
+                <option value="2300">Beton — 2300 kg/m³</option>
+                <option value="600">Ahşap (Ortalama) — 600 kg/m³</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="calc-field">
+            <label class="calc-lbl">Adet</label>
+            <input class="calc-inp" type="number" id="c-qty" value="1" min="1" oninput="doCalc()">
           </div>
         </div>
-
-        <!-- Profil kesit bilgileri (sadece profillerde görünür) -->
-        <div id="c-pinfo" style="display:none;">
+        <div class="calc-right">
+          <div class="calc-preview">
+            <p class="calc-preview-label" id="c-slabel">Dikdörtgen blok</p>
+            <canvas id="c-canvas" width="320" height="200" style="max-width:100%"></canvas>
+            <p class="calc-preview-dim" id="c-dlabel"></p>
+          </div>
           <div class="calc-results">
-            <h4>Kesit Özellikleri</h4>
+            <h4>Hesap Sonuçları</h4>
             <div class="result-cards-grid">
-              <div class="result-card"><span class="result-icon">🔲</span><div><p class="result-label">Kesit Alanı</p><p class="result-val" id="cr-cs">—</p></div></div>
-              <div class="result-card"><span class="result-icon">📏</span><div><p class="result-label">Ağırlık (kg/m)</p><p class="result-val" id="cr-kgm">—</p></div></div>
-              <div class="result-card"><span class="result-icon">📊</span><div><p class="result-label">Atalet Momenti Ix</p><p class="result-val" id="cr-ix">—</p></div></div>
-              <div class="result-card"><span class="result-icon">📊</span><div><p class="result-label">Atalet Momenti Iy</p><p class="result-val" id="cr-iy">—</p></div></div>
+              <div class="result-card"><span class="result-icon">📦</span><div><p class="result-label">Hacim</p><p class="result-val" id="cr-vol">—</p></div></div>
+              <div class="result-card"><span class="result-icon">📐</span><div><p class="result-label">Yüzey Alanı</p><p class="result-val" id="cr-area">—</p></div></div>
+              <div class="result-card"><span class="result-icon">⚖️</span><div><p class="result-label">Ağırlık (1 adet)</p><p class="result-val" id="cr-w1">—</p></div></div>
+              <div class="result-card highlight"><span class="result-icon">🔢</span><div><p class="result-label">Toplam Ağırlık</p><p class="result-val" id="cr-tot">—</p></div></div>
+            </div>
+          </div>
+          <div id="c-pinfo" style="display:none;margin-top:14px;">
+            <div class="calc-results">
+              <h4>Kesit Özellikleri</h4>
+              <div class="result-cards-grid">
+                <div class="result-card"><span class="result-icon">🔲</span><div><p class="result-label">Kesit Alanı</p><p class="result-val" id="cr-cs">—</p></div></div>
+                <div class="result-card"><span class="result-icon">📏</span><div><p class="result-label">Ağırlık (kg/m)</p><p class="result-val" id="cr-kgm">—</p></div></div>
+                <div class="result-card"><span class="result-icon">📊</span><div><p class="result-label">Atalet Momenti Ix</p><p class="result-val" id="cr-ix">—</p></div></div>
+                <div class="result-card"><span class="result-icon">📊</span><div><p class="result-label">Atalet Momenti Iy</p><p class="result-val" id="cr-iy">—</p></div></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    </div><!-- /panel-weight -->
 
-    <!-- ======= BİRİM DÖNÜŞTÜRÜCÜ ======= -->
+    <!-- BİRİM DÖNÜŞTÜRÜCÜ -->
     <div id="panel-converter" style="display:none;">
+      <div class="tool-back-bar">
+        <button class="tool-back-btn" onclick="closeTool()">← Araçlara Dön</button>
+        <span>Birim Dönüştürücü</span>
+      </div>
       <div class="conv-grid">
-
-        <div class="conv-card">
-          <p class="conv-title">📏 Uzunluk</p>
-          <div class="conv-row">
-            <input type="number" class="conv-inp" id="len-val" value="1" oninput="convLen()">
-            <select class="conv-sel" id="len-from" onchange="convLen()">
-              <option>nm</option><option>µm</option><option>mm</option><option>cm</option>
-              <option>dm</option><option selected>m</option><option>km</option>
-              <option>in</option><option>ft</option><option>yd</option>
-              <option>mi</option><option>NM</option><option>au</option>
-            </select>
-          </div>
-          <div class="conv-results" id="len-results"></div>
-        </div>
-
-        <div class="conv-card">
-          <p class="conv-title">⚖️ Kütle</p>
-          <div class="conv-row">
-            <input type="number" class="conv-inp" id="mass-val" value="1" oninput="convMass()">
-            <select class="conv-sel" id="mass-from" onchange="convMass()">
-              <option>µg</option><option>mg</option><option>g</option>
-              <option selected>kg</option><option>t</option>
-              <option>oz</option><option>lb</option><option>st</option>
-              <option>kip</option><option>slug</option>
-            </select>
-          </div>
-          <div class="conv-results" id="mass-results"></div>
-        </div>
-
-        <div class="conv-card">
-          <p class="conv-title">🧊 Hacim</p>
-          <div class="conv-row">
-            <input type="number" class="conv-inp" id="vol-val" value="1" oninput="convVol()">
-            <select class="conv-sel" id="vol-from" onchange="convVol()">
-              <option>mm³</option><option>cm³/ml</option><option>dl</option>
-              <option>l</option><option selected>m³</option>
-              <option>in³</option><option>ft³</option><option>yd³</option>
-              <option>gal-US</option><option>gal-UK</option>
-              <option>fl oz US</option><option>bbl</option>
-            </select>
-          </div>
-          <div class="conv-results" id="vol-results"></div>
-        </div>
-
-        <div class="conv-card">
-          <p class="conv-title">🔵 Basınç</p>
-          <div class="conv-row">
-            <input type="number" class="conv-inp" id="pres-val" value="1" oninput="convPres()">
-            <select class="conv-sel" id="pres-from" onchange="convPres()">
-              <option selected>Pa</option><option>hPa</option><option>kPa</option>
-              <option>MPa</option><option>GPa</option><option>bar</option>
-              <option>mbar</option><option>atm</option><option>psi</option>
-              <option>ksi</option><option>mmHg</option><option>inHg</option>
-              <option>kgf/cm²</option>
-            </select>
-          </div>
-          <div class="conv-results" id="pres-results"></div>
-        </div>
-
-        <div class="conv-card">
-          <p class="conv-title">🌡️ Sıcaklık</p>
-          <div class="conv-row">
-            <input type="number" class="conv-inp" id="temp-val" value="100" oninput="convTemp()">
-            <select class="conv-sel" id="temp-from" onchange="convTemp()">
-              <option value="C" selected>°C</option>
-              <option value="F">°F</option>
-              <option value="K">K</option>
-              <option value="R">°R</option>
-            </select>
-          </div>
-          <div class="conv-results" id="temp-results"></div>
-        </div>
-
-        <div class="conv-card">
-          <p class="conv-title">💪 Kuvvet</p>
-          <div class="conv-row">
-            <input type="number" class="conv-inp" id="force-val" value="1" oninput="convForce()">
-            <select class="conv-sel" id="force-from" onchange="convForce()">
-              <option selected>N</option><option>kN</option><option>MN</option>
-              <option>dyn</option><option>kgf</option><option>tf</option>
-              <option>lbf</option><option>kip</option><option>ozf</option>
-            </select>
-          </div>
-          <div class="conv-results" id="force-results"></div>
-        </div>
-
-        <div class="conv-card">
-          <p class="conv-title">⚡ Güç</p>
-          <div class="conv-row">
-            <input type="number" class="conv-inp" id="power-val" value="1" oninput="convPower()">
-            <select class="conv-sel" id="power-from" onchange="convPower()">
-              <option selected>W</option><option>kW</option><option>MW</option>
-              <option>GW</option><option>hp</option><option>PS</option>
-              <option>BTU/s</option><option>BTU/h</option>
-              <option>kcal/s</option><option>erg/s</option>
-            </select>
-          </div>
-          <div class="conv-results" id="power-results"></div>
-        </div>
-
-        <div class="conv-card">
-          <p class="conv-title">📐 Alan</p>
-          <div class="conv-row">
-            <input type="number" class="conv-inp" id="area-val" value="1" oninput="convArea()">
-            <select class="conv-sel" id="area-from" onchange="convArea()">
-              <option>mm²</option><option>cm²</option><option>dm²</option>
-              <option selected>m²</option><option>a</option><option>ha</option>
-              <option>km²</option><option>in²</option><option>ft²</option>
-              <option>yd²</option><option>mi²</option><option>acre</option>
-            </select>
-          </div>
-          <div class="conv-results" id="area-results"></div>
-        </div>
-
-        <div class="conv-card">
-          <p class="conv-title">🚀 Hız</p>
-          <div class="conv-row">
-            <input type="number" class="conv-inp" id="spd-val" value="1" oninput="convSpd()">
-            <select class="conv-sel" id="spd-from" onchange="convSpd()">
-              <option>mm/s</option><option>cm/s</option>
-              <option selected>m/s</option><option>km/h</option>
-              <option>km/min</option><option>mph</option>
-              <option>ft/s</option><option>knot</option><option>Mach</option>
-            </select>
-          </div>
-          <div class="conv-results" id="spd-results"></div>
-        </div>
-
+        <div class="conv-card"><p class="conv-title">📏 Uzunluk</p><div class="conv-row"><input type="number" class="conv-inp" id="len-val" value="1" oninput="convLen()"><select class="conv-sel" id="len-from" onchange="convLen()"><option>nm</option><option>µm</option><option>mm</option><option>cm</option><option>dm</option><option selected>m</option><option>km</option><option>in</option><option>ft</option><option>yd</option><option>mi</option><option>NM</option><option>au</option></select></div><div class="conv-results" id="len-results"></div></div>
+        <div class="conv-card"><p class="conv-title">⚖️ Kütle</p><div class="conv-row"><input type="number" class="conv-inp" id="mass-val" value="1" oninput="convMass()"><select class="conv-sel" id="mass-from" onchange="convMass()"><option>µg</option><option>mg</option><option>g</option><option selected>kg</option><option>t</option><option>oz</option><option>lb</option><option>st</option><option>kip</option><option>slug</option></select></div><div class="conv-results" id="mass-results"></div></div>
+        <div class="conv-card"><p class="conv-title">🧊 Hacim</p><div class="conv-row"><input type="number" class="conv-inp" id="vol-val" value="1" oninput="convVol()"><select class="conv-sel" id="vol-from" onchange="convVol()"><option>mm³</option><option>cm³/ml</option><option>dl</option><option>l</option><option selected>m³</option><option>in³</option><option>ft³</option><option>yd³</option><option>gal-US</option><option>gal-UK</option><option>fl oz US</option><option>bbl</option></select></div><div class="conv-results" id="vol-results"></div></div>
+        <div class="conv-card"><p class="conv-title">🔵 Basınç</p><div class="conv-row"><input type="number" class="conv-inp" id="pres-val" value="1" oninput="convPres()"><select class="conv-sel" id="pres-from" onchange="convPres()"><option selected>Pa</option><option>hPa</option><option>kPa</option><option>MPa</option><option>GPa</option><option>bar</option><option>mbar</option><option>atm</option><option>psi</option><option>ksi</option><option>mmHg</option><option>inHg</option><option>kgf/cm²</option></select></div><div class="conv-results" id="pres-results"></div></div>
+        <div class="conv-card"><p class="conv-title">🌡️ Sıcaklık</p><div class="conv-row"><input type="number" class="conv-inp" id="temp-val" value="100" oninput="convTemp()"><select class="conv-sel" id="temp-from" onchange="convTemp()"><option value="C" selected>°C</option><option value="F">°F</option><option value="K">K</option><option value="R">°R</option></select></div><div class="conv-results" id="temp-results"></div></div>
+        <div class="conv-card"><p class="conv-title">💪 Kuvvet</p><div class="conv-row"><input type="number" class="conv-inp" id="force-val" value="1" oninput="convForce()"><select class="conv-sel" id="force-from" onchange="convForce()"><option selected>N</option><option>kN</option><option>MN</option><option>dyn</option><option>kgf</option><option>tf</option><option>lbf</option><option>kip</option><option>ozf</option></select></div><div class="conv-results" id="force-results"></div></div>
+        <div class="conv-card"><p class="conv-title">⚡ Güç</p><div class="conv-row"><input type="number" class="conv-inp" id="power-val" value="1" oninput="convPower()"><select class="conv-sel" id="power-from" onchange="convPower()"><option selected>W</option><option>kW</option><option>MW</option><option>GW</option><option>hp</option><option>PS</option><option>BTU/s</option><option>BTU/h</option><option>kcal/s</option><option>erg/s</option></select></div><div class="conv-results" id="power-results"></div></div>
+        <div class="conv-card"><p class="conv-title">📐 Alan</p><div class="conv-row"><input type="number" class="conv-inp" id="area-val" value="1" oninput="convArea()"><select class="conv-sel" id="area-from" onchange="convArea()"><option>mm²</option><option>cm²</option><option>dm²</option><option selected>m²</option><option>a</option><option>ha</option><option>km²</option><option>in²</option><option>ft²</option><option>yd²</option><option>mi²</option><option>acre</option></select></div><div class="conv-results" id="area-results"></div></div>
+        <div class="conv-card"><p class="conv-title">🚀 Hız</p><div class="conv-row"><input type="number" class="conv-inp" id="spd-val" value="1" oninput="convSpd()"><select class="conv-sel" id="spd-from" onchange="convSpd()"><option>mm/s</option><option>cm/s</option><option selected>m/s</option><option>km/h</option><option>km/min</option><option>mph</option><option>ft/s</option><option>knot</option><option>Mach</option></select></div><div class="conv-results" id="spd-results"></div></div>
       </div>
     </div>
+
+    <!-- MOTOR TORKU HESAPLAYICI -->
+    <div id="panel-torque" style="display:none;">
+      <div class="tool-back-bar">
+        <button class="tool-back-btn" onclick="closeTool()">← Araçlara Dön</button>
+        <span>Motor Torku Hesaplayıcı</span>
+      </div>
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label class="calc-lbl">Hesaplama Yöntemi</label>
+            <select id="tq-method" onchange="calcTorque()">
+              <option value="pn">Güç & Devir → Tork</option>
+              <option value="tn">Tork & Devir → Güç</option>
+              <option value="tp">Tork & Güç → Devir</option>
+              <option value="force">Kuvvet & Yarıçap → Tork</option>
+            </select>
+          </div>
+          <div id="tq-f-power"><label class="calc-lbl" id="tq-l-power">Güç (kW)</label><input class="calc-inp" type="number" id="tq-power" value="10" min="0" step="0.1" oninput="calcTorque()"></div>
+          <div id="tq-f-rpm"><label class="calc-lbl">Devir (rpm)</label><input class="calc-inp" type="number" id="tq-rpm" value="1450" min="1" oninput="calcTorque()"></div>
+          <div id="tq-f-torque" style="display:none"><label class="calc-lbl">Tork (N·m)</label><input class="calc-inp" type="number" id="tq-torque-in" value="65" min="0" step="0.1" oninput="calcTorque()"></div>
+          <div id="tq-f-force" style="display:none"><label class="calc-lbl">Kuvvet (N)</label><input class="calc-inp" type="number" id="tq-force" value="100" min="0" oninput="calcTorque()"></div>
+          <div id="tq-f-radius" style="display:none"><label class="calc-lbl">Yarıçap (mm)</label><input class="calc-inp" type="number" id="tq-radius" value="200" min="0" oninput="calcTorque()"></div>
+          <div class="calc-field">
+            <label class="calc-lbl">Verimlilik (%)</label>
+            <input class="calc-inp" type="number" id="tq-eff" value="95" min="1" max="100" oninput="calcTorque()">
+          </div>
+        </div>
+        <div class="calc-right">
+          <div class="calc-results">
+            <h4>Hesap Sonuçları</h4>
+            <div class="result-cards-grid">
+              <div class="result-card highlight"><span class="result-icon">🔩</span><div><p class="result-label">Tork</p><p class="result-val" id="tq-r-torque">—</p></div></div>
+              <div class="result-card highlight"><span class="result-icon">⚡</span><div><p class="result-label">Güç</p><p class="result-val" id="tq-r-power">—</p></div></div>
+              <div class="result-card"><span class="result-icon">🔄</span><div><p class="result-label">Devir</p><p class="result-val" id="tq-r-rpm">—</p></div></div>
+              <div class="result-card"><span class="result-icon">📐</span><div><p class="result-label">Açısal Hız (ω)</p><p class="result-val" id="tq-r-omega">—</p></div></div>
+              <div class="result-card"><span class="result-icon">⚙️</span><div><p class="result-label">Güç (hp / BG)</p><p class="result-val" id="tq-r-hp">—</p></div></div>
+              <div class="result-card"><span class="result-icon">✅</span><div><p class="result-label">Faydalı Güç</p><p class="result-val" id="tq-r-useful">—</p></div></div>
+            </div>
+            <div style="margin-top:14px;padding:12px;background:rgba(55,138,221,0.06);border-radius:8px;font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;">
+              <strong style="color:#85B7EB;">Formüller:</strong><br>
+              T = (P × 9549) / n &nbsp;|&nbsp; P = T × n / 9549<br>
+              ω = 2π × n / 60 &nbsp;|&nbsp; P = T × ω
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 
   </div>
 </div>

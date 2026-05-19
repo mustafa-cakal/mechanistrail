@@ -613,3 +613,106 @@ body {
 @media (max-width: 700px) {
   .conv-grid { grid-template-columns: 1fr; }
 }
+
+/* =============================================
+   NAV DROPDOWN MENÜ
+   ============================================= */
+.nav-dropdown {
+  position: relative;
+}
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 220px;
+  background: #0d1e35;
+  border: 0.5px solid rgba(55,138,221,0.3);
+  border-radius: 10px;
+  padding: 6px;
+  z-index: 999;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  animation: fadeIn 0.15s ease;
+}
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+  display: flex;
+  flex-direction: column;
+}
+.nav-dropdown-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+.nav-dropdown-menu a:hover {
+  background: rgba(55,138,221,0.15);
+  color: #fff;
+}
+.nav-dropdown-menu a.soon {
+  color: rgba(255,255,255,0.3);
+  cursor: default;
+}
+.nav-dropdown-menu a.soon:hover {
+  background: transparent;
+  color: rgba(255,255,255,0.3);
+}
+.nav-dropdown-menu .menu-divider {
+  height: 0.5px;
+  background: rgba(55,138,221,0.15);
+  margin: 4px 0;
+}
+
+/* Araç seçim ekranı */
+.tool-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+.tool-card {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(55,138,221,0.15);
+  border-radius: 14px;
+  padding: 24px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+.tool-card:hover {
+  background: rgba(24,95,165,0.12);
+  border-color: rgba(55,138,221,0.4);
+  transform: translateY(-2px);
+}
+.tool-card-soon {
+  opacity: 0.5;
+  cursor: default;
+}
+.tool-card-soon:hover {
+  background: rgba(255,255,255,0.03);
+  border-color: rgba(55,138,221,0.15);
+  transform: none;
+}
+.tool-card-icon { font-size: 32px; margin-bottom: 12px; }
+.tool-card h3 { font-size: 15px; font-weight: 500; color: #fff; margin-bottom: 6px; }
+.tool-card p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.5; margin-bottom: 12px; }
+.tool-card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tool-card-tags span { font-size: 11px; padding: 2px 8px; border-radius: 10px; background: rgba(55,138,221,0.1); color: #85B7EB; border: 0.5px solid rgba(55,138,221,0.2); }
+.tool-card-badge { position: absolute; top: 14px; right: 14px; font-size: 10px; padding: 3px 8px; border-radius: 10px; background: rgba(55,138,221,0.1); color: #85B7EB; border: 0.5px solid rgba(55,138,221,0.2); }
+
+/* Geri butonu */
+.tool-back-bar { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 0.5px solid rgba(55,138,221,0.15); }
+.tool-back-btn { padding: 8px 16px; font-size: 13px; background: rgba(55,138,221,0.1); border: 0.5px solid rgba(55,138,221,0.25); border-radius: 8px; color: #85B7EB; cursor: pointer; transition: all 0.2s; }
+.tool-back-btn:hover { background: rgba(55,138,221,0.2); color: #fff; }
+.tool-back-bar span { font-size: 15px; font-weight: 500; color: #fff; }
+
+@media (max-width: 700px) {
+  .nav-dropdown-menu { position: fixed; left: 16px; right: 16px; top: auto; }
+  .tool-cards { grid-template-columns: 1fr 1fr; }
+}
