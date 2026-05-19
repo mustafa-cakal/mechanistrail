@@ -126,6 +126,52 @@ function drawCProfile(ctx,W,H,pw,ph,len,t,solid){var mx=Math.max(pw,ph,1),sc=Mat
 /* =============================================
    BÖLÜM 4: SİTE MANTIĞI (değiştirme)
    ============================================= */
+/* --- Formspree İletişim Formu --- */
+async function submitForm() {
+  var name    = document.getElementById('f-name').value.trim();
+  var email   = document.getElementById('f-email').value.trim();
+  var service = document.getElementById('f-service').value.trim();
+  var message = document.getElementById('f-message').value.trim();
+  var btn     = document.getElementById('f-submit');
+  var success = document.getElementById('form-success');
+  var error   = document.getElementById('form-error');
+
+  if (!name || !email || !message) {
+    error.style.display = 'block';
+    error.textContent = '❌ Lütfen zorunlu alanları doldurun (Ad, E-posta, Mesaj).';
+    return;
+  }
+
+  btn.textContent = 'Gönderiliyor...';
+  btn.disabled = true;
+  success.style.display = 'none';
+  error.style.display = 'none';
+
+  try {
+    var response = await fetch('https://formspree.io/f/mjgzkzgl', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name: name, email: email, hizmet: service, message: message })
+    });
+
+    if (response.ok) {
+      success.style.display = 'block';
+      document.getElementById('f-name').value = '';
+      document.getElementById('f-email').value = '';
+      document.getElementById('f-service').value = '';
+      document.getElementById('f-message').value = '';
+    } else {
+      throw new Error('Sunucu hatası');
+    }
+  } catch (e) {
+    error.style.display = 'block';
+    error.textContent = '❌ Bir hata oluştu. Lütfen tekrar deneyin.';
+  }
+
+  btn.textContent = 'Gönder';
+  btn.disabled = false;
+}
+
 function toggleMenu(){ document.getElementById('nav-links').classList.toggle('open'); document.getElementById('hamburger').classList.toggle('open'); }
 function closeMenu(){ document.getElementById('nav-links').classList.remove('open'); document.getElementById('hamburger').classList.remove('open'); }
 

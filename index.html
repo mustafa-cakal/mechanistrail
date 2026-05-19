@@ -43,22 +43,64 @@
   <div class="hero">
     <div class="hero-grid"></div>
     <div class="hero-inner">
-      <div class="badge">
-        <i class="ti ti-train" style="font-size:13px" aria-hidden="true"></i>
-        Komple Makine Mühendisliği Danışmanlığı
+      <div class="hero-left">
+        <div class="badge">
+          <i class="ti ti-train" style="font-size:13px" aria-hidden="true"></i>
+          Komple Makine Mühendisliği Danışmanlığı
+        </div>
+        <h1>Rayları biz döşeyelim,<br>rotayı <span>birlikte</span> çizelim</h1>
+        <p>Fikrinizi bir vagon olmaktan çıkarıp geleceğin lokomotifine dönüştürelim. Mekanik tasarım, termal ve akış analizleri, elektronik kart tasarımı ve yazılım geliştirme — makine üretmek için ihtiyacınız olan her şey tek çatı altında.</p>
+        <div class="hero-btns">
+          <button class="btn-blue"    onclick="showPage('contact')">Teklif Al</button>
+          <button class="btn-outline" onclick="showPage('projects')">Projelerimizi Gör</button>
+        </div>
+        <div class="hero-tags">
+          <span class="tag">Mekanik Tasarım</span>
+          <span class="tag">Termal Analiz</span>
+          <span class="tag">CFD / Akış</span>
+          <span class="tag">PCB Tasarımı</span>
+          <span class="tag">Gömülü Yazılım</span>
+        </div>
       </div>
-      <h1>Rayları biz döşeyelim,<br>rotayı <span>birlikte</span> çizelim</h1>
-      <p>Fikrinizi bir vagon olmaktan çıkarıp geleceğin lokomotifine dönüştürelim. Mekanik tasarım, termal ve akış analizleri, elektronik kart tasarımı ve yazılım geliştirme — makine üretmek için ihtiyacınız olan her şey tek çatı altında.</p>
-      <div class="hero-btns">
-        <button class="btn-blue"    onclick="showPage('contact')">Teklif Al</button>
-        <button class="btn-outline" onclick="showPage('projects')">Projelerimizi Gör</button>
-      </div>
-      <div class="hero-tags">
-        <span class="tag">Mekanik Tasarım</span>
-        <span class="tag">Termal Analiz</span>
-        <span class="tag">CFD / Akış</span>
-        <span class="tag">PCB Tasarımı</span>
-        <span class="tag">Gömülü Yazılım</span>
+
+      <!-- Sağ: İstatistik kartları -->
+      <div class="hero-right">
+        <div class="hero-stat-card">
+          <div class="hero-stat-icon">⚙️</div>
+          <div>
+            <p class="hero-stat-num">50+</p>
+            <p class="hero-stat-lbl">Tamamlanan Proje</p>
+          </div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="hero-stat-icon">🔬</div>
+          <div>
+            <p class="hero-stat-num">5</p>
+            <p class="hero-stat-lbl">Uzmanlık Alanı</p>
+          </div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="hero-stat-icon">🏭</div>
+          <div>
+            <p class="hero-stat-num">10+</p>
+            <p class="hero-stat-lbl">Yıl Deneyim</p>
+          </div>
+        </div>
+        <div class="hero-stat-card highlight-card">
+          <div class="hero-stat-icon">🚂</div>
+          <div>
+            <p class="hero-stat-num">%100</p>
+            <p class="hero-stat-lbl">Müşteri Memnuniyeti</p>
+          </div>
+        </div>
+        <div class="hero-services">
+          <p class="hero-services-title">Sunduğumuz Hizmetler</p>
+          <div class="hero-service-row"><span class="hero-service-dot"></span><span>Mekanik Tasarım & CAD/CAM</span></div>
+          <div class="hero-service-row"><span class="hero-service-dot"></span><span>Termal & Akış Analizleri (CFD)</span></div>
+          <div class="hero-service-row"><span class="hero-service-dot"></span><span>Elektronik & PCB Tasarımı</span></div>
+          <div class="hero-service-row"><span class="hero-service-dot"></span><span>Gömülü Yazılım & PLC</span></div>
+          <div class="hero-service-row"><span class="hero-service-dot"></span><span>Ar-Ge & Prototip Üretimi</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -355,7 +397,7 @@
       </div>
 
       <!-- Sağ panel: Önizleme + Sonuçlar -->
-      <div>
+      <div class="calc-right">
         <!-- 3D Şekil önizleme -->
         <div class="calc-preview">
           <p class="calc-preview-label" id="c-slabel">Dikdörtgen blok</p>
@@ -363,23 +405,27 @@
           <p class="calc-preview-dim" id="c-dlabel"></p>
         </div>
 
-        <!-- Sonuç kartları -->
+        <!-- Sonuç kartları 2 sütun -->
         <div class="calc-results">
           <h4>Hesap Sonuçları</h4>
-          <div class="result-card"><span class="result-icon">📦</span><div><p class="result-label">Hacim</p><p class="result-val" id="cr-vol">—</p></div></div>
-          <div class="result-card"><span class="result-icon">📐</span><div><p class="result-label">Yüzey Alanı</p><p class="result-val" id="cr-area">—</p></div></div>
-          <div class="result-card"><span class="result-icon">⚖️</span><div><p class="result-label">Ağırlık (1 adet)</p><p class="result-val" id="cr-w1">—</p></div></div>
-          <div class="result-card highlight"><span class="result-icon">🔢</span><div><p class="result-label">Toplam Ağırlık</p><p class="result-val" id="cr-tot">—</p></div></div>
+          <div class="result-cards-grid">
+            <div class="result-card"><span class="result-icon">📦</span><div><p class="result-label">Hacim</p><p class="result-val" id="cr-vol">—</p></div></div>
+            <div class="result-card"><span class="result-icon">📐</span><div><p class="result-label">Yüzey Alanı</p><p class="result-val" id="cr-area">—</p></div></div>
+            <div class="result-card"><span class="result-icon">⚖️</span><div><p class="result-label">Ağırlık (1 adet)</p><p class="result-val" id="cr-w1">—</p></div></div>
+            <div class="result-card highlight"><span class="result-icon">🔢</span><div><p class="result-label">Toplam Ağırlık</p><p class="result-val" id="cr-tot">—</p></div></div>
+          </div>
         </div>
 
         <!-- Profil kesit bilgileri (sadece profillerde görünür) -->
-        <div id="c-pinfo" style="display:none;margin-top:14px;">
+        <div id="c-pinfo" style="display:none;">
           <div class="calc-results">
             <h4>Kesit Özellikleri</h4>
-            <div class="result-card"><span class="result-icon">🔲</span><div><p class="result-label">Kesit Alanı</p><p class="result-val" id="cr-cs">—</p></div></div>
-            <div class="result-card"><span class="result-icon">📏</span><div><p class="result-label">Ağırlık (kg/m)</p><p class="result-val" id="cr-kgm">—</p></div></div>
-            <div class="result-card"><span class="result-icon">📊</span><div><p class="result-label">Atalet Momenti Ix</p><p class="result-val" id="cr-ix">—</p></div></div>
-            <div class="result-card"><span class="result-icon">📊</span><div><p class="result-label">Atalet Momenti Iy</p><p class="result-val" id="cr-iy">—</p></div></div>
+            <div class="result-cards-grid">
+              <div class="result-card"><span class="result-icon">🔲</span><div><p class="result-label">Kesit Alanı</p><p class="result-val" id="cr-cs">—</p></div></div>
+              <div class="result-card"><span class="result-icon">📏</span><div><p class="result-label">Ağırlık (kg/m)</p><p class="result-val" id="cr-kgm">—</p></div></div>
+              <div class="result-card"><span class="result-icon">📊</span><div><p class="result-label">Atalet Momenti Ix</p><p class="result-val" id="cr-ix">—</p></div></div>
+              <div class="result-card"><span class="result-icon">📊</span><div><p class="result-label">Atalet Momenti Iy</p><p class="result-val" id="cr-iy">—</p></div></div>
+            </div>
           </div>
         </div>
       </div>
@@ -477,11 +523,17 @@
       </div>
       <div class="cform">
         <h3>Mesaj Gönder</h3>
-        <div class="frow"><label>Ad Soyad</label><input type="text" placeholder="Adınız"></div>
-        <div class="frow"><label>E-posta</label><input type="text" placeholder="email@example.com"></div>
-        <div class="frow"><label>Hizmet</label><input type="text" placeholder="Hangi hizmetle ilgileniyorsunuz?"></div>
-        <div class="frow"><label>Mesajınız</label><textarea placeholder="Projenizi kısaca anlatın..."></textarea></div>
-        <button class="sbtn">Gönder</button>
+        <div id="form-success" style="display:none;padding:14px;background:rgba(29,158,117,0.15);border:0.5px solid rgba(29,158,117,0.4);border-radius:8px;margin-bottom:14px;color:#5DCAA5;font-size:13px;">
+          ✅ Mesajınız iletildi! En kısa sürede dönüş yapacağız.
+        </div>
+        <div id="form-error" style="display:none;padding:14px;background:rgba(220,50,50,0.12);border:0.5px solid rgba(220,50,50,0.3);border-radius:8px;margin-bottom:14px;color:#f87171;font-size:13px;">
+          ❌ Bir hata oluştu. Lütfen tekrar deneyin.
+        </div>
+        <div class="frow"><label>Ad Soyad</label><input type="text" id="f-name" placeholder="Adınız" required></div>
+        <div class="frow"><label>E-posta</label><input type="email" id="f-email" placeholder="email@example.com" required></div>
+        <div class="frow"><label>Hizmet</label><input type="text" id="f-service" placeholder="Hangi hizmetle ilgileniyorsunuz?"></div>
+        <div class="frow"><label>Mesajınız</label><textarea id="f-message" placeholder="Projenizi kısaca anlatın..." required></textarea></div>
+        <button class="sbtn" id="f-submit" onclick="submitForm()">Gönder</button>
       </div>
     </div>
   </div>
