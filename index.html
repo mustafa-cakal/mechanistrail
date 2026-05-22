@@ -101,6 +101,7 @@
         <a onclick="showPage('calc');openTool('bolt');closeMenu()">🔩 Vida & Cıvata</a>
       </div>
     </div>
+    <button class="nav-btn" id="nb-templates" onclick="showPage('templates');closeMenu()">📄 Şablonlar</button>
     <button class="nav-btn"        id="nb-projects"    onclick="showPage('projects');closeMenu()">Projeler</button>
     <button class="nav-btn"        id="nb-about"       onclick="showPage('about');closeMenu()">Hakkımızda</button>
     <button class="nav-btn"        id="nb-contact"     onclick="showPage('contact');closeMenu()">İletişim</button>
@@ -712,6 +713,108 @@
       </div>
     </div>
 
+
+
+<!-- =============================================
+     ŞABLONLAR SAYFASI
+     ============================================= -->
+<div class="page" id="page-templates">
+  <div class="page-inner">
+    <p class="sec-label">İndirilebilir Kaynaklar</p>
+    <p class="sec-title">Hazır Excel Şablonları</p>
+    <p class="sec-sub">Mühendislik süreçlerinizi hızlandırmak için hazırlanmış, kullanıma hazır Excel şablonları. Ücretsiz indirin, ihtiyacınıza göre düzenleyin.</p>
+    <div class="tmpl-grid">
+
+      <div class="tmpl-card">
+        <div class="tmpl-header" style="background:linear-gradient(135deg,#1A3A5C,#2E6DA4)">
+          <div class="tmpl-icon">✅</div><div class="tmpl-badge">Kalite</div>
+        </div>
+        <div class="tmpl-body">
+          <h3>Teknik Kontrol Listesi</h3>
+          <p>Tasarımdan teslimat aşamasına kadar 23 kontrol kalemi. Açılır durum listeleri ve özet sayfası dahil.</p>
+          <div class="tmpl-tags"><span>Tasarım</span><span>Üretim</span><span>Kalite</span><span>Teslimat</span></div>
+          <div class="tmpl-meta"><span>📊 2 Sekme</span><span>📋 23 Kalem</span><span>🔽 Excel</span></div>
+          <a class="tmpl-btn" href="templates/01_Teknik_Kontrol_Listesi.xlsx" download>⬇️ İndir</a>
+        </div>
+      </div>
+
+      <div class="tmpl-card">
+        <div class="tmpl-header" style="background:linear-gradient(135deg,#1A3A5C,#27AE60)">
+          <div class="tmpl-icon">📅</div><div class="tmpl-badge">Planlama</div>
+        </div>
+        <div class="tmpl-body">
+          <h3>Üretim Planlama Çizelgesi</h3>
+          <p>Gantt referansı ile üretim süreç takibi. Plan vs gerçekleşen karşılaştırma ve ilerleme yüzdesi.</p>
+          <div class="tmpl-tags"><span>Gantt</span><span>Görev Takibi</span><span>Zaman Planı</span></div>
+          <div class="tmpl-meta"><span>📊 2 Sekme</span><span>📋 18 Görev</span><span>🔽 Excel</span></div>
+          <a class="tmpl-btn" href="templates/02_Uretim_Planlama.xlsx" download>⬇️ İndir</a>
+        </div>
+      </div>
+
+      <div class="tmpl-card">
+        <div class="tmpl-header" style="background:linear-gradient(135deg,#1A3A5C,#E67E22)">
+          <div class="tmpl-icon">📦</div><div class="tmpl-badge">Stok</div>
+        </div>
+        <div class="tmpl-body">
+          <h3>Stok Takip Çizelgesi</h3>
+          <p>Min/max stok uyarısı, otomatik toplam değer hesabı. 🟢🟡🔴 renk kodlu durum göstergesi.</p>
+          <div class="tmpl-tags"><span>Stok</span><span>Malzeme</span><span>Hareket</span></div>
+          <div class="tmpl-meta"><span>📊 2 Sekme</span><span>📋 12 Örnek</span><span>🔽 Excel</span></div>
+          <a class="tmpl-btn" href="templates/03_Stok_Takibi.xlsx" download>⬇️ İndir</a>
+        </div>
+      </div>
+
+      <div class="tmpl-card">
+        <div class="tmpl-header" style="background:linear-gradient(135deg,#1A3A5C,#8E44AD)">
+          <div class="tmpl-icon">🗂️</div><div class="tmpl-badge">Yönetim</div>
+        </div>
+        <div class="tmpl-body">
+          <h3>Proje Yönetim Panosu</h3>
+          <p>Görev panosu + Risk kaydı. Öncelik renk kodlaması, durum takibi ve KPI özeti.</p>
+          <div class="tmpl-tags"><span>Proje</span><span>Risk Kaydı</span><span>KPI</span></div>
+          <div class="tmpl-meta"><span>📊 2 Sekme</span><span>📋 Görev + Risk</span><span>🔽 Excel</span></div>
+          <a class="tmpl-btn" href="templates/04_Proje_Yonetimi.xlsx" download>⬇️ İndir</a>
+        </div>
+      </div>
+
+      <div class="tmpl-card">
+        <div class="tmpl-header" style="background:linear-gradient(135deg,#1A3A5C,#E74C3C)">
+          <div class="tmpl-icon">💰</div><div class="tmpl-badge">Maliyet</div>
+        </div>
+        <div class="tmpl-body">
+          <h3>Maliyet Analizi Tablosu</h3>
+          <p>Malzeme, işçilik, dış hizmet ve genel gider kalemleri. Otomatik KDV ve kar marjı hesabı.</p>
+          <div class="tmpl-tags"><span>Maliyet</span><span>Bütçe</span><span>KDV</span></div>
+          <div class="tmpl-meta"><span>📊 1 Sekme</span><span>📋 4 Kategori</span><span>🔽 Excel</span></div>
+          <a class="tmpl-btn" href="templates/05_Maliyet_Analizi.xlsx" download>⬇️ İndir</a>
+        </div>
+      </div>
+
+      <div class="tmpl-card">
+        <div class="tmpl-header" style="background:linear-gradient(135deg,#1A3A5C,#16A085)">
+          <div class="tmpl-icon">📝</div><div class="tmpl-badge">Teklif</div>
+        </div>
+        <div class="tmpl-body">
+          <h3>Teklif Formu</h3>
+          <p>Mechanistrail markalı profesyonel teklif şablonu. İskonto, KDV ve ödeme koşulları dahil.</p>
+          <div class="tmpl-tags"><span>Teklif</span><span>Fiyatlandırma</span><span>KDV</span></div>
+          <div class="tmpl-meta"><span>📊 1 Sekme</span><span>📋 8 Kalem</span><span>🔽 Excel</span></div>
+          <a class="tmpl-btn" href="templates/06_Teklif_Formu.xlsx" download>⬇️ İndir</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:28px;padding:16px 20px;background:rgba(55,138,221,0.06);border:0.5px solid rgba(55,138,221,0.2);border-radius:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+      <span style="font-size:24px;">💡</span>
+      <div>
+        <p style="font-size:13px;font-weight:500;color:#fff;margin-bottom:3px;">Özel şablon ihtiyacınız var mı?</p>
+        <p style="font-size:12px;color:rgba(255,255,255,0.45);">Sektörünüze veya projenize özel Excel şablonu hazırlayabiliriz.</p>
+      </div>
+      <button class="btn-blue" style="margin-left:auto;white-space:nowrap;" onclick="showPage('contact')">Talep Gönder</button>
+    </div>
+  </div>
+</div>
 
 <!-- =============================================
      PROJELER SAYFASI

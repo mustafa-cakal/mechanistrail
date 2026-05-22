@@ -716,3 +716,87 @@ body {
   .nav-dropdown-menu { position: fixed; left: 16px; right: 16px; top: auto; }
   .tool-cards { grid-template-columns: 1fr 1fr; }
 }
+
+/* =============================================
+   ŞABLONLAR SAYFASI
+   ============================================= */
+.tmpl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+.tmpl-card {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(55,138,221,0.15);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.tmpl-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(55,138,221,0.4);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.tmpl-header {
+  padding: 22px 20px 18px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+}
+.tmpl-icon { font-size: 36px; line-height: 1; }
+.tmpl-badge {
+  font-size: 10px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+  background: rgba(255,255,255,0.2);
+  color: #fff; letter-spacing: 0.5px;
+}
+.tmpl-body { padding: 16px 18px 18px; }
+.tmpl-body h3 {
+  font-size: 15px; font-weight: 600;
+  color: #fff; margin-bottom: 8px;
+}
+.tmpl-body p {
+  font-size: 12px; color: rgba(255,255,255,0.5);
+  line-height: 1.6; margin-bottom: 12px;
+}
+.tmpl-tags {
+  display: flex; flex-wrap: wrap; gap: 5px;
+  margin-bottom: 12px;
+}
+.tmpl-tags span {
+  font-size: 10px; padding: 2px 8px; border-radius: 10px;
+  background: rgba(55,138,221,0.1);
+  color: #85B7EB;
+  border: 0.5px solid rgba(55,138,221,0.2);
+}
+.tmpl-meta {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 14px;
+}
+.tmpl-meta span {
+  font-size: 11px; color: rgba(255,255,255,0.35);
+}
+.tmpl-btn {
+  display: block; width: 100%;
+  padding: 10px 0; text-align: center;
+  background: rgba(24,95,165,0.25);
+  border: 0.5px solid rgba(55,138,221,0.4);
+  border-radius: 8px;
+  color: #85B7EB; font-size: 13px; font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.tmpl-btn:hover {
+  background: rgba(24,95,165,0.5);
+  color: #fff;
+  border-color: rgba(55,138,221,0.7);
+}
+@media (max-width: 700px) {
+  .tmpl-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .tmpl-grid { grid-template-columns: 1fr; }
+}
