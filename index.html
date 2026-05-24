@@ -105,10 +105,10 @@
     <!-- Dil Seçici -->
     <div class="lang-switcher">
       <button class="lang-btn active" id="lang-tr" onclick="setLang('tr')">
-        <span class="flag">🇹🇷</span> TR
+        <img src="https://flagcdn.com/w20/tr.png" width="20" height="14" alt="TR"> TR
       </button>
       <button class="lang-btn" id="lang-en" onclick="setLang('en')">
-        <span class="flag">🇬🇧</span> EN
+        <img src="https://flagcdn.com/w20/gb.png" width="20" height="14" alt="EN"> EN
       </button>
     </div>
     <button class="nav-btn"        id="nb-projects"    onclick="showPage('projects');closeMenu()" data-i18n="nav_proj">Projeler</button>
@@ -194,8 +194,8 @@
        dizisine ekle. Detaylı açıklama orada mevcut.
        ============================================= -->
   <div class="gallery-section">
-    <p class="gallery-label">Çalışmalarımızdan</p>
-    <p class="gallery-title">Projelerden kareler</p>
+    <p class="gallery-label" data-i18n="gallery_label">Çalışmalarımızdan</p>
+    <p class="gallery-title" data-i18n="gallery_title">Projelerden kareler</p>
     <div class="gallery-wrap" id="gallery-wrap">
       <!-- JavaScript ile doldurulur -->
     </div>
@@ -208,8 +208,8 @@
   <!-- Tamamlanan Projeler Slider -->
   <div style="padding:0 0 8px;">
     <div style="padding:0 28px 6px;">
-      <p class="sec-label">Ürünlerimiz</p>
-      <p style="font-size:18px;font-weight:500;color:#fff;margin-bottom:14px;">Tamamlanan projelerden örnekler</p>
+      <p class="sec-label" data-i18n="slider_label">Ürünlerimiz</p>
+      <p style="font-size:18px;font-weight:500;color:#fff;margin-bottom:14px;" data-i18n="slider_title">Tamamlanan projelerden örnekler</p>
     </div>
     <div class="slider-wrap">
       <div class="slides" id="slides">
@@ -306,54 +306,54 @@
      ============================================= -->
 <div class="page" id="page-engineering">
   <div class="page-inner">
-    <p class="sec-label">Mühendislik Hizmetleri</p>
-    <p class="sec-title">Fikrinizden ürüne giden yol</p>
-    <p class="sec-sub">Bir fikri pazara hazır ürüne dönüştürmek için ihtiyacınız olan tüm mühendislik süreçlerini sunuyoruz.</p>
+    <p class="sec-label" data-i18n="eng_label">Mühendislik Hizmetleri</p>
+    <p class="sec-title" data-i18n="eng_title">Fikrinizden ürüne giden yol</p>
+    <p class="sec-sub" data-i18n="eng_desc">Bir fikri pazara hazır ürüne dönüştürmek için ihtiyacınız olan tüm mühendislik süreçlerini sunuyoruz.</p>
     <div class="svc-grid">
       <div class="svc-card">
         <div class="svc-icon" style="background:rgba(24,95,165,0.15);"><i class="ti ti-bulb" style="color:#85B7EB" aria-hidden="true"></i></div>
-        <h3>Konsept & Fizibilite</h3>
-        <p>Fikrinizin teknik ve ekonomik açıdan değerlendirilmesi.</p>
+        <h3 data-i18n="eng_card1_title">Konsept & Fizibilite</h3>
+        <p data-i18n="eng_card1_desc">Fikrinizin teknik ve ekonomik açıdan değerlendirilmesi.</p>
         <ul><li>Teknik fizibilite analizi</li><li>Pazar ve rakip araştırması</li><li>Risk değerlendirmesi</li><li>Yol haritası oluşturma</li></ul>
       </div>
       <div class="svc-card">
         <div class="svc-icon" style="background:rgba(186,117,23,0.15);"><i class="ti ti-ruler-2" style="color:#EF9F27" aria-hidden="true"></i></div>
-        <h3>Ürün Geliştirme</h3>
-        <p>Konseptten ilk prototipin üretimine kadar tüm süreç.</p>
+        <h3 data-i18n="eng_card2_title">Ürün Geliştirme</h3>
+        <p data-i18n="eng_card2_desc">Konseptten ilk prototipin üretimine kadar tüm süreç.</p>
         <ul><li>Ürün spesifikasyon belirleme</li><li>Tasarım & mühendislik</li><li>Prototip üretimi</li><li>Revizyon ve iyileştirme</li></ul>
       </div>
       <div class="svc-card">
         <div class="svc-icon" style="background:rgba(29,158,117,0.15);"><i class="ti ti-test-pipe" style="color:#5DCAA5" aria-hidden="true"></i></div>
-        <h3>Test & Doğrulama</h3>
-        <p>Kapsamlı test süreçleri ile güvenli ve verimli çalışma.</p>
+        <h3 data-i18n="eng_card3_title">Test & Doğrulama</h3>
+        <p data-i18n="eng_card3_desc">Kapsamlı test süreçleri ile güvenli ve verimli çalışma.</p>
         <ul><li>Fonksiyonel testler</li><li>Dayanıklılık ve stres testleri</li><li>Simülasyon doğrulama</li><li>Sertifikasyon desteği</li></ul>
       </div>
       <div class="svc-card">
         <div class="svc-icon" style="background:rgba(127,119,221,0.15);"><i class="ti ti-settings-automation" style="color:#AFA9EC" aria-hidden="true"></i></div>
-        <h3>Seri Üretime Geçiş</h3>
-        <p>Prototipten seri üretime sorunsuz geçiş yönetimi.</p>
+        <h3 data-i18n="eng_card4_title">Seri Üretime Geçiş</h3>
+        <p data-i18n="eng_card4_desc">Prototipten seri üretime sorunsuz geçiş yönetimi.</p>
         <ul><li>Üretim süreç tasarımı</li><li>Tedarikçi seçimi</li><li>Kalite kontrol planı</li><li>Maliyet optimizasyonu</li></ul>
       </div>
       <div class="svc-card">
         <div class="svc-icon" style="background:rgba(24,95,165,0.15);"><i class="ti ti-refresh" style="color:#85B7EB" aria-hidden="true"></i></div>
-        <h3>Sürekli İyileştirme</h3>
-        <p>Piyasaya çıkış sonrası teknik destek ve geliştirme.</p>
+        <h3 data-i18n="eng_card5_title">Sürekli İyileştirme</h3>
+        <p data-i18n="eng_card5_desc">Piyasaya çıkış sonrası teknik destek ve geliştirme.</p>
         <ul><li>Saha geri bildirimi analizi</li><li>Performans iyileştirme</li><li>Yeni versiyon geliştirme</li><li>Teknik dokümantasyon</li></ul>
       </div>
       <div class="svc-card">
         <div class="svc-icon" style="background:rgba(29,158,117,0.15);"><i class="ti ti-chart-dots" style="color:#5DCAA5" aria-hidden="true"></i></div>
-        <h3>Ar-Ge & İnovasyon</h3>
-        <p>TÜBİTAK ve KOSGEB destekli projeler için danışmanlık.</p>
+        <h3 data-i18n="eng_card6_title">Ar-Ge & İnovasyon</h3>
+        <p data-i18n="eng_card6_desc">TÜBİTAK ve KOSGEB destekli projeler için danışmanlık.</p>
         <ul><li>Ar-Ge proje yönetimi</li><li>Hibe ve destek danışmanlığı</li><li>Patent ve fikri mülkiyet</li><li>Üniversite iş birlikleri</li></ul>
       </div>
     </div>
     <div class="slogan-banner">
       <div class="emoji">🚂</div>
       <div>
-        <h4>Rayları biz döşeyelim, rotayı birlikte çizelim</h4>
-        <p>Fikrinizi bir vagon olmaktan çıkarıp geleceğin lokomotifine dönüştürelim.</p>
+        <h4 data-i18n="banner_title">Rayları biz döşeyelim, rotayı birlikte çizelim</h4>
+        <p data-i18n="banner_desc">Fikrinizi bir vagon olmaktan çıkarıp geleceğin lokomotifine dönüştürelim.</p>
       </div>
-      <button class="btn-blue" style="margin-left:auto;white-space:nowrap;" onclick="showPage('contact')">Hemen Başlayalım</button>
+      <button class="btn-blue" style="margin-left:auto;white-space:nowrap;" onclick="showPage('contact')" data-i18n="banner_btn">Hemen Başlayalım</button>
     </div>
   </div>
 </div>
@@ -364,14 +364,14 @@
      ============================================= -->
 <div class="page" id="page-services">
   <div class="page-inner">
-    <p class="sec-label">Hizmetler</p>
-    <p class="sec-title">Eksiksiz mühendislik çözümleri</p>
-    <p class="sec-sub">Bir makineyi hayata geçirmek için gereken tüm mühendislik süreçlerini tek çatı altında sunuyoruz.</p>
+    <p class="sec-label" data-i18n="svc_label">Hizmetler</p>
+    <p class="sec-title" data-i18n="svc_title">Eksiksiz mühendislik çözümleri</p>
+    <p class="sec-sub" data-i18n="svc_desc">Bir makineyi hayata geçirmek için gereken tüm mühendislik süreçlerini tek çatı altında sunuyoruz.</p>
     <div class="svc-grid">
       <div class="svc-card">
         <div class="svc-icon" style="background:rgba(24,95,165,0.15);"><i class="ti ti-rotate-3d" style="color:#85B7EB" aria-hidden="true"></i></div>
-        <h3>Mekanik Tasarım</h3>
-        <p>Ürününüzün 3D modelinden teknik çizimlerine kadar tüm süreç.</p>
+        <h3 data-i18n="svc_mech_title">Mekanik Tasarım</h3>
+        <p data-i18n="svc_mech_desc">Ürününüzün 3D modelinden teknik çizimlerine kadar tüm süreç.</p>
         <ul><li>CAD/CAM modelleme</li><li>Parça & montaj tasarımı</li><li>Tolerans ve uyum analizi</li><li>Teknik çizim ve dokümantasyon</li></ul>
       </div>
       <div class="svc-card">
@@ -731,7 +731,7 @@
   <div class="page-inner">
     <p class="sec-label" data-i18n="sec_tmpl_label">İndirilebilir Kaynaklar</p>
     <p class="sec-title" data-i18n="sec_tmpl_title">Hazır Excel Şablonları</p>
-    <p class="sec-sub">Mühendislik süreçlerinizi hızlandırmak için hazırlanmış, kullanıma hazır Excel şablonları. Ücretsiz indirin, ihtiyacınıza göre düzenleyin.</p>
+    <p class="sec-sub" data-i18n="sec_tmpl_desc">Mühendislik süreçlerinizi hızlandırmak için hazırlanmış, kullanıma hazır Excel şablonları. Ücretsiz indirin, ihtiyacınıza göre düzenleyin.</p>
     <div class="tmpl-grid">
 
       <div class="tmpl-card">
@@ -817,10 +817,10 @@
     <div style="margin-top:28px;padding:16px 20px;background:rgba(55,138,221,0.06);border:0.5px solid rgba(55,138,221,0.2);border-radius:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
       <span style="font-size:24px;">💡</span>
       <div>
-        <p style="font-size:13px;font-weight:500;color:#fff;margin-bottom:3px;">Özel şablon ihtiyacınız var mı?</p>
-        <p style="font-size:12px;color:rgba(255,255,255,0.45);">Sektörünüze veya projenize özel Excel şablonu hazırlayabiliriz.</p>
+        <p style="font-size:13px;font-weight:500;color:#fff;margin-bottom:3px;" data-i18n="tmpl_custom_title">Özel şablon ihtiyacınız var mı?</p>
+        <p style="font-size:12px;color:rgba(255,255,255,0.45);" data-i18n="tmpl_custom_desc">Sektörünüze veya projenize özel Excel şablonu hazırlayabiliriz.</p>
       </div>
-      <button class="btn-blue" style="margin-left:auto;white-space:nowrap;" onclick="showPage('contact')">Talep Gönder</button>
+      <button class="btn-blue" style="margin-left:auto;white-space:nowrap;" onclick="showPage('contact')" data-i18n="tmpl_custom_btn">Talep Gönder</button>
     </div>
   </div>
 </div>
@@ -832,9 +832,9 @@
      ============================================= -->
 <div class="page" id="page-projects">
   <div class="page-inner">
-    <p class="sec-label">Projeler</p>
-    <p class="sec-title">Tamamlanan çalışmalardan örnekler</p>
-    <p class="sec-sub">Her proje, müşterimizin özgün ihtiyacına göre tasarlanmış ve sıfırdan geliştirilmiştir.</p>
+    <p class="sec-label" data-i18n="proj_label">Projeler</p>
+    <p class="sec-title" data-i18n="proj_title">Tamamlanan çalışmalardan örnekler</p>
+    <p class="sec-sub" data-i18n="proj_desc">Her proje, müşterimizin özgün ihtiyacına göre tasarlanmış ve sıfırdan geliştirilmiştir.</p>
     <!-- Proje kartları script.js tarafından buraya yazılır -->
     <div class="proj-grid" id="proj-grid"></div>
   </div>
@@ -846,31 +846,31 @@
      ============================================= -->
 <div class="page" id="page-about">
   <div class="page-inner">
-    <p class="sec-label">Hakkımızda</p>
-    <p class="sec-title">Mühendisliği bütünsel düşünüyoruz</p>
-    <p class="sec-sub">Mechanistrail olarak bir makineyi hayata geçirmenin her boyutunda uzmanız.</p>
+    <p class="sec-label" data-i18n="about_label">Hakkımızda</p>
+    <p class="sec-title" data-i18n="about_title">Mühendisliği bütünsel düşünüyoruz</p>
+    <p class="sec-sub" data-i18n="about_desc">Mechanistrail olarak bir makineyi hayata geçirmenin her boyutunda uzmanız.</p>
     <div class="about-grid">
       <div class="about-text">
-        <p>10 yılı aşkın deneyimimizle endüstriyel makine üretimi, Ar-Ge projeleri ve ürün geliştirme süreçlerinde yüzlerce müşteriye danışmanlık hizmeti verdik.</p>
-        <p>Tasarımdan üretime giden yolda karşılaşılan tüm mühendislik zorluklarını tek elden çözüme kavuşturuyoruz.</p>
-        <p>Antalya merkezli olarak Türkiye genelinde ve uluslararası projelerde hizmet veriyoruz.</p>
+        <p data-i18n="about_p1">10 yılı aşkın deneyimimizle endüstriyel makine üretimi, Ar-Ge projeleri ve ürün geliştirme süreçlerinde yüzlerce müşteriye danışmanlık hizmeti verdik.</p>
+        <p data-i18n="about_p2">Tasarımdan üretime giden yolda karşılaşılan tüm mühendislik zorluklarını tek elden çözüme kavuşturuyoruz.</p>
+        <p data-i18n="about_p3">Antalya merkezli olarak Türkiye genelinde ve uluslararası projelerde hizmet veriyoruz.</p>
       </div>
       <div class="about-vals">
         <div class="val-item">
           <div class="val-icon" style="background:rgba(24,95,165,0.15);"><i class="ti ti-target" style="color:#85B7EB" aria-hidden="true"></i></div>
-          <div><h4>Bütünsel Yaklaşım</h4><p>Mekanikten yazılıma tüm süreçleri tek elden yönetiyoruz.</p></div>
+          <div><h4 data-i18n="about_val1_title">Bütünsel Yaklaşım</h4><p data-i18n="about_val1_desc">Mekanikten yazılıma tüm süreçleri tek elden yönetiyoruz.</p></div>
         </div>
         <div class="val-item">
           <div class="val-icon" style="background:rgba(29,158,117,0.15);"><i class="ti ti-microscope" style="color:#5DCAA5" aria-hidden="true"></i></div>
-          <div><h4>Simülasyon Odaklı</h4><p>Üretim öncesi her sistemi dijital ortamda test ediyoruz.</p></div>
+          <div><h4 data-i18n="about_val2_title">Simülasyon Odaklı</h4><p data-i18n="about_val2_desc">Üretim öncesi her sistemi dijital ortamda test ediyoruz.</p></div>
         </div>
         <div class="val-item">
           <div class="val-icon" style="background:rgba(186,117,23,0.15);"><i class="ti ti-shield-check" style="color:#EF9F27" aria-hidden="true"></i></div>
-          <div><h4>Güvenilirlik</h4><p>Her projede kalite ve zamanında teslimat önceliğimizdir.</p></div>
+          <div><h4 data-i18n="about_val3_title">Güvenilirlik</h4><p data-i18n="about_val3_desc">Her projede kalite ve zamanında teslimat önceliğimizdir.</p></div>
         </div>
       </div>
     </div>
-    <p style="font-size:13px;font-weight:500;color:#fff;margin-bottom:14px;">Uzmanlık Alanları</p>
+    <p style="font-size:13px;font-weight:500;color:#fff;margin-bottom:14px;" data-i18n="about_skills">Uzmanlık Alanları</p>
     <div class="skills-grid">
       <div class="skill-bar"><p>Mekanik Tasarım</p><div class="bar-bg"><div class="bar-fill" style="width:95%"></div></div></div>
       <div class="skill-bar"><p>Termal Analiz</p><div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div></div>
@@ -887,30 +887,30 @@
      ============================================= -->
 <div class="page" id="page-contact">
   <div class="page-inner">
-    <p class="sec-label">İletişim</p>
-    <p class="sec-title">Projenizi konuşalım</p>
-    <p class="sec-sub">Bir fikriniz mi var? Mevcut projenizde mi takıldınız? Bize yazın.</p>
+    <p class="sec-label" data-i18n="contact_label">İletişim</p>
+    <p class="sec-title" data-i18n="contact_title">Projenizi konuşalım</p>
+    <p class="sec-sub" data-i18n="contact_desc">Bir fikriniz mi var? Mevcut projenizde mi takıldınız? Bize yazın.</p>
     <div class="contact-grid">
       <div class="contact-info">
         <div class="citem">
           <div class="cicon"><i class="ti ti-mail" aria-hidden="true"></i></div>
-          <div class="citem-text"><p>E-posta</p><a href="mailto:info@mechanistrail.com">info@mechanistrail.com</a></div>
+          <div class="citem-text"><p data-i18n="contact_email_lbl">E-posta</p><a href="mailto:info@mechanistrail.com">info@mechanistrail.com</a></div>
         </div>
         <div class="citem">
           <div class="cicon"><i class="ti ti-world" aria-hidden="true"></i></div>
-          <div class="citem-text"><p>Website</p><a href="https://mechanistrail.com">mechanistrail.com</a></div>
+          <div class="citem-text"><p data-i18n="contact_web_lbl">Website</p><a href="https://mechanistrail.com">mechanistrail.com</a></div>
         </div>
         <div class="citem">
           <div class="cicon"><i class="ti ti-brand-linkedin" aria-hidden="true"></i></div>
-          <div class="citem-text"><p>LinkedIn</p><a href="https://linkedin.com/in/mechanistrail">linkedin.com/in/mechanistrail</a></div>
+          <div class="citem-text"><p data-i18n="contact_li_lbl">LinkedIn</p><a href="https://linkedin.com/in/mechanistrail">linkedin.com/in/mechanistrail</a></div>
         </div>
         <div class="citem">
           <div class="cicon"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
-          <div class="citem-text"><p>Konum</p><span>Antalya, Türkiye</span></div>
+          <div class="citem-text"><p data-i18n="contact_loc_lbl">Konum</p><span data-i18n="contact_loc">Antalya, Türkiye</span></div>
         </div>
       </div>
       <div class="cform">
-        <h3>Mesaj Gönder</h3>
+        <h3 data-i18n="contact_form_title">Mesaj Gönder</h3>
         <div id="form-success" style="display:none;padding:14px;background:rgba(29,158,117,0.15);border:0.5px solid rgba(29,158,117,0.4);border-radius:8px;margin-bottom:14px;color:#5DCAA5;font-size:13px;">
           ✅ Mesajınız iletildi! En kısa sürede dönüş yapacağız.
         </div>

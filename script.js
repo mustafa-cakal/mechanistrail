@@ -838,6 +838,70 @@ var translations = {
 
     /* Footer */
     footer_rights: "© 2025 Mechanistrail. Tüm hakları saklıdır.",
+
+    /* Galeri & Slider */
+    gallery_label: "Çalışmalarımızdan",
+    gallery_title: "Projelerden kareler",
+    slider_label:  "Ürünlerimiz",
+    slider_title:  "Tamamlanan projelerden örnekler",
+
+    /* Mühendislik Hizmetleri */
+    eng_label: "Mühendislik Hizmetleri",
+    eng_title: "Fikrinizden ürüne giden yol",
+    eng_desc:  "Bir fikri pazara hazır ürüne dönüştürmek için ihtiyacınız olan tüm mühendislik süreçlerini sunuyoruz.",
+    eng_card1_title: "Konsept & Fizibilite",
+    eng_card1_desc:  "Fikrinizin teknik ve ekonomik açıdan değerlendirilmesi.",
+    eng_card2_title: "Ürün Geliştirme",
+    eng_card2_desc:  "Konseptten ilk prototipin üretimine kadar tüm süreç.",
+    eng_card3_title: "Test & Doğrulama",
+    eng_card3_desc:  "Kapsamlı test süreçleri ile güvenli ve verimli çalışma.",
+    eng_card4_title: "Seri Üretime Geçiş",
+    eng_card4_desc:  "Prototipten seri üretime sorunsuz geçiş yönetimi.",
+    eng_card5_title: "Sürekli İyileştirme",
+    eng_card5_desc:  "Piyasaya çıkış sonrası teknik destek ve geliştirme.",
+    eng_card6_title: "Ar-Ge & İnovasyon",
+    eng_card6_desc:  "TÜBİTAK ve KOSGEB destekli projeler için danışmanlık.",
+    banner_title: "Rayları biz döşeyelim, rotayı birlikte çizelim",
+    banner_desc:  "Fikrinizi bir vagon olmaktan çıkarıp geleceğin lokomotifine dönüştürelim.",
+    banner_btn:   "Hemen Başlayalım",
+
+    /* Hizmetler */
+    svc_label: "Hizmetler",
+    svc_title: "Eksiksiz mühendislik çözümleri",
+    svc_desc:  "Bir makineyi hayata geçirmek için gereken tüm mühendislik süreçlerini tek çatı altında sunuyoruz.",
+    svc_mech_title: "Mekanik Tasarım",
+    svc_mech_desc:  "Ürününüzün 3D modelinden teknik çizimlerine kadar tüm süreç.",
+
+    /* Projeler */
+    proj_label: "Projeler",
+    proj_title: "Tamamlanan çalışmalardan örnekler",
+    proj_desc:  "Her proje, müşterimizin özgün ihtiyacına göre tasarlanmış ve sıfırdan geliştirilmiştir.",
+
+    /* Hakkımızda */
+    about_label: "Hakkımızda",
+    about_title: "Mühendisliği bütünsel düşünüyoruz",
+    about_desc:  "Mechanistrail olarak bir makineyi hayata geçirmenin her boyutunda uzmanız.",
+    about_p1: "10 yılı aşkın deneyimimizle endüstriyel makine üretimi, Ar-Ge projeleri ve ürün geliştirme süreçlerinde yüzlerce müşteriye danışmanlık hizmeti verdik.",
+    about_p2: "Tasarımdan üretime giden yolda karşılaşılan tüm mühendislik zorluklarını tek elden çözüme kavuşturuyoruz.",
+    about_p3: "Antalya merkezli olarak Türkiye genelinde ve uluslararası projelerde hizmet veriyoruz.",
+    about_val1_title: "Bütünsel Yaklaşım",
+    about_val1_desc:  "Mekanikten yazılıma tüm süreçleri tek elden yönetiyoruz.",
+    about_val2_title: "Simülasyon Odaklı",
+    about_val2_desc:  "Üretim öncesi her sistemi dijital ortamda test ediyoruz.",
+    about_val3_title: "Güvenilirlik",
+    about_val3_desc:  "Her projede kalite ve zamanında teslimat önceliğimizdir.",
+    about_skills: "Uzmanlık Alanları",
+
+    /* İletişim */
+    contact_label:     "İletişim",
+    contact_title:     "Projenizi konuşalım",
+    contact_desc:      "Bir fikriniz mi var? Mevcut projenizde mi takıldınız? Bize yazın.",
+    contact_email_lbl: "E-posta",
+    contact_web_lbl:   "Website",
+    contact_li_lbl:    "LinkedIn",
+    contact_loc_lbl:   "Konum",
+    contact_loc:       "Antalya, Türkiye",
+    contact_form_title:"Mesaj Gönder",
   },
 
   en: {
@@ -923,6 +987,70 @@ var translations = {
 
     /* Footer */
     footer_rights: "© 2025 Mechanistrail. All rights reserved.",
+
+    /* Gallery & Slider */
+    gallery_label: "From Our Work",
+    gallery_title: "Project Snapshots",
+    slider_label:  "Our Products",
+    slider_title:  "Examples from completed projects",
+
+    /* Engineering Services */
+    eng_label: "Engineering Services",
+    eng_title: "From your idea to the product",
+    eng_desc:  "We provide all the engineering processes you need to turn an idea into a market-ready product.",
+    eng_card1_title: "Concept & Feasibility",
+    eng_card1_desc:  "Technical and economic evaluation of your idea.",
+    eng_card2_title: "Product Development",
+    eng_card2_desc:  "The entire process from concept to first prototype.",
+    eng_card3_title: "Test & Validation",
+    eng_card3_desc:  "Safe and efficient operation through comprehensive testing.",
+    eng_card4_title: "Transition to Mass Production",
+    eng_card4_desc:  "Smooth transition management from prototype to serial production.",
+    eng_card5_title: "Continuous Improvement",
+    eng_card5_desc:  "Technical support and development after market launch.",
+    eng_card6_title: "R&D & Innovation",
+    eng_card6_desc:  "Consultancy for TÜBİTAK and KOSGEB supported projects.",
+    banner_title: "We lay the tracks, let's chart the route together",
+    banner_desc:  "Let us transform your idea from a wagon into the locomotive of the future.",
+    banner_btn:   "Let's Get Started",
+
+    /* Services */
+    svc_label: "Services",
+    svc_title: "Complete engineering solutions",
+    svc_desc:  "We provide all the engineering processes needed to bring a machine to life under one roof.",
+    svc_mech_title: "Mechanical Design",
+    svc_mech_desc:  "The entire process from 3D modeling to technical drawings of your product.",
+
+    /* Projects */
+    proj_label: "Projects",
+    proj_title: "Examples from completed work",
+    proj_desc:  "Each project is designed and developed from scratch according to the unique needs of our clients.",
+
+    /* About */
+    about_label: "About Us",
+    about_title: "We think engineering holistically",
+    about_desc:  "At Mechanistrail, we are experts in every aspect of bringing a machine to life.",
+    about_p1: "With over 10 years of experience, we have provided consultancy to hundreds of clients in industrial machine manufacturing, R&D projects and product development.",
+    about_p2: "We solve all engineering challenges encountered on the road from design to production with a single point of contact.",
+    about_p3: "Based in Antalya, we serve projects across Turkey and internationally.",
+    about_val1_title: "Holistic Approach",
+    about_val1_desc:  "We manage all processes from mechanics to software end-to-end.",
+    about_val2_title: "Simulation-Driven",
+    about_val2_desc:  "We test every system digitally before production.",
+    about_val3_title: "Reliability",
+    about_val3_desc:  "Quality and on-time delivery are our priorities in every project.",
+    about_skills: "Areas of Expertise",
+
+    /* Contact */
+    contact_label:     "Contact",
+    contact_title:     "Let's talk about your project",
+    contact_desc:      "Have an idea? Stuck on an existing project? Write to us.",
+    contact_email_lbl: "Email",
+    contact_web_lbl:   "Website",
+    contact_li_lbl:    "LinkedIn",
+    contact_loc_lbl:   "Location",
+    contact_loc:       "Antalya, Turkey",
+    contact_form_title:"Send a Message",
   }
 };
 

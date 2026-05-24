@@ -65,6 +65,11 @@ body {
   gap: 4px;
   align-items: center;
   flex-wrap: wrap;
+  width: 100%;
+}
+/* Dil seçiciyi en sağa it */
+.nav-links .lang-switcher {
+  margin-left: auto;
 }
 
 .nav-btn {
@@ -841,31 +846,37 @@ body {
   display: flex;
   gap: 4px;
   align-items: center;
-  margin-left: 8px;
+  padding: 3px;
+  background: rgba(255,255,255,0.05);
+  border: 0.5px solid rgba(55,138,221,0.2);
+  border-radius: 10px;
 }
 .lang-btn {
-  display: flex; align-items: center; gap: 5px;
-  padding: 5px 10px;
-  font-size: 12px; font-weight: 500;
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 12px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.3px;
   background: transparent;
-  border: 0.5px solid rgba(255,255,255,0.15);
-  border-radius: 6px;
-  color: rgba(255,255,255,0.55);
+  border: none;
+  border-radius: 7px;
+  color: rgba(255,255,255,0.5);
   cursor: pointer;
   transition: all 0.2s;
 }
+.lang-btn img {
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
 .lang-btn:hover {
-  border-color: rgba(55,138,221,0.5);
   color: #fff;
+  background: rgba(55,138,221,0.15);
 }
 .lang-btn.active {
-  background: rgba(24,95,165,0.3);
-  border-color: rgba(55,138,221,0.6);
+  background: rgba(24,95,165,0.4);
   color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
-.lang-btn .flag { font-size: 16px; }
 
 @media (max-width: 700px) {
-  .lang-switcher { margin-left: 0; }
+  .nav-links .lang-switcher { margin-left: 0; }
   .lang-btn { padding: 4px 8px; font-size: 11px; }
 }
