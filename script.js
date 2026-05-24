@@ -21,17 +21,24 @@ const GALLERY_INTERVAL = 10000;
    Yeni proje eklemek için örneği kopyala.
    img: "" bırakırsan ikon gösterilir.
    ============================================= */
-const projects = [
-  { title:"Endüstriyel Konveyör Sistemi", desc:"Mekanik tasarım, PLC yazılımı ve termal analiz.", img:"lokomotif_1.jpg", icon:"ti-robot", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mekanik","PLC","Termal"] },
-  { title:"HVAC Akış Optimizasyonu", desc:"CFD simülasyonu ile enerji verimliliği %23 artırıldı.", img:"lokomotif_2.jpg", icon:"ti-wind", iconColor:"#EF9F27", iconBg:"rgba(186,117,23,0.1)", tags:["CFD","HVAC","Akış"] },
-  { title:"Akıllı Sensör PCB Kartı", desc:"Çok katmanlı PCB tasarımı ve gömülü yazılım.", img:"lokomotif_3.jpg", icon:"ti-cpu", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["PCB","IoT","Yazılım"] },
-  { title:"Soğutma Termal Analizi", desc:"Yüksek güçlü elektronik soğutma sistemi simülasyonu.", img:"lokomotif_4.jpg", icon:"ti-ripple", iconColor:"#AFA9EC", iconBg:"rgba(127,119,221,0.1)", tags:["Termal","FEA","Soğutma"] },
-  { title:"Özel Makine Tasarımı", desc:"Kinematik analiz, yapısal hesap ve prototip üretimi.", img:"lokomotif_5.jpg", icon:"ti-3d-cube-sphere", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mekanik","Kinematik","Prototip"] },
-  { title:"Motor Kontrol Sistemi", desc:"Servo motor sürücü kartı ve kontrol yazılımı.", img:"lokomotif_6.jpg", icon:"ti-engine", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["Elektronik","Kontrol","Yazılım"] },
-  /* --- YENİ PROJE EKLE ---
-  { title:"Proje Adı", desc:"Açıklama.", img:"resim.jpg", icon:"ti-bolt", iconColor:"#EF9F27", iconBg:"rgba(186,117,23,0.1)", tags:["Etiket1","Etiket2"] },
-  */
-];
+const projects = {
+  tr: [
+    { title:"Endüstriyel Konveyör Sistemi", desc:"Mekanik tasarım, PLC yazılımı ve termal analiz.", img:"lokomotif_1.jpg", icon:"ti-robot", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mekanik","PLC","Termal"] },
+    { title:"HVAC Akış Optimizasyonu", desc:"CFD simülasyonu ile enerji verimliliği %23 artırıldı.", img:"lokomotif_2.jpg", icon:"ti-wind", iconColor:"#EF9F27", iconBg:"rgba(186,117,23,0.1)", tags:["CFD","HVAC","Akış"] },
+    { title:"Akıllı Sensör PCB Kartı", desc:"Çok katmanlı PCB tasarımı ve gömülü yazılım.", img:"lokomotif_3.jpg", icon:"ti-cpu", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["PCB","IoT","Yazılım"] },
+    { title:"Soğutma Termal Analizi", desc:"Yüksek güçlü elektronik soğutma sistemi simülasyonu.", img:"lokomotif_4.jpg", icon:"ti-ripple", iconColor:"#AFA9EC", iconBg:"rgba(127,119,221,0.1)", tags:["Termal","FEA","Soğutma"] },
+    { title:"Özel Makine Tasarımı", desc:"Kinematik analiz, yapısal hesap ve prototip üretimi.", img:"lokomotif_5.jpg", icon:"ti-3d-cube-sphere", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mekanik","Kinematik","Prototip"] },
+    { title:"Motor Kontrol Sistemi", desc:"Servo motor sürücü kartı ve kontrol yazılımı.", img:"lokomotif_6.jpg", icon:"ti-engine", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["Elektronik","Kontrol","Yazılım"] },
+  ],
+  en: [
+    { title:"Industrial Conveyor System", desc:"Mechanical design, PLC software and thermal analysis.", img:"lokomotif_1.jpg", icon:"ti-robot", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical","PLC","Thermal"] },
+    { title:"HVAC Flow Optimization", desc:"Energy efficiency increased by 23% with CFD simulation.", img:"lokomotif_2.jpg", icon:"ti-wind", iconColor:"#EF9F27", iconBg:"rgba(186,117,23,0.1)", tags:["CFD","HVAC","Flow"] },
+    { title:"Smart Sensor PCB Board", desc:"Multi-layer PCB design and embedded software.", img:"lokomotif_3.jpg", icon:"ti-cpu", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["PCB","IoT","Software"] },
+    { title:"Cooling Thermal Analysis", desc:"High-power electronics cooling system simulation.", img:"lokomotif_4.jpg", icon:"ti-ripple", iconColor:"#AFA9EC", iconBg:"rgba(127,119,221,0.1)", tags:["Thermal","FEA","Cooling"] },
+    { title:"Custom Machine Design", desc:"Kinematic analysis, structural calculation and prototype manufacturing.", img:"lokomotif_5.jpg", icon:"ti-3d-cube-sphere", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical","Kinematics","Prototype"] },
+    { title:"Motor Control System", desc:"Servo motor driver board and control software.", img:"lokomotif_6.jpg", icon:"ti-engine", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["Electronics","Control","Software"] },
+  ]
+};
 
 /* =============================================
    BÖLÜM 3: HESAPLAYICI (değiştirme)
@@ -190,7 +197,7 @@ function showPage(id){
 function renderProjects(){
   var grid=document.getElementById('proj-grid'); if(!grid) return;
   grid.innerHTML='';
-  projects.forEach(function(p){
+  (projects[currentLang]||projects.tr).forEach(function(p){
     var thumb=p.img?'<img src="'+p.img+'" alt="'+p.title+'">':'<i class="ti '+p.icon+'" style="font-size:40px;color:'+p.iconColor+'" aria-hidden="true"></i>';
     var tags=p.tags.map(function(t){return '<span class="ptag">'+t+'</span>';}).join('');
     grid.innerHTML+='<div class="proj-card"><div class="proj-thumb" style="background:'+(p.img?'#000':p.iconBg)+'">'+thumb+'</div><div class="proj-body"><h3>'+p.title+'</h3><p>'+p.desc+'</p><div class="proj-tags">'+tags+'</div></div></div>';
@@ -817,6 +824,15 @@ var translations = {
 
     /* Şablonlar */
     tmpl_dl:      "⬇️ İndir",
+    /* Hizmetler kartları */
+    svc2_title: "Termal Analiz", svc2_desc: "Isı transferi simülasyonu ile sistemin termal performansını optimize edin.",
+    svc3_title: "Akış Analizi", svc3_desc: "CFD simülasyonları ile sıvı ve gaz akışlarını modelleyin.",
+    svc4_title: "Elektronik Tasarım", svc4_desc: "Şematik tasarımdan PCB üretimine kadar komple elektronik geliştirme.",
+    svc5_title: "Yazılım Geliştirme", svc5_desc: "Makinenizin beynini yazan gömülü sistem ve kontrol yazılımları.",
+    svc6_title: "Danışmanlık", svc6_desc: "Projenizin her aşamasında teknik rehberlik ve süreç yönetimi.",
+    /* Skill barları */
+    skill1:"Mekanik Tasarım", skill2:"Termal Analiz", skill3:"Akış / CFD",
+    skill4:"Elektronik / PCB", skill5:"Gömülü Yazılım",
     tmpl_custom_title: "Özel şablon ihtiyacınız var mı?",
     tmpl_custom_desc:  "Sektörünüze veya projenize özel Excel şablonu hazırlayabiliriz.",
     tmpl_custom_btn:   "Talep Gönder",
@@ -978,6 +994,15 @@ var translations = {
 
     /* Templates */
     tmpl_dl:      "⬇️ Download",
+    /* Services cards */
+    svc2_title: "Thermal Analysis", svc2_desc: "Optimize your system's thermal performance with heat transfer simulation.",
+    svc3_title: "Flow Analysis", svc3_desc: "Model liquid and gas flows with CFD simulations.",
+    svc4_title: "Electronics Design", svc4_desc: "Complete electronics development from schematic design to PCB manufacturing.",
+    svc5_title: "Software Development", svc5_desc: "Embedded system and control software that runs your machine.",
+    svc6_title: "Consultancy", svc6_desc: "Technical guidance and process management at every stage of your project.",
+    /* Skill bars */
+    skill1:"Mechanical Design", skill2:"Thermal Analysis", skill3:"Flow / CFD",
+    skill4:"Electronics / PCB", skill5:"Embedded Software",
     tmpl_custom_title: "Need a custom template?",
     tmpl_custom_desc:  "We can prepare custom Excel templates for your industry or project.",
     tmpl_custom_btn:   "Send Request",
@@ -1111,6 +1136,9 @@ function applyLang(lang) {
     : 'Mechanistrail | Mechanical Design, PCB Design & Engineering Consultancy';
 
   document.documentElement.lang = lang==='tr' ? 'tr' : 'en';
+  /* Projeleri dile göre yeniden render et */
+  var grid = document.getElementById('proj-grid');
+  if (grid) { grid.innerHTML = ''; renderProjects(); }
 }
 
 function setLang(lang) {
