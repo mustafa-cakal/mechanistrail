@@ -750,3 +750,224 @@ function closeTool() {
   var ts=document.getElementById('tool-selector'); if(ts) ts.style.display='';
   window.scrollTo(0,0);
 }
+
+/* =============================================
+   DİL SİSTEMİ — TR / EN
+   ============================================= */
+var translations = {
+  tr: {
+    /* Nav */
+    nav_home:    "Ana Sayfa",
+    nav_eng:     "Mühendislik Hizmetleri",
+    nav_svc:     "Hizmetler",
+    nav_calc:    "🔧 Hesaplayıcılar ▾",
+    nav_tmpl:    "📄 Şablonlar",
+    nav_proj:    "Projeler",
+    nav_about:   "Hakkımızda",
+    nav_contact: "İletişim",
+
+    /* Hero */
+    hero_title:  "Rayları biz döşeyelim,<br>rotayı <span>birlikte</span> çizelim",
+    hero_desc:   "Fikrinizi bir vagon olmaktan çıkarıp geleceğin lokomotifine dönüştürelim. Mekanik tasarım, termal ve akış analizleri, elektronik kart tasarımı ve yazılım geliştirme — makine üretmek için ihtiyacınız olan her şey tek çatı altında.",
+    hero_btn1:   "Teklif Al",
+    hero_btn2:   "Projelerimizi Gör",
+
+    /* İstatistikler */
+    stat1: "Tamamlanan Proje",
+    stat2: "Uzmanlık Alanı",
+    stat3: "Yıl Deneyim",
+    stat4: "Müşteri Memnuniyeti",
+
+    /* Genel bölüm etiketleri */
+    sec_services_label: "Ne Yapıyoruz",
+    sec_services_title: "Hizmetlerimiz",
+    sec_projects_label: "Çalışmalarımızdan",
+    sec_projects_title: "Projelerden Kareler",
+    sec_about_label:    "Biz Kimiz",
+    sec_about_title:    "Hakkımızda",
+    sec_contact_label:  "Bize Ulaşın",
+    sec_contact_title:  "İletişim",
+    sec_tmpl_label:     "İndirilebilir Kaynaklar",
+    sec_tmpl_title:     "Hazır Excel Şablonları",
+    sec_tmpl_desc:      "Mühendislik süreçlerinizi hızlandırmak için hazırlanmış, kullanıma hazır Excel şablonları. Ücretsiz indirin, ihtiyacınıza göre düzenleyin.",
+    sec_calc_label:     "Mühendislik Araçları",
+    sec_calc_title:     "Hesaplayıcılar",
+    sec_calc_desc:      "Kullanmak istediğiniz hesaplayıcıyı seçin.",
+
+    /* İletişim formu */
+    form_name:    "Ad Soyad",
+    form_email:   "E-posta",
+    form_service: "Hizmet",
+    form_msg:     "Mesajınız",
+    form_submit:  "Gönder",
+    form_success: "✅ Mesajınız iletildi! En kısa sürede dönüş yapacağız.",
+    form_error:   "❌ Bir hata oluştu. Lütfen tekrar deneyin.",
+    form_ph_name: "Adınız",
+    form_ph_svc:  "Hangi hizmetle ilgileniyorsunuz?",
+    form_ph_msg:  "Projenizi kısaca anlatın...",
+
+    /* Hizmetler */
+    svc_mech:     "Mekanik Tasarım & CAD/CAM",
+    svc_thermal:  "Termal & Akış Analizleri (CFD)",
+    svc_pcb:      "Elektronik & PCB Tasarımı",
+    svc_sw:       "Gömülü Yazılım & PLC",
+    svc_rnd:      "Ar-Ge & Prototip Üretimi",
+
+    /* Şablonlar */
+    tmpl_dl:      "⬇️ İndir",
+    tmpl_custom_title: "Özel şablon ihtiyacınız var mı?",
+    tmpl_custom_desc:  "Sektörünüze veya projenize özel Excel şablonu hazırlayabiliriz.",
+    tmpl_custom_btn:   "Talep Gönder",
+
+    /* Hesaplayıcılar araç kartları */
+    tool_weight_title: "Hacim & Ağırlık",
+    tool_weight_desc:  "Geometri ve malzeme seçerek hacim, ağırlık ve yüzey alanı hesaplayın.",
+    tool_conv_title:   "Birim Dönüştürücü",
+    tool_conv_desc:    "Uzunluk, kütle, hacim, basınç, sıcaklık ve daha fazlasını dönüştürün.",
+    tool_torque_title: "Motor Torku",
+    tool_torque_desc:  "Güç, devir ve tork arasındaki ilişkiyi hesaplayın.",
+    tool_inertia_title:"Atalet Momenti",
+    tool_inertia_desc: "Kesit atalet momenti ve mukavemet modülü hesabı.",
+    tool_beam_title:   "Kiriş Analizi",
+    tool_beam_desc:    "Basit ve konsol kirişlerde gerilme ve sehim hesabı.",
+    tool_thermal_title:"Isıl Genleşme",
+    tool_thermal_desc: "Malzemenin sıcaklık değişimine bağlı boyutsal değişimi.",
+    tool_bolt_title:   "Vida & Cıvata",
+    tool_bolt_desc:    "Sıkma momenti, öngerme kuvveti ve güvenlik katsayısı.",
+    tool_back:         "← Araçlara Dön",
+
+    /* Footer */
+    footer_rights: "© 2025 Mechanistrail. Tüm hakları saklıdır.",
+  },
+
+  en: {
+    /* Nav */
+    nav_home:    "Home",
+    nav_eng:     "Engineering Services",
+    nav_svc:     "Services",
+    nav_calc:    "🔧 Calculators ▾",
+    nav_tmpl:    "📄 Templates",
+    nav_proj:    "Projects",
+    nav_about:   "About Us",
+    nav_contact: "Contact",
+
+    /* Hero */
+    hero_title:  "We lay the tracks,<br>let's chart the route <span>together</span>",
+    hero_desc:   "We transform your idea from a wagon into the locomotive of the future. Mechanical design, thermal & flow analysis, electronics design, and software development — everything you need to build a machine under one roof.",
+    hero_btn1:   "Get a Quote",
+    hero_btn2:   "View Our Projects",
+
+    /* Stats */
+    stat1: "Completed Projects",
+    stat2: "Areas of Expertise",
+    stat3: "Years Experience",
+    stat4: "Customer Satisfaction",
+
+    /* Section labels */
+    sec_services_label: "What We Do",
+    sec_services_title: "Our Services",
+    sec_projects_label: "Our Work",
+    sec_projects_title: "Project Gallery",
+    sec_about_label:    "Who We Are",
+    sec_about_title:    "About Us",
+    sec_contact_label:  "Get in Touch",
+    sec_contact_title:  "Contact",
+    sec_tmpl_label:     "Downloadable Resources",
+    sec_tmpl_title:     "Ready-Made Excel Templates",
+    sec_tmpl_desc:      "Ready-to-use Excel templates designed to accelerate your engineering processes. Download for free and customize as needed.",
+    sec_calc_label:     "Engineering Tools",
+    sec_calc_title:     "Calculators",
+    sec_calc_desc:      "Select the calculator you want to use.",
+
+    /* Contact form */
+    form_name:    "Full Name",
+    form_email:   "Email",
+    form_service: "Service",
+    form_msg:     "Your Message",
+    form_submit:  "Send",
+    form_success: "✅ Your message has been sent! We'll get back to you shortly.",
+    form_error:   "❌ An error occurred. Please try again.",
+    form_ph_name: "Your name",
+    form_ph_svc:  "Which service are you interested in?",
+    form_ph_msg:  "Briefly describe your project...",
+
+    /* Services */
+    svc_mech:     "Mechanical Design & CAD/CAM",
+    svc_thermal:  "Thermal & Flow Analysis (CFD)",
+    svc_pcb:      "Electronics & PCB Design",
+    svc_sw:       "Embedded Software & PLC",
+    svc_rnd:      "R&D & Prototype Manufacturing",
+
+    /* Templates */
+    tmpl_dl:      "⬇️ Download",
+    tmpl_custom_title: "Need a custom template?",
+    tmpl_custom_desc:  "We can prepare custom Excel templates for your industry or project.",
+    tmpl_custom_btn:   "Send Request",
+
+    /* Calculator tool cards */
+    tool_weight_title: "Volume & Weight",
+    tool_weight_desc:  "Calculate volume, weight and surface area by selecting geometry and material.",
+    tool_conv_title:   "Unit Converter",
+    tool_conv_desc:    "Convert length, mass, volume, pressure, temperature and more.",
+    tool_torque_title: "Motor Torque",
+    tool_torque_desc:  "Calculate the relationship between power, speed and torque.",
+    tool_inertia_title:"Moment of Inertia",
+    tool_inertia_desc: "Calculate cross-section moment of inertia and section modulus.",
+    tool_beam_title:   "Beam Analysis",
+    tool_beam_desc:    "Stress and deflection calculations for simple and cantilever beams.",
+    tool_thermal_title:"Thermal Expansion",
+    tool_thermal_desc: "Dimensional change of a material due to temperature change.",
+    tool_bolt_title:   "Bolt & Screw",
+    tool_bolt_desc:    "Tightening torque, preload force and safety factor.",
+    tool_back:         "← Back to Tools",
+
+    /* Footer */
+    footer_rights: "© 2025 Mechanistrail. All rights reserved.",
+  }
+};
+
+var currentLang = localStorage.getItem('lang') || 'tr';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+
+  /* Buton aktif durumu */
+  document.getElementById('lang-tr').classList.toggle('active', lang==='tr');
+  document.getElementById('lang-en').classList.toggle('active', lang==='en');
+
+  var t = translations[lang];
+
+  /* data-i18n attribute'u olan tüm elementleri güncelle */
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) {
+      el.innerHTML = t[key];
+    }
+  });
+
+  /* Placeholder'lar */
+  var phMap = {
+    'f-name':    'form_ph_name',
+    'f-email':   'form_email',
+    'f-service': 'form_ph_svc',
+    'f-message': 'form_ph_msg',
+  };
+  Object.keys(phMap).forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el && t[phMap[id]]) el.placeholder = t[phMap[id]];
+  });
+
+  /* Sayfa title */
+  document.title = lang==='tr'
+    ? 'Mechanistrail | Mekanik Tasarım, Elektronik Kart Tasarımı & Mühendislik Danışmanlığı'
+    : 'Mechanistrail | Mechanical Design, PCB Design & Engineering Consultancy';
+
+  /* html lang attribute */
+  document.documentElement.lang = lang==='tr' ? 'tr' : 'en';
+}
+
+/* Sayfa yüklenince kayıtlı dili uygula */
+document.addEventListener('DOMContentLoaded', function() {
+  if (currentLang === 'en') setLang('en');
+});
