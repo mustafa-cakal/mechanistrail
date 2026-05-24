@@ -85,12 +85,21 @@
   <button class="nav-hamburger" id="hamburger" aria-label="Menüyü aç/kapat" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </button>
+  <!-- Dil Seçici - her zaman sağ üstte -->
+  <div class="lang-switcher">
+    <button class="lang-btn active" id="lang-tr" onclick="setLang('tr')">
+      <img src="https://flagcdn.com/w20/tr.png" width="20" height="14" alt="TR"> TR
+    </button>
+    <button class="lang-btn" id="lang-en" onclick="setLang('en')">
+      <img src="https://flagcdn.com/w20/gb.png" width="20" height="14" alt="EN"> EN
+    </button>
+  </div>
   <div class="nav-links" id="nav-links">
-    <button class="nav-btn active" id="nb-home"        onclick="showPage('home');closeMenu()" data-i18n="nav_home">Ana Sayfa</button>
-    <button class="nav-btn"        id="nb-engineering" onclick="showPage('engineering');closeMenu()" data-i18n="nav_eng">Mühendislik Hizmetleri</button>
-    <button class="nav-btn"        id="nb-services"    onclick="showPage('services');closeMenu()" data-i18n="nav_svc">Hizmetler</button>
+    <button class="nav-btn active" id="nb-home"        onclick="showPage('home');closeMenu()"        data-i18n="nav_home">Ana Sayfa</button>
+    <button class="nav-btn"        id="nb-engineering" onclick="showPage('engineering');closeMenu()"  data-i18n="nav_eng">Mühendislik Hizmetleri</button>
+    <button class="nav-btn"        id="nb-services"    onclick="showPage('services');closeMenu()"     data-i18n="nav_svc">Hizmetler</button>
     <div class="nav-dropdown">
-      <button class="nav-btn" id="nb-calc" onclick="showPage('calc');closeMenu()">🔧 Hesaplayıcılar ▾</button>
+      <button class="nav-btn" id="nb-calc" onclick="showPage('calc');closeMenu()" data-i18n="nav_calc">🔧 Hesaplayıcılar ▾</button>
       <div class="nav-dropdown-menu">
         <a onclick="showPage('calc');openTool('weight');closeMenu()">⚖️ Hacim & Ağırlık</a>
         <a onclick="showPage('calc');openTool('converter');closeMenu()">🔄 Birim Dönüştürücü</a>
@@ -102,18 +111,9 @@
       </div>
     </div>
     <button class="nav-btn" id="nb-templates" onclick="showPage('templates');closeMenu()" data-i18n="nav_tmpl">📄 Şablonlar</button>
-    <!-- Dil Seçici -->
-    <div class="lang-switcher">
-      <button class="lang-btn active" id="lang-tr" onclick="setLang('tr')">
-        <img src="https://flagcdn.com/w20/tr.png" width="20" height="14" alt="TR"> TR
-      </button>
-      <button class="lang-btn" id="lang-en" onclick="setLang('en')">
-        <img src="https://flagcdn.com/w20/gb.png" width="20" height="14" alt="EN"> EN
-      </button>
-    </div>
-    <button class="nav-btn"        id="nb-projects"    onclick="showPage('projects');closeMenu()" data-i18n="nav_proj">Projeler</button>
-    <button class="nav-btn"        id="nb-about"       onclick="showPage('about');closeMenu()" data-i18n="nav_about">Hakkımızda</button>
-    <button class="nav-btn"        id="nb-contact"     onclick="showPage('contact');closeMenu()" data-i18n="nav_contact">İletişim</button>
+    <button class="nav-btn"        id="nb-projects"    onclick="showPage('projects');closeMenu()"     data-i18n="nav_proj">Projeler</button>
+    <button class="nav-btn"        id="nb-about"       onclick="showPage('about');closeMenu()"        data-i18n="nav_about">Hakkımızda</button>
+    <button class="nav-btn"        id="nb-contact"     onclick="showPage('contact');closeMenu()"      data-i18n="nav_contact">İletişim</button>
   </div>
 </nav>
 
@@ -138,11 +138,11 @@
           <button class="btn-outline" onclick="showPage('projects')" data-i18n="hero_btn2">Projelerimizi Gör</button>
         </div>
         <div class="hero-tags">
-          <span class="tag">Mekanik Tasarım</span>
-          <span class="tag">Termal Analiz</span>
-          <span class="tag">CFD / Akış</span>
-          <span class="tag">PCB Tasarımı</span>
-          <span class="tag">Gömülü Yazılım</span>
+          <span class="tag" data-i18n="tag_mech">Mekanik Tasarım</span>
+          <span class="tag" data-i18n="tag_thermal">Termal Analiz</span>
+          <span class="tag" data-i18n="tag_cfd">CFD / Akış</span>
+          <span class="tag" data-i18n="tag_pcb">PCB Tasarımı</span>
+          <span class="tag" data-i18n="tag_sw">Gömülü Yazılım</span>
         </div>
       </div>
 
@@ -178,11 +178,11 @@
         </div>
         <div class="hero-services">
           <p class="hero-services-title">Sunduğumuz Hizmetler</p>
-          <div class="hero-service-row"><span class="hero-service-dot"></span><span>Mekanik Tasarım & CAD/CAM</span></div>
-          <div class="hero-service-row"><span class="hero-service-dot"></span><span>Termal & Akış Analizleri (CFD)</span></div>
-          <div class="hero-service-row"><span class="hero-service-dot"></span><span>Elektronik & PCB Tasarımı</span></div>
-          <div class="hero-service-row"><span class="hero-service-dot"></span><span>Gömülü Yazılım & PLC</span></div>
-          <div class="hero-service-row"><span class="hero-service-dot"></span><span>Ar-Ge & Prototip Üretimi</span></div>
+          <div class="hero-service-row"><span class="hero-service-dot"></span><span data-i18n="svc_mech">Mekanik Tasarım & CAD/CAM</span></div>
+          <div class="hero-service-row"><span class="hero-service-dot"></span><span data-i18n="svc_thermal">Termal & Akış Analizleri (CFD)</span></div>
+          <div class="hero-service-row"><span class="hero-service-dot"></span><span data-i18n="svc_pcb">Elektronik & PCB Tasarımı</span></div>
+          <div class="hero-service-row"><span class="hero-service-dot"></span><span data-i18n="svc_sw">Gömülü Yazılım & PLC</span></div>
+          <div class="hero-service-row"><span class="hero-service-dot"></span><span data-i18n="svc_rnd">Ar-Ge & Prototip Üretimi</span></div>
         </div>
       </div>
     </div>

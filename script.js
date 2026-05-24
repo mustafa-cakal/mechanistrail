@@ -183,6 +183,8 @@ function showPage(id){
   if(btn)  btn.classList.add('active');
   window.scrollTo(0,0);
   if(id==='calc') setTimeout(doCalc,100);
+  // Sayfa değişince mevcut dili uygula
+  if(typeof currentLang !== 'undefined') setTimeout(function(){ applyLang(currentLang); }, 50);
 }
 
 function renderProjects(){
@@ -902,6 +904,18 @@ var translations = {
     contact_loc_lbl:   "Konum",
     contact_loc:       "Antalya, Türkiye",
     contact_form_title:"Mesaj Gönder",
+
+    /* Hero hizmetler & badge & tags */
+    hero_svc_title: "SUNDUĞUMUZ HİZMETLER",
+    hero_badge: "Komple Makine Mühendisliği Danışmanlığı",
+    tag_mech:    "Mekanik Tasarım",
+    tag_thermal: "Termal Analiz",
+    tag_cfd:     "CFD / Akış",
+    tag_pcb:     "PCB Tasarımı",
+    tag_sw:      "Gömülü Yazılım",
+
+    /* Şablon indirme butonu */
+    tmpl_dl: "⬇️ İndir",
   },
 
   en: {
@@ -1051,22 +1065,28 @@ var translations = {
     contact_loc_lbl:   "Location",
     contact_loc:       "Antalya, Turkey",
     contact_form_title:"Send a Message",
+
+    /* Hero services & badge & tags */
+    hero_svc_title: "OUR SERVICES",
+    hero_badge: "Complete Mechanical Engineering Consultancy",
+    tag_mech:    "Mechanical Design",
+    tag_thermal: "Thermal Analysis",
+    tag_cfd:     "CFD / Flow",
+    tag_pcb:     "PCB Design",
+    tag_sw:      "Embedded Software",
+
+    /* Template download button */
+    tmpl_dl: "⬇️ Download",
   }
 };
 
 var currentLang = localStorage.getItem('lang') || 'tr';
 
-function setLang(lang) {
-  currentLang = lang;
-  localStorage.setItem('lang', lang);
-
-  /* Buton aktif durumu */
-  document.getElementById('lang-tr').classList.toggle('active', lang==='tr');
-  document.getElementById('lang-en').classList.toggle('active', lang==='en');
-
+function applyLang(lang) {
   var t = translations[lang];
+  if (!t) return;
 
-  /* data-i18n attribute'u olan tüm elementleri güncelle */
+  /* Tüm data-i18n elementleri güncelle */
   document.querySelectorAll('[data-i18n]').forEach(function(el) {
     var key = el.getAttribute('data-i18n');
     if (t[key] !== undefined) {
@@ -1077,7 +1097,6 @@ function setLang(lang) {
   /* Placeholder'lar */
   var phMap = {
     'f-name':    'form_ph_name',
-    'f-email':   'form_email',
     'f-service': 'form_ph_svc',
     'f-message': 'form_ph_msg',
   };
@@ -1091,11 +1110,22 @@ function setLang(lang) {
     ? 'Mechanistrail | Mekanik Tasarım, Elektronik Kart Tasarımı & Mühendislik Danışmanlığı'
     : 'Mechanistrail | Mechanical Design, PCB Design & Engineering Consultancy';
 
-  /* html lang attribute */
   document.documentElement.lang = lang==='tr' ? 'tr' : 'en';
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+
+  /* Buton aktif durumu */
+  document.getElementById('lang-tr').classList.toggle('active', lang==='tr');
+  document.getElementById('lang-en').classList.toggle('active', lang==='en');
+
+  applyLang(lang);
 }
 
 /* Sayfa yüklenince kayıtlı dili uygula */
 document.addEventListener('DOMContentLoaded', function() {
   if (currentLang === 'en') setLang('en');
+  else applyLang('tr');
 });
