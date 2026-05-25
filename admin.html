@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mechanistrail — Yönetici Paneli</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{
+  --bg:#0a1628;--sur:#0f2040;--card:#132848;
+  --bdr:rgba(55,138,221,0.18);--blue:#378ADD;--bdim:rgba(55,138,221,0.12);
+  --grn:#27AE60;--org:#E67E22;--red:#E74C3C;
+  --txt:#e8f0fa;--mut:rgba(255,255,255,0.42);--r:12px;--sw:250px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;}
+/* LOGIN */
+#ls{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 30% 50%,rgba(55,138,221,0.1) 0%,transparent 60%);}
+.lbox{background:var(--card);border:1px solid var(--bdr);border-radius:20px;
+  padding:40px;width:360px;box-shadow:0 24px 64px rgba(0,0,0,.5);}
+.llogo{text-align:center;margin-bottom:28px;}
+.llogo h1{font-size:20px;font-weight:700;}
+.llogo p{font-size:12px;color:var(--mut);margin-top:4px;}
+.ll{font-size:11px;color:var(--mut);display:block;margin-bottom:5px;margin-top:14px;
+  font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+.fi{width:100%;padding:11px 14px;border-radius:8px;background:rgba(255,255,255,.05);
+  border:1px solid var(--bdr);color:var(--txt);font-size:14px;outline:none;transition:border-color .2s;}
+.fi:focus{border-color:var(--blue);}
+.lbtn{width:100%;margin-top:22px;padding:12px;background:var(--blue);border:none;
+  border-radius:8px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;}
+.lbtn:hover{opacity:.88;}
+.lerr{color:var(--red);font-size:12px;text-align:center;margin-top:12px;display:none;}
+/* LAYOUT */
+#pnl{display:none;min-height:100vh;}
+.sb{width:var(--sw);background:var(--sur);border-right:1px solid var(--bdr);
+  display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:50;overflow-y:auto;}
+.sblogo{padding:18px 16px 12px;border-bottom:1px solid var(--bdr);}
+.sblogo h2{font-size:14px;font-weight:700;}
+.sblogo p{font-size:10px;color:var(--mut);margin-top:2px;}
+.sbsec{padding:12px 10px 4px;font-size:10px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.6px;}
+.sbul{list-style:none;padding:0 8px;}
+.sbul li{margin-bottom:2px;}
+.sbul button{width:100%;text-align:left;padding:9px 10px;border-radius:8px;background:transparent;
+  border:none;color:rgba(255,255,255,.6);font-size:13px;cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;gap:8px;}
+.sbul button:hover{background:var(--bdim);color:#fff;}
+.sbul button.active{background:rgba(55,138,221,.2);color:#fff;font-weight:500;}
+.sbcats{padding:0 8px;flex:1;}
+.cchip{display:flex;align-items:center;justify-content:space-between;
+  padding:8px 10px;border-radius:8px;margin-bottom:2px;cursor:pointer;transition:background .15s;gap:6px;}
+.cchip:hover{background:var(--bdim);}
+.cchip.active{background:rgba(55,138,221,.2);}
+.ccname{font-size:13px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ccnt{font-size:10px;background:var(--bdim);color:var(--blue);padding:2px 7px;border-radius:10px;flex-shrink:0;}
+.ccdel{background:none;border:none;color:var(--mut);cursor:pointer;font-size:14px;
+  padding:0 2px;opacity:0;transition:opacity .15s;}
+.cchip:hover .ccdel{opacity:1;}
+.acrow{padding:8px;display:flex;gap:6px;}
+.acinp{flex:1;padding:7px 10px;border-radius:8px;background:rgba(255,255,255,.05);
+  border:1px solid var(--bdr);color:var(--txt);font-size:12px;outline:none;}
+.acinp:focus{border-color:var(--blue);}
+.acbtn{padding:7px 10px;border-radius:8px;background:var(--blue);border:none;
+  color:#fff;font-size:12px;cursor:pointer;white-space:nowrap;}
+.sbft{padding:12px 16px;border-top:1px solid var(--bdr);margin-top:auto;}
+.lgout{width:100%;padding:9px;border-radius:8px;background:rgba(231,76,60,.1);
+  border:1px solid rgba(231,76,60,.25);color:var(--red);font-size:13px;cursor:pointer;}
+.lgout:hover{background:var(--red);color:#fff;}
+/* CONTENT */
+.ct{margin-left:var(--sw);flex:1;}
+.tb{background:var(--sur);border-bottom:1px solid var(--bdr);
+  padding:12px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:40;}
+.tb h1{font-size:16px;font-weight:600;flex:1;}
+.pg{display:none;padding:24px;}
+.pg.active{display:block;}
+/* BUTTONS */
+.btn{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:none;transition:all .2s;}
+.bpri{background:var(--blue);color:#fff;}.bpri:hover{opacity:.88;}
+.bsuc{background:var(--grn);color:#fff;}.bsuc:hover{opacity:.88;}
+.bout{background:transparent;border:1px solid var(--bdr);color:var(--txt);}
+.bout:hover{border-color:var(--blue);color:var(--blue);}
+.bdng{background:transparent;border:1px solid var(--red);color:var(--red);}
+.bdng:hover{background:var(--red);color:#fff;}
+.bsm{padding:5px 10px;font-size:11px;}
+/* STATS */
+.srow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.sc{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:16px 18px;}
+.sc p{font-size:11px;color:var(--mut);margin-bottom:6px;}
+.sn{font-size:28px;font-weight:700;}
+.sc.cb .sn{color:var(--blue);}.sc.cg .sn{color:var(--grn);}
+.sc.co .sn{color:var(--org);}.sc.cr .sn{color:var(--red);}
+/* TOOLBAR */
+.tlb{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
+.fsl{padding:8px 12px;border-radius:8px;background:var(--card);border:1px solid var(--bdr);
+  color:var(--txt);font-size:13px;cursor:pointer;outline:none;}
+.si{flex:1;min-width:180px;padding:8px 14px;border-radius:8px;background:var(--card);
+  border:1px solid var(--bdr);color:var(--txt);font-size:13px;outline:none;}
+.si:focus,.fsl:focus{border-color:var(--blue);}
+/* TABLE */
+.tw{overflow-x:auto;border-radius:var(--r);border:1px solid var(--bdr);}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead th{background:var(--sur);padding:11px 14px;text-align:left;font-size:11px;
+  font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;
+  white-space:nowrap;border-bottom:1px solid var(--bdr);}
+tbody tr{border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s;}
+tbody tr:hover{background:var(--bdim);}
+tbody tr:last-child{border-bottom:none;}
+td{padding:10px 14px;vertical-align:middle;}
+.tn{font-weight:500;max-width:200px;}
+.tn small{display:block;color:var(--mut);font-size:11px;margin-top:2px;font-weight:400;}
+.ed{background:transparent;border:none;color:var(--txt);font-size:13px;
+  width:100%;padding:4px 6px;border-radius:6px;transition:background .15s;outline:none;font-family:inherit;}
+.ed:focus{background:rgba(55,138,221,.15);}
+.pi{width:90px;text-align:right;}
+.bdg{display:inline-block;padding:3px 9px;border-radius:10px;font-size:10px;font-weight:600;white-space:nowrap;}
+.bi{background:rgba(39,174,96,.18);color:#2ecc71;}
+.bo{background:rgba(230,126,34,.18);color:#f39c12;}
+.bs{background:rgba(231,76,60,.18);color:var(--red);}
+.bn{background:rgba(55,138,221,.15);color:var(--blue);}
+.bu{background:rgba(255,255,255,.08);color:var(--mut);}
+.br{background:rgba(155,89,182,.18);color:#9b59b6;}
+.tda{display:flex;gap:6px;white-space:nowrap;}
+/* ÜRÜN THUMBNAIL */
+.prod-thumb{width:40px;height:40px;border-radius:8px;object-fit:cover;border:0.5px solid var(--bdr);}
+.no-img{width:40px;height:40px;border-radius:8px;background:var(--bdim);
+  border:0.5px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:18px;}
+/* MODAL */
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;
+  justify-content:center;z-index:500;backdrop-filter:blur(4px);}
+.mbox{background:var(--card);border:1px solid var(--bdr);border-radius:18px;
+  width:720px;max-width:96vw;max-height:94vh;overflow-y:auto;padding:0;}
+.mhead{padding:20px 24px 16px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;}
+.mhead h2{font-size:17px;font-weight:600;}
+.mclose{background:none;border:none;color:var(--mut);font-size:22px;cursor:pointer;padding:0 4px;}
+.mclose:hover{color:var(--txt);}
+.mbody{padding:20px 24px;}
+/* TABS İÇİNDE */
+.mtabs{display:flex;gap:4px;margin-bottom:18px;border-bottom:1px solid var(--bdr);padding-bottom:0;}
+.mtab{padding:8px 16px;border:none;background:transparent;color:var(--mut);
+  font-size:13px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;}
+.mtab:hover{color:var(--txt);}
+.mtab.active{color:var(--blue);border-bottom-color:var(--blue);font-weight:500;}
+.mtabpanel{display:none;}
+.mtabpanel.active{display:block;}
+/* FORM */
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.fg{display:flex;flex-direction:column;gap:6px;}
+.fg.full{grid-column:1/-1;}
+.fg label{font-size:11px;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+.fg input,.fg select,.fg textarea{padding:10px 12px;border-radius:8px;
+  background:rgba(255,255,255,.05);border:1px solid var(--bdr);
+  color:var(--txt);font-size:13px;outline:none;transition:border-color .2s;font-family:inherit;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue);}
+.fg textarea{resize:vertical;min-height:70px;}
+.fg .hint{font-size:11px;color:var(--mut);margin-top:2px;}
+.mfoot{padding:16px 24px;border-top:1px solid var(--bdr);display:flex;gap:10px;justify-content:flex-end;}
+/* GÖRSEL YÖNETİMİ */
+.img-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:12px;}
+.img-item{position:relative;border-radius:8px;overflow:hidden;
+  border:0.5px solid var(--bdr);aspect-ratio:1;}
+.img-item img{width:100%;height:100%;object-fit:cover;}
+.img-del{position:absolute;top:4px;right:4px;background:rgba(231,76,60,.85);border:none;
+  color:#fff;border-radius:6px;font-size:11px;padding:3px 6px;cursor:pointer;}
+.img-add{border:1px dashed var(--bdr);border-radius:8px;aspect-ratio:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;cursor:pointer;color:var(--mut);font-size:12px;transition:all .2s;}
+.img-add:hover{border-color:var(--blue);color:var(--blue);}
+/* SPEC TABLOSU */
+.spec-row{display:flex;gap:8px;margin-bottom:8px;align-items:center;}
+.spec-row input{flex:1;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.05);
+  border:1px solid var(--bdr);color:var(--txt);font-size:12px;outline:none;}
+.spec-row input:focus{border-color:var(--blue);}
+.spec-del{background:none;border:none;color:var(--mut);cursor:pointer;font-size:16px;padding:0 4px;}
+.spec-del:hover{color:var(--red);}
+.add-spec-btn{padding:7px 14px;border-radius:8px;background:var(--bdim);border:0.5px solid var(--bdr);
+  color:var(--blue);font-size:12px;cursor:pointer;transition:all .2s;}
+.add-spec-btn:hover{background:rgba(55,138,221,.25);}
+/* İLİŞKİLİ ÜRÜNLER */
+.rel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:12px;}
+.rel-chip{display:flex;align-items:center;gap:8px;padding:8px 10px;
+  border-radius:8px;border:0.5px solid var(--bdr);background:rgba(255,255,255,.03);}
+.rel-chip span{font-size:12px;flex:1;}
+.rel-chip button{background:none;border:none;color:var(--mut);cursor:pointer;font-size:14px;}
+.rel-chip button:hover{color:var(--red);}
+.rel-select{width:100%;padding:9px 12px;border-radius:8px;background:rgba(255,255,255,.05);
+  border:1px solid var(--bdr);color:var(--txt);font-size:13px;outline:none;margin-bottom:8px;}
+/* CAT SAYFASI */
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;}
+.cmc{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;}
+.cmc h3{font-size:14px;font-weight:600;margin-bottom:6px;}
+.cmc p{font-size:12px;color:var(--mut);}
+.cmca{display:flex;gap:8px;margin-top:12px;}
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--grn);color:#fff;
+  padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);z-index:999;
+  transform:translateY(80px);opacity:0;transition:all .3s;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.err{background:var(--red);}
+@media(max-width:800px){
+  .sb{transform:translateX(-100%);transition:transform .3s;}
+  .sb.open{transform:translateX(0);}
+  .ct{margin-left:0;}
+  .srow{grid-template-columns:1fr 1fr;}
+  .fr{grid-template-columns:1fr;}
+  .mtg{display:flex!important;}
+}
+.mtg{display:none;background:var(--card);border:1px solid var(--bdr);
+  border-radius:8px;padding:8px 10px;cursor:pointer;color:var(--txt);font-size:16px;}
+</style>
+</head>
+<body>
+
+<!-- GİRİŞ -->
+<div id="ls">
+  <div class="lbox">
+    <div class="llogo"><h1>⚙️ Mechanistrail</h1><p>Yönetici Paneli v3.0</p></div>
+    <span class="ll">Kullanıcı Adı</span>
+    <input class="fi" type="text" id="lu" placeholder="admin" autocomplete="username"
+           onkeydown="if(event.key==='Enter')document.getElementById('lp').focus()">
+    <span class="ll">Şifre</span>
+    <input class="fi" type="password" id="lp" placeholder="••••••••"
+           onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="lbtn" onclick="doLogin()">Giriş Yap</button>
+    <p class="lerr" id="lerr">❌ Kullanıcı adı veya şifre hatalı.</p>
+  </div>
+</div>
+
+<!-- PANEL -->
+<div id="pnl" style="display:flex">
+  <!-- SIDEBAR -->
+  <div class="sb" id="sidebar">
+    <div class="sblogo"><h2>⚙️ Mechanistrail</h2><p>Yönetici Paneli</p></div>
+    <div class="sbsec">Genel</div>
+    <ul class="sbul">
+      <li><button onclick="gp('dashboard')" id="mn-dashboard" class="active">📊 Dashboard</button></li>
+      <li><button onclick="gp('products')" id="mn-products">📦 Tüm Ürünler</button></li>
+      <li><button onclick="gp('cats')" id="mn-cats">🗂️ Kategoriler</button></li>
+      <li><button onclick="gp('import')" id="mn-import">📥 İçe Aktar</button></li>
+    </ul>
+    <div class="sbsec">Kategoriler</div>
+    <div class="sbcats" id="sbcats"></div>
+    <div class="acrow">
+      <input class="acinp" id="nci" placeholder="Yeni kategori..." onkeydown="if(event.key==='Enter')addCat('nci')">
+      <button class="acbtn" onclick="addCat('nci')">+ Ekle</button>
+    </div>
+    <div class="sbft">
+      <button class="lgout" onclick="doLogout()">🚪 Çıkış Yap</button>
+    </div>
+  </div>
+
+  <!-- İÇERİK -->
+  <div class="ct">
+    <div class="tb">
+      <button class="mtg" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+      <h1 id="ptitle">Dashboard</h1>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn bsuc" onclick="openModal()">+ Ürün Ekle</button>
+        <button class="btn bout" onclick="exportExcel()">📊 Excel</button>
+        <button class="btn bout" onclick="exportCSV()">📄 CSV</button>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="pg active" id="pg-dashboard">
+      <div class="srow">
+        <div class="sc cb"><p>Toplam Ürün</p><div class="sn" id="s-total">0</div></div>
+        <div class="sc cg"><p>✅ Stokta</p><div class="sn" id="s-instock">0</div></div>
+        <div class="sc co"><p>📦 Sipariş ile</p><div class="sn" id="s-order">0</div></div>
+        <div class="sc cr"><p>❌ Satıldı</p><div class="sn" id="s-sold">0</div></div>
+      </div>
+      <div class="srow" style="grid-template-columns:repeat(3,1fr)">
+        <div class="sc cb"><p>Kategori Sayısı</p><div class="sn" id="s-cats">0</div></div>
+        <div class="sc cg"><p>Toplam Katalog Değeri</p><div class="sn" id="s-val" style="font-size:16px">0 ₺</div></div>
+        <div class="sc co"><p>Ortalama Fiyat</p><div class="sn" id="s-avg" style="font-size:16px">0 ₺</div></div>
+      </div>
+      <h3 style="margin-bottom:12px;font-size:14px;color:var(--mut)">Son Eklenen Ürünler</h3>
+      <div class="tw">
+        <table><thead><tr><th></th><th>ID</th><th>Ürün</th><th>Kategori</th><th>Fiyat</th><th>Stok</th></tr></thead>
+        <tbody id="rtb"></tbody></table>
+      </div>
+    </div>
+
+    <!-- TÜM ÜRÜNLER -->
+    <div class="pg" id="pg-products">
+      <div class="tlb">
+        <select class="fsl" id="fc" onchange="renderTable()"><option value="all">Tüm Kategoriler</option></select>
+        <select class="fsl" id="fst" onchange="renderTable()">
+          <option value="all">Tüm Stok</option>
+          <option value="instock">✅ Stokta</option>
+          <option value="order">📦 Sipariş ile</option>
+          <option value="sold">❌ Satıldı</option>
+        </select>
+        <select class="fsl" id="fcn" onchange="renderTable()">
+          <option value="all">Tüm Kondisyon</option>
+          <option value="new">Sıfır</option>
+          <option value="used">İkinci El</option>
+          <option value="refurb">Revize</option>
+        </select>
+        <input class="si" id="fq" type="text" placeholder="Ürün, marka, model ara..." oninput="renderTable()">
+        <span style="font-size:12px;color:var(--mut);white-space:nowrap" id="rc"></span>
+      </div>
+      <div class="tw">
+        <table>
+          <thead><tr><th></th><th>ID</th><th>Ürün</th><th>Kategori</th><th>Fiyat (₺)</th><th>Stok</th><th>Kondisyon</th><th>İşlemler</th></tr></thead>
+          <tbody id="ptb"></tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <!-- İÇE AKTAR -->
+    <div class="pg" id="pg-import">
+      <div style="max-width:780px">
+
+        <!-- Şablon İndir -->
+        <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;margin-bottom:16px;display:flex;align-items:center;gap:16px">
+          <div style="font-size:32px">📊</div>
+          <div style="flex:1">
+            <p style="font-weight:600;color:var(--txt);margin-bottom:4px">Excel Şablonunu İndir</p>
+            <p style="font-size:12px;color:var(--mut)">Ürünleri bu şablona doldur, sonra aşağıdan yükle. Şablonda örnek veriler ve açıklamalar var.</p>
+          </div>
+          <button class="btn bpri" onclick="downloadTemplate()">⬇️ Şablonu İndir</button>
+        </div>
+
+        <!-- Yükleme Alanı -->
+        <div style="background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;margin-bottom:16px">
+          <h3 style="font-size:14px;font-weight:600;margin-bottom:14px">📥 Excel Dosyası Yükle</h3>
+          <div id="drop-zone" style="border:2px dashed rgba(55,138,221,0.3);border-radius:10px;padding:36px;text-align:center;cursor:pointer;transition:all .2s"
+               onclick="document.getElementById('xlsx-input').click()"
+               ondragover="event.preventDefault();this.style.borderColor='#378ADD';this.style.background='rgba(55,138,221,0.08)'"
+               ondragleave="this.style.borderColor='rgba(55,138,221,0.3)';this.style.background=''"
+               ondrop="handleDrop(event)">
+            <div style="font-size:36px;margin-bottom:10px">📁</div>
+            <p style="font-size:14px;color:var(--txt);margin-bottom:4px">Excel dosyasını buraya sürükle veya tıkla</p>
+            <p style="font-size:12px;color:var(--mut)">.xlsx veya .xls formatı • Mechanistrail şablonu</p>
+            <input type="file" id="xlsx-input" accept=".xlsx,.xls" style="display:none" onchange="handleFile(this.files[0])">
+          </div>
+          <div id="file-info" style="display:none;margin-top:12px;padding:12px;background:rgba(55,138,221,0.08);border-radius:8px;display:flex;align-items:center;gap:10px">
+            <span style="font-size:18px">📄</span>
+            <span id="file-name" style="font-size:13px;color:var(--txt);flex:1"></span>
+            <span id="file-size" style="font-size:12px;color:var(--mut)"></span>
+          </div>
+        </div>
+
+        <!-- Önizleme -->
+        <div id="import-preview" style="display:none;background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;margin-bottom:16px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+            <h3 style="font-size:14px;font-weight:600">Önizleme</h3>
+            <div style="display:flex;gap:8px;align-items:center">
+              <span id="prev-count" style="font-size:12px;color:var(--mut)"></span>
+              <button class="btn bout bsm" onclick="clearImport()">✕ İptal</button>
+            </div>
+          </div>
+          <!-- Özet kartları -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px" id="imp-stats"></div>
+          <!-- Tablo -->
+          <div style="overflow-x:auto;border-radius:8px;border:1px solid var(--bdr);max-height:360px;overflow-y:auto">
+            <table style="width:100%;border-collapse:collapse;font-size:12px">
+              <thead>
+                <tr id="prev-head" style="position:sticky;top:0;z-index:10"></tr>
+              </thead>
+              <tbody id="prev-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Yükleme Seçenekleri & Buton -->
+        <div id="import-actions" style="display:none;background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:18px">
+          <h3 style="font-size:14px;font-weight:600;margin-bottom:14px">Yükleme Seçenekleri</h3>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
+            <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
+              <input type="radio" name="import-mode" value="merge" checked style="margin-top:2px">
+              <div>
+                <p style="font-size:13px;font-weight:500;color:var(--txt)">Birleştir (Önerilen)</p>
+                <p style="font-size:11px;color:var(--mut)">Aynı ID'li ürünleri günceller, yeni ürünleri ekler, mevcut ürünlere dokunmaz.</p>
+              </div>
+            </label>
+            <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
+              <input type="radio" name="import-mode" value="replace">
+              <div>
+                <p style="font-size:13px;font-weight:500;color:var(--txt)">Tümünü Değiştir</p>
+                <p style="font-size:11px;color:var(--mut);color:var(--red)">⚠️ Mevcut tüm ürünler silinir, sadece yüklenen dosyadaki ürünler kalır.</p>
+              </div>
+            </label>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <button class="btn bsuc" id="import-btn" onclick="doImport()" style="font-size:14px;padding:11px 24px">
+              ✅ Tümünü Yükle
+            </button>
+            <span id="imp-result" style="font-size:13px;color:var(--grn);display:none"></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- KATEGORİLER -->
+    <div class="pg" id="pg-cats">
+      <div style="display:flex;gap:10px;margin-bottom:20px;align-items:center">
+        <input class="si" id="nci2" placeholder="Yeni kategori adı..." onkeydown="if(event.key==='Enter')addCat('nci2')">
+        <button class="btn bsuc" onclick="addCat('nci2')">+ Kategori Ekle</button>
+      </div>
+      <div class="cg" id="cgrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ÜRÜN MODAL -->
+<div class="mo" id="modal" style="display:none" onclick="if(event.target===this)closeModal()">
+  <div class="mbox">
+    <div class="mhead">
+      <h2 id="mtitle">Yeni Ürün Ekle</h2>
+      <button class="mclose" onclick="closeModal()">✕</button>
+    </div>
+    <div class="mbody">
+      <!-- SEKMELER -->
+      <div class="mtabs">
+        <button class="mtab active" onclick="switchTab('temel')">📋 Temel Bilgiler</button>
+        <button class="mtab" onclick="switchTab('gorseller')">🖼️ Görseller</button>
+        <button class="mtab" onclick="switchTab('specs')">📐 Teknik Özellikler</button>
+        <button class="mtab" onclick="switchTab('datasheet')">📄 Datasheet</button>
+        <button class="mtab" onclick="switchTab('related')">🔗 İlişkili Ürünler</button>
+      </div>
+
+      <!-- TEMEL BİLGİLER -->
+      <div class="mtabpanel active" id="tab-temel">
+        <div class="fr">
+          <div class="fg"><label>Ürün ID *</label><input type="text" id="m-id" placeholder="E009 / M009"></div>
+          <div class="fg"><label>Kategori *</label><select id="m-cat"></select></div>
+          <div class="fg full"><label>Ürün Adı (TR) *</label><input type="text" id="m-name" placeholder="Siemens S7-1200 PLC"></div>
+          <div class="fg full"><label>Ürün Adı (EN)</label><input type="text" id="m-name-en" placeholder="Siemens S7-1200 PLC"></div>
+          <div class="fg"><label>Marka</label><input type="text" id="m-brand" placeholder="Siemens"></div>
+          <div class="fg"><label>Model No</label><input type="text" id="m-model" placeholder="6ES7214-1AG40-0XB0"></div>
+          <div class="fg"><label>Fiyat (₺) *</label><input type="number" id="m-price" placeholder="12500" min="0"></div>
+          <div class="fg"><label>Stok Durumu</label>
+            <select id="m-stock">
+              <option value="instock">✅ Stokta</option>
+              <option value="order">📦 Sipariş ile</option>
+              <option value="sold">❌ Satıldı</option>
+            </select>
+          </div>
+          <div class="fg full"><label>Kondisyon</label>
+            <select id="m-cond">
+              <option value="new">Sıfır</option>
+              <option value="used">İkinci El</option>
+              <option value="refurb">Revize</option>
+            </select>
+          </div>
+          <div class="fg full"><label>Açıklama (TR)</label><textarea id="m-desc" placeholder="Ürün açıklaması..."></textarea></div>
+          <div class="fg full"><label>Açıklama (EN)</label><textarea id="m-desc-en" placeholder="Product description..."></textarea></div>
+          <div class="fg full"><label>Etiketler (virgülle ayır)</label><input type="text" id="m-tags" placeholder="PLC, Siemens, S7-1200"></div>
+        </div>
+      </div>
+
+      <!-- GÖRSELLER -->
+      <div class="mtabpanel" id="tab-gorseller">
+        <p style="font-size:12px;color:var(--mut);margin-bottom:14px">
+          Ürün görsellerinin URL adreslerini girin. Görseller GitHub'da <code>images/</code> klasörüne yüklendikten sonra buraya yolu yazın (örn: <code>images/E001_1.jpg</code>) ya da tam URL girin.
+        </p>
+        <div class="img-grid" id="img-preview"></div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <input class="si" id="new-img-url" placeholder="images/urun_gorseli.jpg veya https://..." style="flex:1">
+          <button class="btn bpri" onclick="addImage()">+ Görsel Ekle</button>
+        </div>
+        <p style="font-size:11px;color:var(--mut);margin-top:8px">
+          💡 GitHub'a görsel yüklemek için: <strong>Add file → Upload files → images/</strong> klasörüne koy
+        </p>
+      </div>
+
+      <!-- TEKNİK ÖZELLİKLER -->
+      <div class="mtabpanel" id="tab-specs">
+        <p style="font-size:12px;color:var(--mut);margin-bottom:14px">
+          Ürünün teknik özelliklerini özellik/değer çifti olarak girin. Sitede tablo halinde görünecek.
+        </p>
+        <div id="specs-list"></div>
+        <button class="add-spec-btn" onclick="addSpec()">+ Özellik Ekle</button>
+      </div>
+
+      <!-- DATASHEET -->
+      <div class="mtabpanel" id="tab-datasheet">
+        <p style="font-size:12px;color:var(--mut);margin-bottom:16px">
+          Ürünün PDF datasheet dosyasının URL adresini girin. GitHub'daki <code>datasheets/</code> klasörüne yükledikten sonra linki buraya yazın.
+        </p>
+        <div class="fg full" style="margin-bottom:16px">
+          <label>Datasheet PDF URL</label>
+          <input type="text" id="m-datasheet" placeholder="datasheets/Siemens_S7-1200_Manual.pdf">
+          <span class="hint">GitHub'daki dosya yolu veya harici PDF linki</span>
+        </div>
+        <div class="fg full">
+          <label>Ek Doküman URL (isteğe bağlı)</label>
+          <input type="text" id="m-doc2" placeholder="https://support.industry.siemens.com/...">
+          <span class="hint">Üretici destek sayfası, teknik kılavuz vb.</span>
+        </div>
+      </div>
+
+      <!-- İLİŞKİLİ ÜRÜNLER -->
+      <div class="mtabpanel" id="tab-related">
+        <p style="font-size:12px;color:var(--mut);margin-bottom:14px">
+          Bu ürünü inceleyen müşterilere önerilecek ürünleri seçin. Aynı kategoriden veya birlikte kullanılabilecek ürünler ekleyin.
+        </p>
+        <div class="rel-grid" id="related-list"></div>
+        <select class="rel-select" id="rel-select" onchange="addRelated(this.value)">
+          <option value="">— İlişkili ürün seç —</option>
+        </select>
+        <p style="font-size:11px;color:var(--mut)">
+          💡 En fazla 6 ilişkili ürün önerilir. Sitede ürün detayının altında gösterilecek.
+        </p>
+      </div>
+    </div>
+    <div class="mfoot">
+      <button class="btn bout" onclick="closeModal()">İptal</button>
+      <button class="btn bpri" onclick="saveProduct()">💾 Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="products.js"></script>
+<script>
+const AU='mechanistrail', AP='Mech2025!';
+const PK='mech_prod_v3', CK='mech_cat_v3';
+
+var products=[], cats=[], editId=null, activeCat='all';
+var curImages=[], curSpecs=[], curRelated=[];
+
+function loadData(){
+  var sc=localStorage.getItem(CK);
+  cats=sc?JSON.parse(sc):defCats(); if(!sc)saveCats();
+  var sp=localStorage.getItem(PK);
+  if(sp){try{products=JSON.parse(sp);return;}catch(e){}}
+  if(typeof PRODUCTS!=='undefined'){
+    products=JSON.parse(JSON.stringify(PRODUCTS));
+    products.forEach(function(p){
+      if(!p.images)p.images=[];
+      if(!p.specs)p.specs=[];
+      if(!p.related)p.related=[];
+      if(!p.datasheet)p.datasheet='';
+      if(!p.doc2)p.doc2='';
+      if(!cats.find(function(c){return c.id===p.category;}))
+        cats.push({id:p.category,name:p.category,icon:'📦'});
+    });
+    saveCats();
+  }
+  saveProds();
+}
+function defCats(){return[{id:'elektronik',name:'Elektronik',icon:'⚡'},{id:'mekanik',name:'Mekanik',icon:'⚙️'}];}
+function saveProds(){localStorage.setItem(PK,JSON.stringify(products));}
+function saveCats(){localStorage.setItem(CK,JSON.stringify(cats));}
+
+function doLogin(){
+  var u=(document.getElementById('lu').value||'').trim();
+  var p=(document.getElementById('lp').value||'');
+  if(u===AU&&p===AP){
+    document.getElementById('ls').style.display='none';
+    document.getElementById('pnl').style.display='flex';
+    init();
+  }else{
+    document.getElementById('lerr').style.display='block';
+    document.getElementById('lp').value='';
+  }
+}
+function doLogout(){
+  document.getElementById('pnl').style.display='none';
+  document.getElementById('ls').style.display='flex';
+  document.getElementById('lp').value='';
+  document.getElementById('lerr').style.display='none';
+}
+
+function init(){
+  loadData();
+  refreshSidebar();
+  refreshCatFilter();
+  renderDash();
+  renderTable();
+  renderCatPage();
+}
+
+function gp(id){
+  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.sbul button').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('pg-'+id).classList.add('active');
+  var mn=document.getElementById('mn-'+id); if(mn)mn.classList.add('active');
+  var T={dashboard:'Dashboard',products:'Tüm Ürünler',cats:'Kategori Yönetimi'};
+  document.getElementById('ptitle').textContent=T[id]||id;
+  if(id==='products')renderTable();
+  if(id==='cats')renderCatPage();
+}
+
+/* SIDEBAR */
+function refreshSidebar(){
+  var el=document.getElementById('sbcats'); el.innerHTML='';
+  cats.forEach(function(c){
+    var cnt=products.filter(function(p){return p.category===c.id;}).length;
+    var d=document.createElement('div');
+    d.className='cchip'+(activeCat===c.id?' active':'');
+    d.innerHTML='<span style="font-size:14px">'+c.icon+'</span><span class="ccname">'+c.name+'</span>'+
+      '<span class="ccnt">'+cnt+'</span><button class="ccdel" onclick="event.stopPropagation();delCat(\''+c.id+'\')">✕</button>';
+    d.onclick=function(){activeCat=c.id;document.getElementById('fc').value=c.id;gp('products');renderTable();refreshSidebar();};
+    el.appendChild(d);
+  });
+}
+function refreshCatFilter(){
+  ['fc','m-cat'].forEach(function(sid){
+    var sel=document.getElementById(sid); if(!sel)return;
+    var cur=sel.value;
+    if(sid==='fc')sel.innerHTML='<option value="all">Tüm Kategoriler</option>';
+    else sel.innerHTML='';
+    cats.forEach(function(c){sel.innerHTML+='<option value="'+c.id+'"'+(cur===c.id?' selected':'')+'>'+c.icon+' '+c.name+'</option>';});
+  });
+  var rs=document.getElementById('rel-select'); if(!rs)return;
+  rs.innerHTML='<option value="">— İlişkili ürün seç —</option>';
+  products.forEach(function(p){
+    if(editId&&p.id===editId)return;
+    rs.innerHTML+='<option value="'+p.id+'">'+p.id+' — '+p.name+'</option>';
+  });
+}
+
+/* KATEGORİ EKLE */
+function addCat(inputId){
+  var inp=document.getElementById(inputId);
+  var name=(inp.value||'').trim(); if(!name)return;
+  var id=name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-]/g,'');
+  if(cats.find(function(c){return c.id===id;})){showToast('Bu kategori zaten var!',true);return;}
+  var icons=['📦','🔧','⚡','⚙️','🖥️','📡','🔩','🛠️','💡','🔌','🏭','🔬'];
+  cats.push({id:id,name:name,icon:icons[cats.length%icons.length]});
+  saveCats(); inp.value='';
+  refreshSidebar();refreshCatFilter();renderCatPage();
+  showToast('Kategori eklendi: '+name);
+}
+function delCat(id){
+  var cnt=products.filter(function(p){return p.category===id;}).length;
+  var c=cats.find(function(x){return x.id===id;});
+  if(cnt>0&&!confirm('"'+(c?c.name:id)+'" kategorisinde '+cnt+' ürün var. Yine de sil?'))return;
+  if(cnt===0&&!confirm('"'+(c?c.name:id)+'" kategorisini sil?'))return;
+  cats=cats.filter(function(x){return x.id!==id;});
+  saveCats(); if(activeCat===id)activeCat='all';
+  refreshSidebar();refreshCatFilter();renderCatPage();renderTable();
+  showToast('Kategori silindi.',true);
+}
+
+/* DASHBOARD */
+function renderDash(){
+  document.getElementById('s-total').textContent=products.length;
+  document.getElementById('s-instock').textContent=products.filter(function(p){return p.stock==='instock';}).length;
+  document.getElementById('s-order').textContent=products.filter(function(p){return p.stock==='order';}).length;
+  document.getElementById('s-sold').textContent=products.filter(function(p){return p.stock==='sold';}).length;
+  document.getElementById('s-cats').textContent=cats.length;
+  var tot=products.reduce(function(a,p){return a+(p.price||0);},0);
+  var avg=products.length?Math.round(tot/products.length):0;
+  document.getElementById('s-val').textContent=tot.toLocaleString('tr-TR')+' ₺';
+  document.getElementById('s-avg').textContent=avg.toLocaleString('tr-TR')+' ₺';
+  var tb=document.getElementById('rtb'); tb.innerHTML='';
+  products.slice(-6).reverse().forEach(function(p){
+    var c=cats.find(function(x){return x.id===p.category;});
+    var img=p.images&&p.images[0];
+    tb.innerHTML+='<tr><td>'+(img?'<img class="prod-thumb" src="'+img+'">':'<div class="no-img">📦</div>')+'</td>'+
+      '<td><code style="font-size:11px;color:var(--mut)">'+p.id+'</code></td>'+
+      '<td class="tn">'+p.name+'<small>'+p.brand+'</small></td>'+
+      '<td>'+(c?c.icon+' '+c.name:p.category)+'</td>'+
+      '<td>'+p.price.toLocaleString('tr-TR')+' ₺</td>'+
+      '<td><span class="bdg '+(p.stock==='instock'?'bi':p.stock==='order'?'bo':'bs')+'">'+(p.stock==='instock'?'✅ Stokta':p.stock==='order'?'📦 Sipariş':'❌ Satıldı')+'</span></td></tr>';
+  });
+}
+
+/* TABLO */
+function renderTable(){
+  var cat=document.getElementById('fc').value;
+  var stk=document.getElementById('fst').value;
+  var cnd=document.getElementById('fcn').value;
+  var q=(document.getElementById('fq').value||'').toLowerCase().trim();
+  var filtered=products.filter(function(p){
+    return(cat==='all'||p.category===cat)&&(stk==='all'||p.stock===stk)&&
+      (cnd==='all'||p.condition===cnd)&&
+      (!q||[p.name,p.brand,p.model,p.id,(p.tags||[]).join(' ')].join(' ').toLowerCase().indexOf(q)!==-1);
+  });
+  document.getElementById('rc').textContent=filtered.length+' ürün';
+  var tb=document.getElementById('ptb'); tb.innerHTML='';
+  var cL={new:'Sıfır',used:'İkinci El',refurb:'Revize'};
+  filtered.forEach(function(p){
+    var c=cats.find(function(x){return x.id===p.category;});
+    var img=p.images&&p.images[0];
+    tb.innerHTML+='<tr>'+
+      '<td>'+(img?'<img class="prod-thumb" src="'+img+'">':'<div class="no-img">📦</div>')+'</td>'+
+      '<td><code style="font-size:11px;color:var(--mut)">'+p.id+'</code></td>'+
+      '<td class="tn">'+p.name+'<small>'+p.brand+' — '+p.model+'</small></td>'+
+      '<td>'+(c?c.icon+' '+c.name:p.category)+'</td>'+
+      '<td><div style="display:flex;align-items:center;gap:4px">'+
+        '<input class="ed pi" type="number" value="'+p.price+'" onchange="qp(\''+p.id+'\',this.value)"> ₺'+
+      '</div></td>'+
+      '<td><select class="ed" onchange="qs(\''+p.id+'\',this.value)">'+
+        '<option value="instock"'+(p.stock==='instock'?' selected':'')+'>✅ Stokta</option>'+
+        '<option value="order"'+(p.stock==='order'?' selected':'')+'>📦 Sipariş ile</option>'+
+        '<option value="sold"'+(p.stock==='sold'?' selected':'')+'>❌ Satıldı</option>'+
+      '</select></td>'+
+      '<td><span class="bdg '+(p.condition==='new'?'bn':p.condition==='refurb'?'br':'bu')+'">'+(cL[p.condition]||p.condition)+'</span></td>'+
+      '<td class="tda">'+
+        '<button class="btn bout bsm" onclick="openModal(\''+p.id+'\')">✏️ Düzenle</button>'+
+        '<button class="btn bdng bsm" onclick="delProd(\''+p.id+'\')">🗑️</button>'+
+      '</td></tr>';
+  });
+  renderDash();refreshSidebar();
+}
+function qp(id,v){var p=products.find(function(x){return x.id===id;});if(p){p.price=parseFloat(v)||0;saveProds();renderDash();showToast('Fiyat güncellendi ✓');}}
+function qs(id,v){var p=products.find(function(x){return x.id===id;});if(p){p.stock=v;saveProds();renderDash();refreshSidebar();showToast('Stok güncellendi ✓');}}
+function delProd(id){
+  var p=products.find(function(x){return x.id===id;});if(!p)return;
+  if(!confirm('"'+p.name+'" ürününü sil?'))return;
+  products=products.filter(function(x){return x.id!==id;});
+  saveProds();renderTable();showToast('Ürün silindi.',true);
+}
+
+/* MODAL SEKMELER */
+function switchTab(name){
+  document.querySelectorAll('.mtab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.mtabpanel').forEach(function(p){p.classList.remove('active');});
+  var tabs=document.querySelectorAll('.mtab');
+  var names=['temel','gorseller','specs','datasheet','related'];
+  var idx=names.indexOf(name);
+  if(tabs[idx])tabs[idx].classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+/* GÖRSELLER */
+function renderImages(){
+  var el=document.getElementById('img-preview'); el.innerHTML='';
+  curImages.forEach(function(url,i){
+    el.innerHTML+='<div class="img-item"><img src="'+url+'" onerror="this.src=\'\'">'+
+      '<button class="img-del" onclick="removeImg('+i+')">✕</button></div>';
+  });
+}
+function addImage(){
+  var v=(document.getElementById('new-img-url').value||'').trim();
+  if(!v){showToast('URL boş olamaz!',true);return;}
+  curImages.push(v);
+  document.getElementById('new-img-url').value='';
+  renderImages();
+}
+function removeImg(i){curImages.splice(i,1);renderImages();}
+
+/* SPEC SATIRI */
+function renderSpecs(){
+  var el=document.getElementById('specs-list'); el.innerHTML='';
+  curSpecs.forEach(function(s,i){
+    el.innerHTML+='<div class="spec-row">'+
+      '<input placeholder="Özellik (örn: Giriş Voltajı)" value="'+s.key+'" oninput="curSpecs['+i+'].key=this.value">'+
+      '<input placeholder="Değer (örn: 24V DC)" value="'+s.val+'" oninput="curSpecs['+i+'].val=this.value">'+
+      '<button class="spec-del" onclick="removeSpec('+i+')">✕</button>'+
+    '</div>';
+  });
+}
+function addSpec(){curSpecs.push({key:'',val:''});renderSpecs();}
+function removeSpec(i){curSpecs.splice(i,1);renderSpecs();}
+
+/* İLİŞKİLİ ÜRÜNLER */
+function renderRelated(){
+  var el=document.getElementById('related-list'); el.innerHTML='';
+  curRelated.forEach(function(id,i){
+    var p=products.find(function(x){return x.id===id;});
+    el.innerHTML+='<div class="rel-chip">'+
+      '<span>'+id+(p?' — '+p.name.substring(0,20):'')+'</span>'+
+      '<button onclick="removeRelated('+i+')">✕</button>'+
+    '</div>';
+  });
+}
+function addRelated(id){
+  if(!id)return;
+  if(curRelated.indexOf(id)!==-1){showToast('Bu ürün zaten ekli!',true);return;}
+  if(curRelated.length>=8){showToast('En fazla 8 ilişkili ürün ekleyebilirsiniz.',true);return;}
+  curRelated.push(id);
+  document.getElementById('rel-select').value='';
+  renderRelated();
+}
+function removeRelated(i){curRelated.splice(i,1);renderRelated();}
+
+/* MODAL AÇ/KAPAT */
+function openModal(id){
+  editId=id||null;
+  switchTab('temel');
+  refreshCatFilter();
+  document.getElementById('mtitle').textContent=id?'Ürünü Düzenle':'Yeni Ürün Ekle';
+  if(id){
+    var p=products.find(function(x){return x.id===id;});if(!p)return;
+    document.getElementById('m-id').value=p.id;
+    document.getElementById('m-id').disabled=true;
+    document.getElementById('m-cat').value=p.category;
+    document.getElementById('m-name').value=p.name;
+    document.getElementById('m-name-en').value=p.name_en||'';
+    document.getElementById('m-brand').value=p.brand;
+    document.getElementById('m-model').value=p.model;
+    document.getElementById('m-price').value=p.price;
+    document.getElementById('m-stock').value=p.stock;
+    document.getElementById('m-cond').value=p.condition;
+    document.getElementById('m-desc').value=p.desc;
+    document.getElementById('m-desc-en').value=p.desc_en||'';
+    document.getElementById('m-tags').value=(p.tags||[]).join(', ');
+    document.getElementById('m-datasheet').value=p.datasheet||'';
+    document.getElementById('m-doc2').value=p.doc2||'';
+    curImages=[].concat(p.images||[]);
+    curSpecs=JSON.parse(JSON.stringify(p.specs||[]));
+    curRelated=[].concat(p.related||[]);
+  }else{
+    ['m-id','m-name','m-name-en','m-brand','m-model','m-price','m-desc','m-desc-en','m-tags','m-datasheet','m-doc2'].forEach(function(i){document.getElementById(i).value='';});
+    document.getElementById('m-id').disabled=false;
+    document.getElementById('m-stock').value='instock';
+    document.getElementById('m-cond').value='new';
+    curImages=[];curSpecs=[];curRelated=[];
+  }
+  renderImages();renderSpecs();renderRelated();
+  document.getElementById('modal').style.display='flex';
+}
+function closeModal(){document.getElementById('modal').style.display='none';editId=null;}
+
+function saveProduct(){
+  var id=(document.getElementById('m-id').value||'').trim().toUpperCase();
+  var name=(document.getElementById('m-name').value||'').trim();
+  var price=parseFloat(document.getElementById('m-price').value)||0;
+  if(!id||!name||!price){showToast('ID, Ürün Adı ve Fiyat zorunlu!',true);return;}
+  var tags=(document.getElementById('m-tags').value||'').split(',').map(function(t){return t.trim();}).filter(Boolean);
+  var prod={
+    id:id,name:name,name_en:document.getElementById('m-name-en').value.trim()||name,
+    category:document.getElementById('m-cat').value,
+    brand:document.getElementById('m-brand').value.trim(),
+    model:document.getElementById('m-model').value.trim(),
+    price:price,stock:document.getElementById('m-stock').value,
+    condition:document.getElementById('m-cond').value,
+    desc:document.getElementById('m-desc').value.trim(),
+    desc_en:document.getElementById('m-desc-en').value.trim(),
+    tags:tags,
+    images:[].concat(curImages),
+    specs:JSON.parse(JSON.stringify(curSpecs)),
+    related:[].concat(curRelated),
+    datasheet:document.getElementById('m-datasheet').value.trim(),
+    doc2:document.getElementById('m-doc2').value.trim()
+  };
+  if(editId){
+    var idx=products.findIndex(function(x){return x.id===editId;});
+    if(idx!==-1)products[idx]=prod;
+  }else{
+    if(products.find(function(x){return x.id===id;})){showToast('Bu ID zaten mevcut!',true);return;}
+    products.push(prod);
+  }
+  saveProds();renderTable();closeModal();
+  showToast(editId?'Ürün güncellendi ✓':'Yeni ürün eklendi ✓');
+}
+
+/* KATEGORİ SAYFASI */
+function renderCatPage(){
+  var el=document.getElementById('cgrid'); el.innerHTML='';
+  cats.forEach(function(c){
+    var cnt=products.filter(function(p){return p.category===c.id;}).length;
+    var stk=products.filter(function(p){return p.category===c.id&&p.stock==='instock';}).length;
+    el.innerHTML+='<div class="cmc"><h3>'+c.icon+' '+c.name+'</h3>'+
+      '<p>'+cnt+' ürün &nbsp;·&nbsp; '+stk+' stokta</p>'+
+      '<div class="cmca">'+
+        '<button class="btn bout bsm" onclick="activeCat=\''+c.id+'\';document.getElementById(\'fc\').value=\''+c.id+'\';gp(\'products\')">Listele</button>'+
+        '<button class="btn bdng bsm" onclick="delCat(\''+c.id+'\')">Sil</button>'+
+      '</div></div>';
+  });
+  if(!cats.length)el.innerHTML='<p style="color:var(--mut)">Henüz kategori yok.</p>';
+}
+
+/* EXPORT */
+function getRows(list){
+  var sL={instock:'Stokta',order:'Sipariş ile',sold:'Satıldı'};
+  var cL={new:'Sıfır',used:'İkinci El',refurb:'Revize'};
+  return(list||products).map(function(p){
+    var c=cats.find(function(x){return x.id===p.category;});
+    return{'ID':p.id,'Ürün Adı':p.name,'Kategori':(c?c.name:p.category),
+      'Marka':p.brand,'Model':p.model,'Fiyat (₺)':p.price,
+      'Stok':sL[p.stock]||p.stock,'Kondisyon':cL[p.condition]||p.condition,
+      'Görsel Sayısı':(p.images||[]).length,'Datasheet':p.datasheet||'',
+      'Açıklama':p.desc,'Etiketler':(p.tags||[]).join(', ')};
+  });
+}
+function exportExcel(){
+  var wb=XLSX.utils.book_new();
+  var ws=XLSX.utils.json_to_sheet(getRows());
+  ws['!cols']=[{wch:8},{wch:35},{wch:16},{wch:18},{wch:22},{wch:12},{wch:14},{wch:12},{wch:10},{wch:40},{wch:45},{wch:25}];
+  XLSX.utils.book_append_sheet(wb,ws,'Tüm Ürünler');
+  cats.forEach(function(c){
+    var list=products.filter(function(p){return p.category===c.id;});
+    if(list.length){var ws2=XLSX.utils.json_to_sheet(getRows(list));XLSX.utils.book_append_sheet(wb,ws2,c.name.substring(0,31));}
+  });
+  XLSX.writeFile(wb,'Mechanistrail_'+new Date().toLocaleDateString('tr-TR').replace(/\./g,'-')+'.xlsx');
+  showToast('Excel indirildi ✓');
+}
+function exportCSV(){
+  var h=['ID','Ürün Adı','Kategori','Marka','Model','Fiyat','Stok','Kondisyon','Açıklama'];
+  var sL={instock:'Stokta',order:'Sipariş ile',sold:'Satıldı'};
+  var rows=products.map(function(p){
+    var c=cats.find(function(x){return x.id===p.category;});
+    return[p.id,p.name,(c?c.name:p.category),p.brand,p.model,p.price,sL[p.stock]||p.stock,p.condition,p.desc]
+      .map(function(v){return'"'+(v||'').toString().replace(/"/g,'""')+'"';}).join(',');
+  });
+  var a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(h.join(',')+'\n'+rows.join('\n'));
+  a.download='Mechanistrail_'+new Date().toLocaleDateString('tr-TR').replace(/\./g,'-')+'.csv';
+  a.click();showToast('CSV indirildi ✓');
+}
+
+/* TOAST */
+function showToast(msg,isErr){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast'+(isErr?' err':'');
+  setTimeout(function(){t.classList.add('show');},10);
+  setTimeout(function(){t.classList.remove('show');},2800);
+}
+
+/* =============================================
+   TOPLU İÇE AKTARMA — Excel → Ürün
+   ============================================= */
+var importedRows = [];
+
+/* Şablon indir — XLSX.js ile oluştur */
+function downloadTemplate() {
+  if (typeof XLSX === 'undefined') { showToast('XLSX kütüphanesi yükleniyor...', true); return; }
+  var wb = XLSX.utils.book_new();
+  var headers = [
+    'ID','Kategori','Ürün Adı (TR)','Ürün Adı (EN)','Marka','Model No',
+    'Fiyat (₺)','Stok Durumu','Kondisyon',
+    'Açıklama (TR)','Açıklama (EN)','Etiketler',
+    'Görsel 1 URL','Görsel 2 URL','Görsel 3 URL',
+    'Datasheet URL','Ek Doküman URL',
+    'Teknik Özellikler','İlişkili Ürünler'
+  ];
+  var hint = [
+    'Benzersiz kod (E001)','Kategori adı','Türkçe ad *','İngilizce ad','Marka','Model',
+    'Fiyat (rakam) *','instock/order/sold *','new/used/refurb *',
+    'Türkçe açıklama','İngilizce açıklama','PLC, Siemens, S7',
+    'images/dosya.jpg','2. görsel','3. görsel',
+    'datasheets/dosya.pdf','Teknik kılavuz URL',
+    'Özellik:Değer, Özellik2:Değer2','E002,M001'
+  ];
+  var sample = [
+    'E010','Elektronik','Siemens S7-1200 PLC','Siemens S7-1200 PLC','Siemens','6ES7214-1AG40-0XB0',
+    12500,'instock','new',
+    'Orijinal ambalajında, 14DI/10DO','Original packaging, 14DI/10DO','PLC, Siemens',
+    'images/E010.jpg','','',
+    'datasheets/S7-1200.pdf','',
+    'Giriş Voltajı:24V DC, Bellek:100 KB','E011,M001'
+  ];
+  var ws = XLSX.utils.aoa_to_sheet([headers, hint, sample]);
+  ws['!cols'] = headers.map(function(h,i){
+    var w=[10,16,30,30,16,22,12,14,12,40,40,28,30,30,30,30,30,45,25];
+    return {wch: w[i]||18};
+  });
+  XLSX.utils.book_append_sheet(wb, ws, 'Ürün Listesi');
+  XLSX.writeFile(wb, 'Mechanistrail_Urun_Sablonu.xlsx');
+  showToast('Şablon indirildi ✓');
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').style.borderColor='rgba(55,138,221,0.3)';
+  document.getElementById('drop-zone').style.background='';
+  var f = e.dataTransfer.files[0];
+  if (f) handleFile(f);
+}
+
+function handleFile(file) {
+  if (!file) return;
+  if (!file.name.match(/\.xlsx?$/i)) { showToast('Sadece .xlsx veya .xls dosyası yükleyin!', true); return; }
+
+  var fi = document.getElementById('file-info');
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-size').textContent = (file.size/1024).toFixed(1) + ' KB';
+  fi.style.display = 'flex';
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var data = new Uint8Array(e.target.result);
+      var wb = XLSX.read(data, {type:'array'});
+      var ws = wb.Sheets[wb.SheetNames[0]];
+      var rows = XLSX.utils.sheet_to_json(ws, {header:1, defval:''});
+
+      /* Başlık satırını bul */
+      var headerRow = -1;
+      for (var i = 0; i < Math.min(rows.length, 8); i++) {
+        var r = rows[i];
+        if (r && r[0] && String(r[0]).trim().toUpperCase() === 'ID') { headerRow = i; break; }
+      }
+      if (headerRow === -1) { showToast('Geçersiz şablon! İlk sütun "ID" olmalı.', true); return; }
+
+      var headers = rows[headerRow].map(function(h){ return String(h).trim(); });
+      var dataRows = rows.slice(headerRow + 1).filter(function(r){
+        return r && r[0] && String(r[0]).trim() && !String(r[0]).trim().startsWith('//');
+      });
+
+      /* Açıklama satırını atla (2. satır hint satırı olabilir) */
+      dataRows = dataRows.filter(function(r){
+        var id = String(r[0]).trim();
+        return id && !id.toLowerCase().includes('benzersiz') && !id.toLowerCase().includes('kod');
+      });
+
+      importedRows = dataRows.map(function(r) {
+        function g(col) {
+          var idx = headers.findIndex(function(h){ return h.indexOf(col) !== -1; });
+          return idx !== -1 ? String(r[idx]||'').trim() : '';
+        }
+        var imgs = [g('Görsel 1'), g('Görsel 2'), g('Görsel 3')].filter(Boolean);
+        var specsRaw = g('Teknik Özellik');
+        var specs = specsRaw ? specsRaw.split(',').map(function(s){
+          var parts = s.split(':');
+          return {key:(parts[0]||'').trim(), val:(parts[1]||'').trim()};
+        }).filter(function(s){return s.key&&s.val;}) : [];
+        var relRaw = g('İlişkili');
+        var related = relRaw ? relRaw.split(',').map(function(x){return x.trim();}).filter(Boolean) : [];
+        var tagsRaw = g('Etiket');
+        var tags = tagsRaw ? tagsRaw.split(',').map(function(x){return x.trim();}).filter(Boolean) : [];
+        return {
+          id:        (g('ID')||'').toUpperCase(),
+          category:  g('Kategori'),
+          name:      g('Ürün Adı (TR)') || g('Ürün Ad'),
+          name_en:   g('Ürün Adı (EN)') || g('Ürün Ad'),
+          brand:     g('Marka'),
+          model:     g('Model'),
+          price:     parseFloat(g('Fiyat'))||0,
+          stock:     g('Stok')||'instock',
+          condition: g('Kondisyon')||'new',
+          desc:      g('Açıklama (TR)') || g('Açıklama'),
+          desc_en:   g('Açıklama (EN)'),
+          tags:      tags,
+          images:    imgs,
+          datasheet: g('Datasheet'),
+          doc2:      g('Ek Doküman'),
+          specs:     specs,
+          related:   related
+        };
+      }).filter(function(p){ return p.id && p.name; });
+
+      if (!importedRows.length) { showToast('Ürün verisi bulunamadı!', true); return; }
+      renderPreview();
+    } catch(err) {
+      showToast('Dosya okunamadı: ' + err.message, true);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function renderPreview() {
+  var prev = document.getElementById('import-preview');
+  var acts = document.getElementById('import-actions');
+  prev.style.display = 'block';
+  acts.style.display = 'block';
+
+  /* İstatistikler */
+  var instock = importedRows.filter(function(p){return p.stock==='instock';}).length;
+  var order   = importedRows.filter(function(p){return p.stock==='order';}).length;
+  var withImg = importedRows.filter(function(p){return p.images&&p.images.length>0;}).length;
+  var withDs  = importedRows.filter(function(p){return p.datasheet;}).length;
+  document.getElementById('imp-stats').innerHTML =
+    stat('Toplam Ürün', importedRows.length, 'var(--blue)') +
+    stat('Stokta', instock, 'var(--grn)') +
+    stat('Sipariş ile', order, 'var(--org)') +
+    stat('Görsel Var', withImg, '#9b59b6') ;
+  document.getElementById('prev-count').textContent = importedRows.length + ' ürün okundu';
+
+  /* Tablo başlık */
+  var sL={instock:'✅ Stokta',order:'📦 Sipariş',sold:'❌ Satıldı'};
+  var cL={new:'Sıfır',used:'İkinci El',refurb:'Revize'};
+  var head = document.getElementById('prev-head');
+  ['Durum','ID','Ürün Adı','Kategori','Fiyat','Stok','Kondisyon','Görsel','Datasheet','Özellik Sayısı'].forEach(function(h){
+    var th = document.createElement('th');
+    th.textContent = h;
+    th.style.cssText = 'background:#0f2040;padding:9px 10px;text-align:left;font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;border-bottom:1px solid rgba(55,138,221,0.2)';
+    head.appendChild(th);
+  });
+
+  /* Tablo gövde */
+  var tbody = document.getElementById('prev-body');
+  tbody.innerHTML = '';
+  importedRows.forEach(function(p, i) {
+    var existing = products.find(function(x){return x.id===p.id;});
+    var status = existing ? '🔄 Güncelle' : '🆕 Yeni';
+    var statusColor = existing ? '#f39c12' : '#2ecc71';
+    var err = !p.price ? '⚠️ Fiyat yok' : '';
+    var tr = document.createElement('tr');
+    tr.style.cssText = 'border-bottom:1px solid rgba(255,255,255,0.04)' + (err?';background:rgba(231,76,60,0.06)':'');
+    var cells = [
+      '<span style="font-size:10px;font-weight:600;color:'+statusColor+'">'+status+(err?' '+err:'')+'</span>',
+      '<code style="font-size:10px;color:rgba(255,255,255,0.5)">'+p.id+'</code>',
+      '<span style="font-size:12px">'+p.name+'</span>',
+      '<span style="font-size:11px;color:rgba(255,255,255,0.5)">'+p.category+'</span>',
+      '<span style="font-size:12px;font-weight:500">'+(p.price||0).toLocaleString('tr-TR')+' ₺</span>',
+      '<span style="font-size:10px">'+((sL[p.stock])||p.stock)+'</span>',
+      '<span style="font-size:10px">'+((cL[p.condition])||p.condition)+'</span>',
+      '<span style="font-size:11px">'+(p.images&&p.images.length?'✅ '+p.images.length+' adet':'—')+'</span>',
+      '<span style="font-size:11px">'+(p.datasheet?'✅':'—')+'</span>',
+      '<span style="font-size:11px">'+(p.specs&&p.specs.length?p.specs.length+' özellik':'—')+'</span>'
+    ];
+    cells.forEach(function(html) {
+      var td = document.createElement('td');
+      td.style.cssText = 'padding:9px 10px;vertical-align:middle';
+      td.innerHTML = html;
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+function stat(label, val, color) {
+  return '<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(55,138,221,0.12);border-radius:8px;padding:12px 14px">'+
+    '<p style="font-size:10px;color:rgba(255,255,255,0.45);margin-bottom:4px">'+label+'</p>'+
+    '<p style="font-size:22px;font-weight:700;color:'+color+'">'+val+'</p>'+
+  '</div>';
+}
+
+function doImport() {
+  if (!importedRows.length) { showToast('Önce dosya yükleyin!', true); return; }
+  var mode = document.querySelector('input[name="import-mode"]:checked').value;
+
+  if (mode === 'replace') {
+    if (!confirm('DİKKAT: Mevcut ' + products.length + ' ürün silinecek ve yüklenen ' + importedRows.length + ' ürün eklenecek. Emin misin?')) return;
+    products = importedRows.slice();
+  } else {
+    var added = 0, updated = 0;
+    importedRows.forEach(function(p) {
+      var idx = products.findIndex(function(x){return x.id===p.id;});
+      if (idx !== -1) { products[idx] = p; updated++; }
+      else { products.push(p); added++; }
+    });
+    var msg = added + ' yeni ürün eklendi, ' + updated + ' ürün güncellendi ✓';
+    document.getElementById('imp-result').textContent = msg;
+    document.getElementById('imp-result').style.display = '';
+  }
+
+  /* Kategorileri otomatik ekle */
+  importedRows.forEach(function(p) {
+    if (p.category && !cats.find(function(c){return c.id===p.category||c.name===p.category;})) {
+      var icons=['📦','🔧','⚡','⚙️','🖥️','📡','🔩','🛠️','💡','🔌'];
+      var id=p.category.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+      cats.push({id:id||p.category, name:p.category, icon:icons[cats.length%icons.length]});
+    }
+  });
+
+  saveProds(); saveCats();
+  renderDash(); renderTable(); renderCatPage(); refreshSidebar(); refreshCatFilter();
+
+  var btn = document.getElementById('import-btn');
+  btn.textContent = '✅ Yüklendi!';
+  btn.disabled = true;
+  setTimeout(function(){ btn.textContent='✅ Tümünü Yükle'; btn.disabled=false; }, 3000);
+
+  if (mode==='replace') showToast(importedRows.length + ' ürün yüklendi ✓');
+  else showToast(document.getElementById('imp-result').textContent);
+}
+
+function clearImport() {
+  importedRows = [];
+  document.getElementById('import-preview').style.display = 'none';
+  document.getElementById('import-actions').style.display = 'none';
+  document.getElementById('file-info').style.display = 'none';
+  document.getElementById('prev-head').innerHTML = '';
+  document.getElementById('prev-body').innerHTML = '';
+  document.getElementById('xlsx-input').value = '';
+  document.getElementById('imp-result').style.display = 'none';
+}
+</script>
+</body>
+</html>
