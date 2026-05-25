@@ -190,7 +190,9 @@ function showPage(id){
   if(btn)  btn.classList.add('active');
   window.scrollTo(0,0);
   if(id==='calc') setTimeout(doCalc,100);
-  // Sayfa değişince mevcut dili uygula
+  /* URL hash güncelle — sayfa yenilenince aynı sayfa açılır */
+  if(history.replaceState) history.replaceState(null, '', '#'+id);
+  /* Dil uygula */
   if(typeof currentLang !== 'undefined') setTimeout(function(){ applyLang(currentLang); }, 50);
 }
 
@@ -856,6 +858,14 @@ var translations = {
 
     /* Footer */
     footer_rights: "© 2025 Mechanistrail. Tüm hakları saklıdır.",
+    nav_shop: "🛒 Mağaza",
+    shop_label: "Satılık Parçalar",
+    shop_title: "Elektronik & Mekanik Parça Kataloğu",
+    shop_desc: "Stoktan veya hızlı tedarik ile. WhatsApp üzerinden sipariş verebilirsiniz.",
+    shop_noresult: "Arama kriterinize uygun ürün bulunamadı.",
+    shop_custom_title: "Aradığınız parçayı bulamadınız mı?",
+    shop_custom_desc: "Marka ve model numarasını gönderin, hızlı tedarik edelim.",
+    shop_custom_btn: "WhatsApp'tan Sor",
 
     /* Galeri & Slider */
     gallery_label: "Çalışmalarımızdan",
@@ -1026,6 +1036,14 @@ var translations = {
 
     /* Footer */
     footer_rights: "© 2025 Mechanistrail. All rights reserved.",
+    nav_shop: "🛒 Shop",
+    shop_label: "Parts for Sale",
+    shop_title: "Electronics & Mechanical Parts Catalogue",
+    shop_desc: "From stock or fast sourcing. Order and negotiate via WhatsApp.",
+    shop_noresult: "No products found matching your search.",
+    shop_custom_title: "Can't find what you need?",
+    shop_custom_desc: "Send us the brand and model number, we'll source it fast.",
+    shop_custom_btn: "Ask on WhatsApp",
 
     /* Gallery & Slider */
     gallery_label: "From Our Work",
@@ -1152,8 +1170,267 @@ function setLang(lang) {
   applyLang(lang);
 }
 
-/* Sayfa yüklenince kayıtlı dili uygula */
 document.addEventListener('DOMContentLoaded', function() {
-  if (currentLang === 'en') setLang('en');
-  else applyLang('tr');
+  /* URL hash varsa o sayfayı aç, yoksa ana sayfa */
+  var hash = window.location.hash.replace('#','');
+  var validPages = ['home','engineering','services','calc','templates','shop','projects','about','contact'];
+  if(hash && validPages.indexOf(hash) !== -1) {
+    showPage(hash);
+  } else {
+    showPage('home');
+  }
+  /* Dil uygula */
+  setLang(currentLang);
 });
+
+/* =============================================
+   MAĞAZA
+   ============================================= */
+var shopCat = 'all';
+
+function renderShop() {
+  var lang = (typeof currentLang !== 'undefined') ? currentLang : 'tr';
+  var q = (document.getElementById('shop-search')||{}).value || '';
+  q = q.toLowerCase().trim();
+
+  /* Kategori butonlarını oluştur */
+  var catsEl = document.getElementById('shop-cats');
+  if (catsEl && catsEl.children.length === 0) {
+    (CATEGORIES[lang]||CATEGORIES.tr).forEach(function(c) {
+      var btn = document.createElement('button');
+      btn.className = 'shop-cat-btn' + (c.id === shopCat ? ' active' : '');
+      btn.textContent = c.label;
+      btn.onclick = function() { shopCat = c.id; renderShop(); };
+      catsEl.appendChild(btn);
+    });
+  } else if (catsEl) {
+    /* Kategori etiketlerini güncelle */
+    var cats = CATEGORIES[lang]||CATEGORIES.tr;
+    Array.from(catsEl.children).forEach(function(btn, i) {
+      if (cats[i]) btn.textContent = cats[i].label;
+      btn.className = 'shop-cat-btn' + ((cats[i]&&cats[i].id) === shopCat ? ' active' : '');
+    });
+  }
+
+  var grid = document.getElementById('shop-grid');
+  var empty = document.getElementById('shop-empty');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  var filtered = PRODUCTS.filter(function(p) {
+    var catOk = shopCat === 'all' || p.category === shopCat;
+    var searchOk = !q || [p.name,p.name_en,p.brand,p.model,(p.tags||[]).join(' ')].join(' ').toLowerCase().indexOf(q) !== -1;
+    return catOk && searchOk;
+  });
+
+  if (filtered.length === 0) {
+    empty.style.display = '';
+    return;
+  }
+  empty.style.display = 'none';
+
+  var stockL = STOCK_LABELS[lang]||STOCK_LABELS.tr;
+  var condL  = COND_LABELS[lang]||COND_LABELS.tr;
+  var waMsg  = lang === 'en' ? 'Hello, I am interested in: ' : 'Merhaba, şu ürünü almak istiyorum: ';
+
+  filtered.forEach(function(p) {
+    var name  = lang === 'en' ? p.name_en : p.name;
+    var desc  = lang === 'en' ? p.desc_en : p.desc;
+    var stock = stockL[p.stock] || p.stock;
+    var cond  = condL[p.condition] || p.condition;
+    var soldOut = p.stock === 'sold';
+    var waLink  = 'https://wa.me/905444407618?text=' + encodeURIComponent(waMsg + name + ' (' + p.model + ')');
+    var btnTxt  = lang === 'en' ? '💬 WhatsApp' : '💬 WhatsApp\'tan Al';
+    var tagHtml = (p.tags||[]).map(function(t){ return '<span class="shop-tag">'+t+'</span>'; }).join('');
+
+    var condColor = p.condition==='new' ? '#27AE60' : p.condition==='refurb' ? '#F39C12' : '#85B7EB';
+
+    grid.innerHTML += '<div class="shop-card' + (soldOut?' shop-sold':'') + '" data-id="'+p.id+'">' +
+      '<div class="shop-card-head">' +
+        '<div>' +
+          '<p class="shop-card-id">' + p.id + '</p>' +
+          '<h3 class="shop-card-name">' + name + '</h3>' +
+          '<p class="shop-card-model">' + p.brand + ' — ' + p.model + '</p>' +
+        '</div>' +
+        '<span class="shop-cond" style="background:' + condColor + '22;color:' + condColor + '">' + cond + '</span>' +
+      '</div>' +
+      '<p class="shop-card-desc">' + desc + '</p>' +
+      '<div class="shop-tags">' + tagHtml + '</div>' +
+      '<div class="shop-card-foot">' +
+        '<div>' +
+          '<p class="shop-price">' + p.price.toLocaleString('tr-TR') + ' ₺</p>' +
+          '<p class="shop-stock">' + stock + '</p>' +
+        '</div>' +
+        (soldOut
+          ? '<button class="shop-btn shop-btn-sold" disabled>' + (lang==='en'?'Sold':'Satıldı') + '</button>'
+          : '<a class="shop-btn" href="' + waLink + '" target="_blank">' + btnTxt + '</a>') +
+      '</div>' +
+    '</div>';
+  });
+}
+
+/* showPage patch — mağaza açılınca render et */
+var _origShowPage = showPage;
+showPage = function(id) {
+  _origShowPage(id);
+  if (id === 'shop') {
+    var catsEl = document.getElementById('shop-cats');
+    if (catsEl) catsEl.innerHTML = '';
+    renderShop();
+  }
+};
+
+/* =============================================
+   ÜRÜN DETAY MODALI
+   ============================================= */
+function openProdModal(id) {
+  var allProds = [];
+  try {
+    var stored = localStorage.getItem('mech_prod_v3');
+    allProds = stored ? JSON.parse(stored) : (typeof PRODUCTS !== 'undefined' ? PRODUCTS : []);
+  } catch(e) {
+    allProds = typeof PRODUCTS !== 'undefined' ? PRODUCTS : [];
+  }
+
+  var p = allProds.find(function(x){ return x.id === id; });
+  if (!p) p = (typeof PRODUCTS !== 'undefined' ? PRODUCTS : []).find(function(x){ return x.id === id; });
+  if (!p) return;
+
+  var lang = (typeof currentLang !== 'undefined') ? currentLang : 'tr';
+  var name = lang === 'en' && p.name_en ? p.name_en : p.name;
+  var desc = lang === 'en' && p.desc_en ? p.desc_en : p.desc;
+
+  document.getElementById('pm-id').textContent = p.id;
+  document.getElementById('pm-name').textContent = name;
+  document.getElementById('pm-brand').textContent = (p.brand||'') + (p.model ? ' — ' + p.model : '');
+  document.getElementById('pm-price').textContent = (p.price||0).toLocaleString('tr-TR');
+  document.getElementById('pm-desc').textContent = desc;
+
+  /* Kondisyon badge */
+  var cL = {new:{tr:'Sıfır',en:'New',bg:'rgba(39,174,96,.2)',col:'#2ecc71'},
+            used:{tr:'İkinci El',en:'Used',bg:'rgba(255,255,255,.08)',col:'rgba(255,255,255,.55)'},
+            refurb:{tr:'Revize',en:'Refurbished',bg:'rgba(155,89,182,.2)',col:'#9b59b6'}};
+  var cb = document.getElementById('pm-cond-badge');
+  var cond = cL[p.condition] || cL.used;
+  cb.textContent = lang === 'en' ? cond.en : cond.tr;
+  cb.style.background = cond.bg; cb.style.color = cond.col;
+
+  /* Stok badge */
+  var sL = {instock:{tr:'✅ Stokta',en:'✅ In Stock',bg:'rgba(39,174,96,.15)',col:'#2ecc71'},
+            order:{tr:'📦 Sipariş ile',en:'📦 On Order',bg:'rgba(230,126,34,.15)',col:'#f39c12'},
+            sold:{tr:'❌ Satıldı',en:'❌ Sold',bg:'rgba(231,76,60,.15)',col:'#e74c3c'}};
+  var sb = document.getElementById('pm-stock-badge');
+  var stk = sL[p.stock] || sL.instock;
+  sb.textContent = lang === 'en' ? stk.en : stk.tr;
+  sb.style.background = stk.bg; sb.style.color = stk.col;
+
+  /* Görseller */
+  var imgs = p.images || [];
+  var mainImg = document.getElementById('pm-main-img-el');
+  var mainIcon = document.getElementById('pm-main-img-icon');
+  if (imgs.length > 0) {
+    mainImg.src = imgs[0]; mainImg.style.display = 'block'; mainIcon.style.display = 'none';
+  } else {
+    mainImg.style.display = 'none'; mainIcon.style.display = '';
+  }
+  var thumbs = document.getElementById('pm-thumbs');
+  thumbs.innerHTML = '';
+  imgs.forEach(function(url, i) {
+    var t = document.createElement('img');
+    t.src = url;
+    t.style.cssText = 'width:60px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid '+(i===0?'#378ADD':'transparent');
+    t.onclick = function() {
+      mainImg.src = url; mainImg.style.display = 'block'; mainIcon.style.display = 'none';
+      document.querySelectorAll('#pm-thumbs img').forEach(function(x){x.style.borderColor='transparent';});
+      t.style.borderColor = '#378ADD';
+    };
+    thumbs.appendChild(t);
+  });
+
+  /* Etiketler */
+  var tagsEl = document.getElementById('pm-tags');
+  tagsEl.innerHTML = (p.tags||[]).map(function(t){
+    return '<span style="font-size:11px;padding:3px 10px;border-radius:10px;background:rgba(55,138,221,0.1);color:#85B7EB;border:0.5px solid rgba(55,138,221,0.2)">'+t+'</span>';
+  }).join('');
+
+  /* WhatsApp */
+  var waMsg = lang === 'en' ? 'Hello, I am interested in: ' : 'Merhaba, şu ürünü almak istiyorum: ';
+  document.getElementById('pm-wa-btn').href = 'https://wa.me/905444407618?text=' + encodeURIComponent(waMsg + name + ' (' + (p.model||p.id) + ')');
+  document.getElementById('pm-wa-btn').textContent = lang === 'en' ? '💬 Order via WhatsApp' : '💬 WhatsApp\'tan Sipariş Ver';
+
+  /* Datasheet */
+  var dsBtn = document.getElementById('pm-ds-btn');
+  if (p.datasheet) { dsBtn.href = p.datasheet; dsBtn.style.display = 'block'; }
+  else { dsBtn.style.display = 'none'; }
+  var doc2Btn = document.getElementById('pm-doc2-btn');
+  if (p.doc2) { doc2Btn.href = p.doc2; doc2Btn.style.display = 'block'; }
+  else { doc2Btn.style.display = 'none'; }
+
+  /* Teknik özellikler */
+  var specs = p.specs || [];
+  var specsSec = document.getElementById('pm-specs-section');
+  if (specs.length > 0) {
+    specsSec.style.display = '';
+    document.getElementById('pm-specs').innerHTML = specs.map(function(s){
+      return '<div style="display:flex;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:8px;border:0.5px solid rgba(55,138,221,0.1)">' +
+        '<span style="font-size:12px;color:rgba(255,255,255,0.5)">' + s.key + '</span>' +
+        '<span style="font-size:12px;font-weight:500;color:#fff">' + s.val + '</span>' +
+        '</div>';
+    }).join('');
+  } else { specsSec.style.display = 'none'; }
+
+  /* İlişkili ürünler */
+  var related = p.related || [];
+  var relSec = document.getElementById('pm-related-section');
+  if (related.length > 0) {
+    relSec.style.display = '';
+    var relEl = document.getElementById('pm-related');
+    relEl.innerHTML = '';
+    related.forEach(function(rid) {
+      var rp = allProds.find(function(x){ return x.id === rid; });
+      if (!rp) return;
+      var rname = lang === 'en' && rp.name_en ? rp.name_en : rp.name;
+      var rimg = rp.images && rp.images[0];
+      relEl.innerHTML += '<div onclick="openProdModal(\''+rid+'\')" style="cursor:pointer;background:rgba(255,255,255,0.03);border:0.5px solid rgba(55,138,221,0.15);border-radius:10px;padding:12px;transition:border-color .2s" onmouseover="this.style.borderColor=\'rgba(55,138,221,0.4)\'" onmouseout="this.style.borderColor=\'rgba(55,138,221,0.15)\'">' +
+        '<div style="width:100%;aspect-ratio:1;border-radius:8px;background:rgba(55,138,221,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:10px;overflow:hidden">' +
+        (rimg ? '<img src="'+rimg+'" style="width:100%;height:100%;object-fit:contain">' : '<span style="font-size:28px">📦</span>') +
+        '</div>' +
+        '<p style="font-size:12px;font-weight:500;color:#fff;margin-bottom:4px;line-height:1.3">'+rname+'</p>' +
+        '<p style="font-size:11px;color:rgba(255,255,255,0.4)">'+rp.brand+'</p>' +
+        '<p style="font-size:14px;font-weight:600;color:#fff;margin-top:6px">'+(rp.price||0).toLocaleString('tr-TR')+' ₺</p>' +
+        '</div>';
+    });
+  } else { relSec.style.display = 'none'; }
+
+  document.getElementById('prod-modal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProdModal() {
+  document.getElementById('prod-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+/* ESC ile modal kapat */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeProdModal();
+});
+
+/* renderShop fonksiyonunu güncelle — kartlara tıklama ekle */
+var _origRenderShop = renderShop;
+renderShop = function() {
+  _origRenderShop();
+  /* Kartlara tıklama olayı ekle */
+  setTimeout(function() {
+    var cards = document.querySelectorAll('.shop-card');
+    cards.forEach(function(card) {
+      card.style.cursor = 'pointer';
+      /* Sadece kart arka planına tıklayınca aç, butona değil */
+      card.addEventListener('click', function(e) {
+        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+        var id = card.getAttribute('data-id');
+        if (id) openProdModal(id);
+      });
+    });
+  }, 100);
+};

@@ -88,10 +88,10 @@
   <!-- Dil Seçici - her zaman sağ üstte -->
   <div class="lang-switcher">
     <button class="lang-btn active" id="lang-tr" onclick="setLang('tr')">
-      <img src="https://flagcdn.com/w20/tr.png" width="20" height="14" alt="TR"> TR
+      🇹🇷 TR
     </button>
     <button class="lang-btn" id="lang-en" onclick="setLang('en')">
-      <img src="https://flagcdn.com/w20/gb.png" width="20" height="14" alt="EN"> EN
+      🇬🇧 EN
     </button>
   </div>
   <div class="nav-links" id="nav-links">
@@ -111,6 +111,7 @@
       </div>
     </div>
     <button class="nav-btn" id="nb-templates" onclick="showPage('templates');closeMenu()" data-i18n="nav_tmpl">📄 Şablonlar</button>
+    <button class="nav-btn" id="nb-shop"      onclick="showPage('shop');closeMenu()"      data-i18n="nav_shop">🛒 Mağaza</button>
     <button class="nav-btn"        id="nb-projects"    onclick="showPage('projects');closeMenu()"     data-i18n="nav_proj">Projeler</button>
     <button class="nav-btn"        id="nb-about"       onclick="showPage('about');closeMenu()"        data-i18n="nav_about">Hakkımızda</button>
     <button class="nav-btn"        id="nb-contact"     onclick="showPage('contact');closeMenu()"      data-i18n="nav_contact">İletişim</button>
@@ -826,6 +827,46 @@
 </div>
 
 <!-- =============================================
+<!-- =============================================
+     MAĞAZA SAYFASI
+     ============================================= -->
+<div class="page" id="page-shop">
+  <div class="page-inner">
+    <p class="sec-label" data-i18n="shop_label">Satılık Parçalar</p>
+    <p class="sec-title" data-i18n="shop_title">Elektronik & Mekanik Parça Kataloğu</p>
+    <p class="sec-sub" data-i18n="shop_desc">Stoktan veya hızlı tedarik ile. WhatsApp üzerinden sipariş ve fiyat pazarlığı yapabilirsiniz.</p>
+
+    <!-- Filtre & Arama -->
+    <div class="shop-toolbar">
+      <div class="shop-cats" id="shop-cats"></div>
+      <div class="shop-search-wrap">
+        <input class="shop-search" id="shop-search" type="text"
+               placeholder="Marka, model, ürün ara..." oninput="renderShop()">
+      </div>
+    </div>
+
+    <!-- Ürün ızgarası -->
+    <div class="shop-grid" id="shop-grid"></div>
+
+    <!-- Sonuç yok -->
+    <div class="shop-empty" id="shop-empty" style="display:none">
+      <p>🔍</p>
+      <p data-i18n="shop_noresult">Arama kriterinize uygun ürün bulunamadı.</p>
+    </div>
+
+    <!-- Özel talep -->
+    <div class="shop-custom">
+      <span style="font-size:22px">🔧</span>
+      <div>
+        <p style="font-weight:600;color:#fff;margin-bottom:3px;" data-i18n="shop_custom_title">Aradığınız parçayı bulamadınız mı?</p>
+        <p style="font-size:12px;color:rgba(255,255,255,0.45);" data-i18n="shop_custom_desc">Marka ve model numarasını gönderin, hızlı tedarik edelim.</p>
+      </div>
+      <a class="btn-blue" style="margin-left:auto;white-space:nowrap;text-decoration:none;"
+         href="https://wa.me/905444407618" target="_blank" data-i18n="shop_custom_btn">WhatsApp'tan Sor</a>
+    </div>
+  </div>
+</div>
+
      PROJELER SAYFASI
      Yeni proje eklemek için script.js dosyasındaki
      "projects" dizisini düzenle.
@@ -928,9 +969,65 @@
 </div>
 
 
+
+<!-- ÜRÜN DETAY MODALI -->
+<div id="prod-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:300;overflow-y:auto;backdrop-filter:blur(6px)" onclick="if(event.target===this)closeProdModal()">
+  <div style="max-width:900px;margin:40px auto;background:#132848;border:0.5px solid rgba(55,138,221,0.2);border-radius:20px;overflow:hidden">
+    <!-- Başlık -->
+    <div style="padding:18px 24px;border-bottom:0.5px solid rgba(55,138,221,0.15);display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <span id="pm-id" style="font-size:11px;color:rgba(255,255,255,0.35);font-family:monospace"></span>
+        <h2 id="pm-name" style="font-size:20px;font-weight:600;color:#fff;margin-top:4px"></h2>
+      </div>
+      <button onclick="closeProdModal()" style="background:rgba(255,255,255,0.08);border:none;color:rgba(255,255,255,0.6);font-size:22px;width:36px;height:36px;border-radius:50%;cursor:pointer">✕</button>
+    </div>
+
+    <!-- İçerik -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0">
+      <!-- Sol: Görseller -->
+      <div style="padding:24px;border-right:0.5px solid rgba(55,138,221,0.1)">
+        <div id="pm-main-img" style="width:100%;aspect-ratio:1;border-radius:12px;background:rgba(55,138,221,0.08);border:0.5px solid rgba(55,138,221,0.15);display:flex;align-items:center;justify-content:center;font-size:64px;margin-bottom:12px;overflow:hidden">
+          <img id="pm-main-img-el" style="width:100%;height:100%;object-fit:contain;display:none">
+          <span id="pm-main-img-icon">📦</span>
+        </div>
+        <div id="pm-thumbs" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+      </div>
+
+      <!-- Sağ: Bilgiler -->
+      <div style="padding:24px">
+        <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+          <span id="pm-cond-badge" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:10px"></span>
+          <span id="pm-stock-badge" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:10px"></span>
+        </div>
+        <p id="pm-brand" style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:4px"></p>
+        <p style="font-size:28px;font-weight:700;color:#fff;margin-bottom:16px"><span id="pm-price"></span> ₺</p>
+        <p id="pm-desc" style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:20px"></p>
+        <div id="pm-tags" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px"></div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a id="pm-wa-btn" href="#" target="_blank" style="display:block;padding:13px;text-align:center;background:#25D366;border-radius:10px;color:#fff;font-size:14px;font-weight:600;text-decoration:none">💬 WhatsApp'tan Sipariş Ver</a>
+          <a id="pm-ds-btn" href="#" target="_blank" style="display:none;padding:11px;text-align:center;background:rgba(55,138,221,0.15);border:0.5px solid rgba(55,138,221,0.3);border-radius:10px;color:#85B7EB;font-size:13px;font-weight:500;text-decoration:none">📄 Datasheet İndir (PDF)</a>
+          <a id="pm-doc2-btn" href="#" target="_blank" style="display:none;padding:11px;text-align:center;background:rgba(55,138,221,0.08);border:0.5px solid rgba(55,138,221,0.2);border-radius:10px;color:#85B7EB;font-size:13px;text-decoration:none">🔗 Teknik Kılavuz</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Teknik Özellikler -->
+    <div id="pm-specs-section" style="display:none;padding:20px 24px;border-top:0.5px solid rgba(55,138,221,0.1)">
+      <h3 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:14px">📐 Teknik Özellikler</h3>
+      <div id="pm-specs" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div>
+    </div>
+
+    <!-- İlişkili Ürünler -->
+    <div id="pm-related-section" style="display:none;padding:20px 24px;border-top:0.5px solid rgba(55,138,221,0.1)">
+      <h3 style="font-size:14px;font-weight:600;color:#fff;margin-bottom:14px">🔗 İlişkili Ürünler</h3>
+      <div id="pm-related" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px"></div>
+    </div>
+  </div>
+</div>
+
 <!-- Sabit İletişim Butonları -->
 <div class="contact-btns">
-  <a class="contact-btn whatsapp-btn" href="https://wa.me/9054" target="_blank" title="WhatsApp ile yaz">
+  <a class="contact-btn whatsapp-btn" href="https://wa.me/905444407618" target="_blank" title="WhatsApp ile yaz">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
     </svg>
@@ -946,6 +1043,7 @@
   <p>Antalya, Türkiye</p>
 </footer>
 
+<script src="products.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
