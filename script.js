@@ -1193,22 +1193,48 @@ function renderShop() {
   var q = (document.getElementById('shop-search')||{}).value || '';
   q = q.toLowerCase().trim();
 
+  /* Güncel ürün listesini al — admin localStorage > products.js */
+  var allProds = [];
+  try {
+    var stored = localStorage.getItem('mech_prod_v3');
+    allProds = stored ? JSON.parse(stored) : (typeof PRODUCTS !== 'undefined' ? PRODUCTS : []);
+  } catch(e) {
+    allProds = typeof PRODUCTS !== 'undefined' ? PRODUCTS : [];
+  }
+
+  /* Güncel kategorileri al */
+  var allCats = [];
+  try {
+    var storedCats = localStorage.getItem('mech_cat_v3');
+    allCats = storedCats ? JSON.parse(storedCats) : [];
+  } catch(e) { allCats = []; }
+
   /* Kategori butonlarını oluştur */
   var catsEl = document.getElementById('shop-cats');
-  if (catsEl && catsEl.children.length === 0) {
-    (CATEGORIES[lang]||CATEGORIES.tr).forEach(function(c) {
-      var btn = document.createElement('button');
-      btn.className = 'shop-cat-btn' + (c.id === shopCat ? ' active' : '');
-      btn.textContent = c.label;
-      btn.onclick = function() { shopCat = c.id; renderShop(); };
-      catsEl.appendChild(btn);
+  if (catsEl) {
+    catsEl.innerHTML = '';
+    /* Tümü butonu */
+    var allLabel = lang === 'en' ? 'All' : 'Tümü';
+    var btnAll = document.createElement('button');
+    btnAll.className = 'shop-cat-btn' + (shopCat === 'all' ? ' active' : '');
+    btnAll.textContent = allLabel;
+    btnAll.onclick = function() { shopCat = 'all'; renderShop(); };
+    catsEl.appendChild(btnAll);
+
+    /* Kategori butonları */
+    var usedCats = [];
+    allProds.forEach(function(p) {
+      if (p.category && usedCats.indexOf(p.category) === -1) usedCats.push(p.category);
     });
-  } else if (catsEl) {
-    /* Kategori etiketlerini güncelle */
-    var cats = CATEGORIES[lang]||CATEGORIES.tr;
-    Array.from(catsEl.children).forEach(function(btn, i) {
-      if (cats[i]) btn.textContent = cats[i].label;
-      btn.className = 'shop-cat-btn' + ((cats[i]&&cats[i].id) === shopCat ? ' active' : '');
+    usedCats.forEach(function(catId) {
+      var catObj = allCats.find(function(c){ return c.id === catId || c.name === catId; });
+      var icon = catObj ? catObj.icon : '📦';
+      var label = catObj ? catObj.name : catId;
+      var btn = document.createElement('button');
+      btn.className = 'shop-cat-btn' + (shopCat === catId ? ' active' : '');
+      btn.textContent = icon + ' ' + label;
+      btn.onclick = (function(id){ return function() { shopCat = id; renderShop(); }; })(catId);
+      catsEl.appendChild(btn);
     });
   }
 
@@ -1217,53 +1243,58 @@ function renderShop() {
   if (!grid) return;
   grid.innerHTML = '';
 
-  var filtered = PRODUCTS.filter(function(p) {
+  var filtered = allProds.filter(function(p) {
     var catOk = shopCat === 'all' || p.category === shopCat;
     var searchOk = !q || [p.name,p.name_en,p.brand,p.model,(p.tags||[]).join(' ')].join(' ').toLowerCase().indexOf(q) !== -1;
     return catOk && searchOk;
   });
 
   if (filtered.length === 0) {
-    empty.style.display = '';
+    if (empty) empty.style.display = '';
     return;
   }
-  empty.style.display = 'none';
+  if (empty) empty.style.display = 'none';
 
-  var stockL = STOCK_LABELS[lang]||STOCK_LABELS.tr;
-  var condL  = COND_LABELS[lang]||COND_LABELS.tr;
+  var stockL = { instock: lang==='en'?'✅ In Stock':'✅ Stokta', order: lang==='en'?'📦 On Order':'📦 Sipariş ile', sold: lang==='en'?'❌ Sold':'❌ Satıldı' };
+  var condL  = { new: lang==='en'?'New':'Sıfır', used: lang==='en'?'Used':'İkinci El', refurb: lang==='en'?'Refurbished':'Revize' };
   var waMsg  = lang === 'en' ? 'Hello, I am interested in: ' : 'Merhaba, şu ürünü almak istiyorum: ';
 
   filtered.forEach(function(p) {
-    var name  = lang === 'en' ? p.name_en : p.name;
-    var desc  = lang === 'en' ? p.desc_en : p.desc;
+    var name  = (lang === 'en' && p.name_en) ? p.name_en : p.name;
+    var desc  = (lang === 'en' && p.desc_en) ? p.desc_en : p.desc;
     var stock = stockL[p.stock] || p.stock;
     var cond  = condL[p.condition] || p.condition;
     var soldOut = p.stock === 'sold';
-    var waLink  = 'https://wa.me/905444407618?text=' + encodeURIComponent(waMsg + name + ' (' + p.model + ')');
-    var btnTxt  = lang === 'en' ? '💬 WhatsApp' : '💬 WhatsApp\'tan Al';
-    var tagHtml = (p.tags||[]).map(function(t){ return '<span class="shop-tag">'+t+'</span>'; }).join('');
-
+    var waLink  = 'https://wa.me/905444407618?text=' + encodeURIComponent(waMsg + name + ' (' + (p.model||p.id) + ')');
+    var btnTxt  = lang === 'en' ? '💬 WhatsApp' : '💬 WhatsApp'tan Al';
+    var tagHtml = (p.tags||[]).map(function(t){ return '<span class="shop-tag">' + t + '</span>'; }).join('');
     var condColor = p.condition==='new' ? '#27AE60' : p.condition==='refurb' ? '#F39C12' : '#85B7EB';
+    var imgHtml = (p.images && p.images[0])
+      ? '<div class="shop-card-img"><img src="'+p.images[0]+'" alt="'+name+'" onerror="this.parentElement.innerHTML='<span style=\'font-size:32px\'>📦</span>'"></div>'
+      : '<div class="shop-card-img"><span style="font-size:32px">📦</span></div>';
 
     grid.innerHTML += '<div class="shop-card' + (soldOut?' shop-sold':'') + '" data-id="'+p.id+'">' +
-      '<div class="shop-card-head">' +
-        '<div>' +
-          '<p class="shop-card-id">' + p.id + '</p>' +
-          '<h3 class="shop-card-name">' + name + '</h3>' +
-          '<p class="shop-card-model">' + p.brand + ' — ' + p.model + '</p>' +
+      imgHtml +
+      '<div class="shop-card-body">' +
+        '<div class="shop-card-head">' +
+          '<div style="min-width:0">' +
+            '<p class="shop-card-id">' + p.id + '</p>' +
+            '<h3 class="shop-card-name">' + name + '</h3>' +
+            '<p class="shop-card-model">' + (p.brand||'') + (p.model?' — '+p.model:'') + '</p>' +
+          '</div>' +
+          '<span class="shop-cond" style="background:'+condColor+'22;color:'+condColor+';flex-shrink:0">' + cond + '</span>' +
         '</div>' +
-        '<span class="shop-cond" style="background:' + condColor + '22;color:' + condColor + '">' + cond + '</span>' +
-      '</div>' +
-      '<p class="shop-card-desc">' + desc + '</p>' +
-      '<div class="shop-tags">' + tagHtml + '</div>' +
-      '<div class="shop-card-foot">' +
-        '<div>' +
-          '<p class="shop-price">' + p.price.toLocaleString('tr-TR') + ' ₺</p>' +
-          '<p class="shop-stock">' + stock + '</p>' +
+        '<p class="shop-card-desc">' + (desc||'') + '</p>' +
+        '<div class="shop-tags">' + tagHtml + '</div>' +
+        '<div class="shop-card-foot">' +
+          '<div>' +
+            '<p class="shop-price">' + (p.price||0).toLocaleString('tr-TR') + ' ₺</p>' +
+            '<p class="shop-stock">' + stock + '</p>' +
+          '</div>' +
+          (soldOut
+            ? '<button class="shop-btn shop-btn-sold" disabled>'+(lang==='en'?'Sold':'Satıldı')+'</button>'
+            : '<a class="shop-btn" href="'+waLink+'" target="_blank">'+btnTxt+'</a>') +
         '</div>' +
-        (soldOut
-          ? '<button class="shop-btn shop-btn-sold" disabled>' + (lang==='en'?'Sold':'Satıldı') + '</button>'
-          : '<a class="shop-btn" href="' + waLink + '" target="_blank">' + btnTxt + '</a>') +
       '</div>' +
     '</div>';
   });

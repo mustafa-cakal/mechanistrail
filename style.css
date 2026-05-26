@@ -28,10 +28,11 @@ body {
   gap: 0;
 }
 
-/* Logo */
+/* Logo — en solda */
 .nav-logo {
   flex-shrink: 0;
-  margin-right: 12px;
+  margin-right: 8px;
+  order: 1;
 }
 .nav-logo img {
   height: 42px;
@@ -40,18 +41,29 @@ body {
   display: block;
 }
 
-/* Dil seçici — logo ile hamburger arasında, sağa yaslanır */
-.nav > .lang-switcher {
-  flex-shrink: 0;
-  margin-left: auto;
+/* Menü linkleri — logodan sonra, esnek genişler */
+.nav-links {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  flex-wrap: nowrap;
   order: 2;
+  flex: 1;
+  overflow: visible;
 }
 
-/* Hamburger — sadece mobilde görünür */
+/* Dil seçici — en sağda, menüden sonra */
+.nav > .lang-switcher {
+  flex-shrink: 0;
+  margin-left: 8px;
+  order: 3;
+}
+
+/* Hamburger — sadece mobilde görünür, dil seçiciden sonra */
 .nav-hamburger {
   display: none;
-  order: 3;
-  margin-left: 10px;
+  order: 4;
+  margin-left: 8px;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
@@ -73,17 +85,6 @@ body {
 .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav-hamburger.open span:nth-child(2) { opacity: 0; }
 .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-/* Menü linkleri — masaüstünde yatay */
-.nav-links {
-  display: flex;
-  gap: 2px;
-  align-items: center;
-  flex-wrap: nowrap;
-  order: 1;
-  flex: 1;
-  overflow: visible;
-}
 
 .nav-btn {
   font-size: 12.5px;
@@ -912,4 +913,157 @@ body {
 @media (max-width: 700px) {
   .nav-links .lang-switcher { margin-left: 0; }
   .lang-btn { padding: 4px 8px; font-size: 11px; }
+}
+
+/* =============================================
+   MAĞAZA SAYFASI
+   ============================================= */
+.shop-toolbar {
+  display: flex; gap: 8px; align-items: center;
+  flex-wrap: wrap; margin-bottom: 16px;
+}
+.shop-cats {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  width: 100%;
+}
+.shop-cat-btn {
+  padding: 7px 14px; border-radius: 20px; font-size: 13px;
+  font-weight: 500; cursor: pointer;
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(55,138,221,0.2);
+  color: rgba(255,255,255,0.55); transition: all 0.2s;
+  white-space: nowrap;
+}
+.shop-cat-btn:hover { color: #fff; border-color: rgba(55,138,221,0.5); }
+.shop-cat-btn.active {
+  background: rgba(24,95,165,0.3);
+  border-color: rgba(55,138,221,0.6); color: #fff;
+}
+.shop-search-wrap { width: 100%; }
+.shop-search {
+  width: 100%; padding: 10px 14px; border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  border: 0.5px solid rgba(55,138,221,0.2);
+  color: #fff; font-size: 14px; outline: none;
+  transition: border-color 0.2s;
+}
+.shop-search::placeholder { color: rgba(255,255,255,0.3); }
+.shop-search:focus { border-color: rgba(55,138,221,0.5); }
+
+/* Kart Grid */
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px; margin-bottom: 20px;
+}
+.shop-card {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(55,138,221,0.15);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.shop-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(55,138,221,0.4);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.shop-sold { opacity: 0.5; }
+
+/* Ürün görseli */
+.shop-card-img {
+  width: 100%; height: 160px;
+  background: rgba(55,138,221,0.06);
+  border-bottom: 0.5px solid rgba(55,138,221,0.1);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0;
+}
+.shop-card-img img {
+  width: 100%; height: 100%; object-fit: contain;
+  padding: 8px;
+}
+
+/* Kart içeriği */
+.shop-card-body {
+  padding: 14px; display: flex; flex-direction: column;
+  gap: 8px; flex: 1;
+}
+.shop-card-head {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 8px;
+}
+.shop-card-id {
+  font-size: 10px; color: rgba(255,255,255,0.3);
+  margin-bottom: 3px; font-family: monospace;
+}
+.shop-card-name {
+  font-size: 14px; font-weight: 600; color: #fff;
+  line-height: 1.3; word-break: break-word;
+}
+.shop-card-model {
+  font-size: 11px; color: rgba(255,255,255,0.4);
+  margin-top: 2px;
+}
+.shop-cond {
+  font-size: 10px; font-weight: 600;
+  padding: 3px 9px; border-radius: 10px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.shop-card-desc {
+  font-size: 12px; color: rgba(255,255,255,0.5);
+  line-height: 1.6; flex: 1;
+}
+.shop-tags {
+  display: flex; flex-wrap: wrap; gap: 5px;
+}
+.shop-tag {
+  font-size: 10px; padding: 2px 8px; border-radius: 10px;
+  background: rgba(55,138,221,0.08);
+  color: #85B7EB; border: 0.5px solid rgba(55,138,221,0.2);
+}
+.shop-card-foot {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; gap: 8px;
+  border-top: 0.5px solid rgba(255,255,255,0.06);
+  padding-top: 10px; margin-top: auto;
+}
+.shop-price { font-size: 17px; font-weight: 700; color: #fff; }
+.shop-stock { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+.shop-btn {
+  padding: 9px 13px; border-radius: 8px; font-size: 12px;
+  font-weight: 600; text-decoration: none; cursor: pointer;
+  background: #25D366; color: #fff; border: none;
+  transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+}
+.shop-btn:hover { background: #1ebe5a; }
+.shop-btn-sold {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.25); cursor: not-allowed;
+}
+.shop-empty {
+  text-align: center; padding: 60px 20px;
+  color: rgba(255,255,255,0.35); font-size: 15px;
+}
+.shop-empty p:first-child { font-size: 40px; margin-bottom: 12px; }
+.shop-custom {
+  display: flex; align-items: center; gap: 14px;
+  flex-wrap: wrap; padding: 16px 20px;
+  background: rgba(55,138,221,0.06);
+  border: 0.5px solid rgba(55,138,221,0.2);
+  border-radius: 10px; margin-top: 8px;
+}
+
+/* MOBİL */
+@media (max-width: 600px) {
+  .shop-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .shop-card-img { height: 120px; }
+  .shop-card-body { padding: 10px; gap: 6px; }
+  .shop-card-name { font-size: 12px; }
+  .shop-price { font-size: 14px; }
+  .shop-btn { padding: 7px 9px; font-size: 11px; }
+}
+@media (max-width: 360px) {
+  .shop-grid { grid-template-columns: 1fr; }
 }
