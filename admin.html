@@ -553,6 +553,7 @@ function doLogin(){
   var u=(document.getElementById('lu').value||'').trim();
   var p=(document.getElementById('lp').value||'');
   if(u===AU&&p===AP){
+    sessionStorage.setItem('mech_admin','1');
     document.getElementById('ls').style.display='none';
     document.getElementById('pnl').style.display='flex';
     init();
@@ -562,6 +563,7 @@ function doLogin(){
   }
 }
 function doLogout(){
+  sessionStorage.removeItem('mech_admin');
   document.getElementById('pnl').style.display='none';
   document.getElementById('ls').style.display='flex';
   document.getElementById('lp').value='';
