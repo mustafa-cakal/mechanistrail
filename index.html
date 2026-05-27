@@ -867,6 +867,7 @@
   </div>
 </div>
 
+<!-- =============================================
      PROJELER SAYFASI
      Yeni proje eklemek için script.js dosyasındaki
      "projects" dizisini düzenle.
@@ -1043,7 +1044,13 @@
   <p>Antalya, Türkiye</p>
 </footer>
 
-<script src="products.js"></script>
+<script>
+/* products.js yoksa boş array ile devam et */
+if(typeof PRODUCTS === 'undefined') var PRODUCTS = [];
+if(typeof CATEGORIES === 'undefined') var CATEGORIES = {tr:[{id:'all',label:'Tümü'}],en:[{id:'all',label:'All'}]};
+if(typeof STOCK_LABELS === 'undefined') var STOCK_LABELS = {tr:{instock:'✅ Stokta',order:'📦 Sipariş ile',sold:'❌ Satıldı'},en:{instock:'✅ In Stock',order:'📦 On Order',sold:'❌ Sold'}};
+if(typeof COND_LABELS === 'undefined') var COND_LABELS = {tr:{new:'Sıfır',used:'İkinci El',refurb:'Revize'},en:{new:'New',used:'Used',refurb:'Refurbished'}};
+</script>
 <script src="script.js"></script>
 </body>
 </html>
