@@ -190,8 +190,14 @@ function showPage(id){
   if(btn)  btn.classList.add('active');
   window.scrollTo(0,0);
   if(id==='calc') setTimeout(doCalc,100);
-  /* URL hash güncelle — sayfa yenilenince aynı sayfa açılır */
-  if(history.replaceState) history.replaceState(null, '', '#'+id);
+  /* Mağaza açılınca render et */
+  if(id==='shop'){
+    var catsEl=document.getElementById('shop-cats');
+    if(catsEl) catsEl.innerHTML='';
+    setTimeout(renderShop, 50);
+  }
+  /* URL hash güncelle */
+  if(history.replaceState) history.replaceState(null,'','#'+id);
   /* Dil uygula */
   if(typeof currentLang !== 'undefined') setTimeout(function(){ applyLang(currentLang); }, 50);
 }
@@ -246,7 +252,7 @@ function initGallery(){
   galleryResetProg();startGalleryAuto();
 }
 
-document.addEventListener('DOMContentLoaded',function(){renderProjects();initSlider();initGallery();});
+/* DOMContentLoaded — sayfa yüklenince çalışır */
 
 /* =============================================
    BİRİM DÖNÜŞTÜRÜCÜ
@@ -493,31 +499,7 @@ function convAll(){
   convTemp(); convForce(); convPower(); convArea(); convSpd();
 }
 
-/* --- Araç Seçim Sistemi --- */
-function openTool(tool) {
-  document.getElementById('tool-selector').style.display  = 'none';
-  document.getElementById('panel-weight').style.display   = 'none';
-  document.getElementById('panel-converter').style.display= 'none';
-  document.getElementById('panel-torque').style.display   = 'none';
-  var el = document.getElementById('panel-' + tool);
-  if (el) {
-    el.style.display = '';
-    if (tool === 'weight')    { setTimeout(doCalc, 50); }
-    if (tool === 'converter') { convAll(); }
-    if (tool === 'torque')    { calcTorque(); }
-  }
-  // nb-calc aktif yap
-  document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
-  var nb = document.getElementById('nb-calc'); if(nb) nb.classList.add('active');
-}
-
-function closeTool() {
-  document.getElementById('panel-weight').style.display   = 'none';
-  document.getElementById('panel-converter').style.display= 'none';
-  document.getElementById('panel-torque').style.display   = 'none';
-  document.getElementById('tool-selector').style.display  = '';
-  window.scrollTo(0, 0);
-}
+/* openTool ve closeTool aşağıda tam versiyon ile tanımlanmıştır */
 
 /* --- Motor Torku Hesaplayıcı --- */
 function calcTorque() {
@@ -732,7 +714,6 @@ function calcBolt() {
 }
 
 /* openTool güncelle — yeni araçları ekle */
-var _origOpenTool = openTool;
 function openTool(tool) {
   var allPanels = ['weight','converter','torque','inertia','beam','thermal','bolt'];
   document.getElementById('tool-selector').style.display = 'none';
@@ -752,7 +733,6 @@ function openTool(tool) {
   var nb=document.getElementById('nb-calc'); if(nb) nb.classList.add('active');
 }
 
-var _origCloseTool = closeTool;
 function closeTool() {
   var allPanels = ['weight','converter','torque','inertia','beam','thermal','bolt'];
   allPanels.forEach(function(t){
@@ -1171,6 +1151,7 @@ function setLang(lang) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  renderProjects(); initSlider(); initGallery();
   /* URL hash varsa o sayfayı aç, yoksa ana sayfa */
   var hash = window.location.hash.replace('#','');
   var validPages = ['home','engineering','services','calc','templates','shop','projects','about','contact'];
@@ -1266,14 +1247,14 @@ function renderShop() {
     var cond  = condL[p.condition] || p.condition;
     var soldOut = p.stock === 'sold';
     var waLink  = 'https://wa.me/905444407618?text=' + encodeURIComponent(waMsg + name + ' (' + (p.model||p.id) + ')');
-    var btnTxt  = lang === 'en' ? '💬 WhatsApp' : '💬 WhatsApp'tan Al';
+    var btnTxt  = lang === 'en' ? '💬 WhatsApp' : '💬 WhatsApp\'tan Al';
     var tagHtml = (p.tags||[]).map(function(t){ return '<span class="shop-tag">' + t + '</span>'; }).join('');
     var condColor = p.condition==='new' ? '#27AE60' : p.condition==='refurb' ? '#F39C12' : '#85B7EB';
     var imgHtml = (p.images && p.images[0])
-      ? '<div class="shop-card-img"><img src="'+p.images[0]+'" alt="'+name+'" onerror="this.parentElement.innerHTML='<span style=\'font-size:32px\'>📦</span>'"></div>'
+      ? '<div class="shop-card-img"><img src="'+p.images[0]+'" alt="'+name+'"></div>'
       : '<div class="shop-card-img"><span style="font-size:32px">📦</span></div>';
 
-    grid.innerHTML += '<div class="shop-card' + (soldOut?' shop-sold':'') + '" data-id="'+p.id+'">' +
+    grid.innerHTML += '<div class="shop-card' + (soldOut?' shop-sold':'') + '" data-id="'+p.id+'" onclick="var t=event.target;if(t.tagName!==\'A\'&&t.tagName!==\'BUTTON\')openProdModal(\''+p.id+'\')">' +
       imgHtml +
       '<div class="shop-card-body">' +
         '<div class="shop-card-head">' +
@@ -1300,16 +1281,7 @@ function renderShop() {
   });
 }
 
-/* showPage patch — mağaza açılınca render et */
-var _origShowPage = showPage;
-showPage = function(id) {
-  _origShowPage(id);
-  if (id === 'shop') {
-    var catsEl = document.getElementById('shop-cats');
-    if (catsEl) catsEl.innerHTML = '';
-    renderShop();
-  }
-};
+/* showPage shop render shop desteği yukarıdaki ana fonksiyona dahil edildi */
 
 /* =============================================
    ÜRÜN DETAY MODALI
@@ -1447,21 +1419,4 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeProdModal();
 });
 
-/* renderShop fonksiyonunu güncelle — kartlara tıklama ekle */
-var _origRenderShop = renderShop;
-renderShop = function() {
-  _origRenderShop();
-  /* Kartlara tıklama olayı ekle */
-  setTimeout(function() {
-    var cards = document.querySelectorAll('.shop-card');
-    cards.forEach(function(card) {
-      card.style.cursor = 'pointer';
-      /* Sadece kart arka planına tıklayınca aç, butona değil */
-      card.addEventListener('click', function(e) {
-        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
-        var id = card.getAttribute('data-id');
-        if (id) openProdModal(id);
-      });
-    });
-  }, 100);
-};
+/* Kart tıklama: data-id üzerinden openProdModal çağrılıyor */
