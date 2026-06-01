@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO: Bu sayfa Google'da "mekanik tasarım" aramasında çıkacak -->
+  <title>Mekanik Tasarım Hizmetleri | CAD/CAM Tasarım | Mechanistrail – Antalya</title>
+  <meta name="description" content="Profesyonel mekanik tasarım ve CAD/CAM hizmetleri. 10+ yıl deneyimli makine mühendisi ile fikrinizi ürüne dönüştürün. Antalya merkezli, Türkiye genelinde hizmet.">
+  <meta name="keywords" content="mekanik tasarım, CAD tasarım, CAM tasarım, makine tasarımı, mekanik tasarım hizmeti, mekanik tasarım Antalya, makine mühendisi, ürün tasarımı, 3D tasarım, SolidWorks, CATIA, mekanik mühendislik">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mechanistrail.com/mekanik-tasarim.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mechanistrail.com/mekanik-tasarim.html">
+  <meta property="og:title" content="Mekanik Tasarım Hizmetleri | Mechanistrail">
+  <meta property="og:description" content="Profesyonel mekanik tasarım ve CAD/CAM hizmetleri. Fikrinizi ürüne dönüştürüyoruz.">
+  <meta property="og:image" content="https://mechanistrail.com/logo.png">
+
+  <!-- Schema.org yapısal veri -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Mekanik Tasarım Hizmetleri",
+    "description": "Profesyonel mekanik tasarım, CAD/CAM hizmetleri ve makine mühendisliği danışmanlığı",
+    "provider": {
+      "@type": "ProfessionalService",
+      "name": "Mechanistrail",
+      "url": "https://mechanistrail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Antalya",
+        "addressCountry": "TR"
+      }
+    },
+    "areaServed": "Turkey",
+    "serviceType": "Mekanik Tasarım"
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #0d1117;
+      --bg-card: #161b22;
+      --bg-nav: #0d1117ee;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --text-primary: #f0f6fc;
+      --text-secondary: #8b949e;
+      --border: #30363d;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-nav);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+    }
+
+    .nav-logo img { height: 36px; }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent-light); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: white !important;
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 80px 2rem 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .breadcrumb a { color: var(--accent-light); text-decoration: none; }
+    .breadcrumb span { margin: 0 0.5rem; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(59,130,246,0.15);
+      color: var(--accent-light);
+      border: 1px solid rgba(59,130,246,0.3);
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 span { color: var(--accent-light); }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.1s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-secondary:hover { border-color: var(--accent-light); }
+
+    /* STATS */
+    .stats {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem;
+    }
+
+    .stats-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-light);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    /* SERVICES */
+    .section {
+      padding: 64px 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-sub {
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      font-size: 1rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .service-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(59,130,246,0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.5rem;
+      color: var(--accent-light);
+    }
+
+    .service-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* PROCESS */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      counter-reset: step;
+    }
+
+    .process-step {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      position: relative;
+    }
+
+    .step-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: rgba(59,130,246,0.2);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .process-step h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .process-step p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* TOOLS */
+    .tools-section {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 2rem;
+    }
+
+    .tools-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .tools-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    .tool-tag {
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.25);
+      color: var(--accent-light);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    /* FAQ */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .faq-item h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .faq-item p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(59,130,246,0.05));
+      border: 1px solid rgba(59,130,246,0.2);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 0 2rem 64px;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-section h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    footer a { color: var(--accent-light); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero { padding: 48px 1rem 40px; }
+      .section { padding: 48px 1rem; }
+      .cta-section { margin: 0 1rem 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://mechanistrail.com" class="nav-logo">
+    <img src="logo.png" alt="Mechanistrail Logo">
+    Mechanistrail
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://mechanistrail.com/#hizmetler">Hizmetler</a></li>
+    <li><a href="https://mechanistrail.com/#projeler">Projeler</a></li>
+    <li><a href="https://mechanistrail.com/#hakkimizda">Hakkımızda</a></li>
+    <li><a href="https://mechanistrail.com/#iletisim" class="nav-cta">İletişim</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="breadcrumb">
+    <a href="https://mechanistrail.com">Ana Sayfa</a>
+    <span>›</span>
+    Mekanik Tasarım Hizmetleri
+  </div>
+
+  <div class="hero-badge">
+    <i class="ti ti-settings"></i> Mekanik Tasarım & CAD/CAM
+  </div>
+
+  <h1>
+    Fikrinizi <span>Ürüne Dönüştüren</span><br>
+    Mekanik Tasarım Hizmetleri
+  </h1>
+
+  <p class="hero-desc">
+    10+ yıl deneyimli makine mühendisi ile profesyonel mekanik tasarım, CAD/CAM ve
+    ürün geliştirme hizmetleri. Antalya merkezli, Türkiye genelinde ve yurt dışında hizmet veriyoruz.
+  </p>
+
+  <div class="hero-actions">
+    <a href="https://mechanistrail.com/#iletisim" class="btn-primary">
+      <i class="ti ti-mail"></i> Ücretsiz Keşif Görüşmesi
+    </a>
+    <a href="https://mechanistrail.com/#projeler" class="btn-secondary">
+      <i class="ti ti-folder"></i> Projelerimizi Gör
+    </a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-grid">
+    <div>
+      <div class="stat-number">50+</div>
+      <div class="stat-label">Tamamlanan Proje</div>
+    </div>
+    <div>
+      <div class="stat-number">10+</div>
+      <div class="stat-label">Yıl Deneyim</div>
+    </div>
+    <div>
+      <div class="stat-number">%100</div>
+      <div class="stat-label">Müşteri Memnuniyeti</div>
+    </div>
+    <div>
+      <div class="stat-number">5</div>
+      <div class="stat-label">Uzmanlık Alanı</div>
+    </div>
+  </div>
+</div>
+
+<!-- HİZMETLER -->
+<section class="section">
+  <h2 class="section-title">Mekanik Tasarım Hizmetlerimiz</h2>
+  <p class="section-sub">Her aşamada yanınızdayız — konsept tasarımdan üretime hazır çizimlere kadar.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon"><i class="ti ti-3d-cube-sphere"></i></div>
+      <h3>3D CAD Modelleme</h3>
+      <p>SolidWorks, CATIA ve Fusion 360 ile hassas 3D parça ve montaj modelleri. Üretim öncesi tam detaylı tasarım.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><i class="ti ti-tools"></i></div>
+      <h3>Makine ve Mekanizma Tasarımı</h3>
+      <p>Endüstriyel makineler, özel otomasyon sistemleri ve mekanik mekanizmaların tasarımı ve optimizasyonu.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><i class="ti ti-file-description"></i></div>
+      <h3>Teknik Çizim ve Dokümantasyon</h3>
+      <p>ISO standartlarına uygun teknik resim, tolerans ve yüzey işlem belirteçleri ile üretim dokümantasyonu.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><i class="ti ti-refresh"></i></div>
+      <h3>Tersine Mühendislik</h3>
+      <p>Mevcut parçaların 3D tarama ve ölçüm ile dijital modele dönüştürülmesi. Yedek parça ve iyileştirme projeleri.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><i class="ti ti-chart-bar"></i></div>
+      <h3>Yapısal Analiz (FEA)</h3>
+      <p>Sonlu elemanlar analizi ile tasarımların dayanım, gerilme ve deformasyon değerlendirmesi.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><i class="ti ti-bulb"></i></div>
+      <h3>Konsept Tasarım Danışmanlığı</h3>
+      <p>Ürün fikrinizden başlayarak pazar araştırması, konsept geliştirme ve fizibilite analizi.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ÇALIŞMA SÜRECİ -->
+<section class="section" style="padding-top:0">
+  <h2 class="section-title">Nasıl Çalışıyoruz?</h2>
+  <p class="section-sub">Şeffaf ve hızlı bir süreç ile projenizi hayata geçiriyoruz.</p>
+
+  <div class="process-grid">
+    <div class="process-step">
+      <div class="step-number">01</div>
+      <h3>Ücretsiz Keşif Görüşmesi</h3>
+      <p>Projenizi dinler, ihtiyaçlarınızı analiz eder, size özel çözüm yolları öneririz.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">02</div>
+      <h3>Teklif ve Planlama</h3>
+      <p>Net zaman çizelgesi ve bütçe ile detaylı proje planı hazırlarız.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">03</div>
+      <h3>Tasarım ve Geliştirme</h3>
+      <p>Düzenli güncellemeler ile tasarım sürecini şeffaf şekilde yürütürüz.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">04</div>
+      <h3>Revizyon ve Onay</h3>
+      <p>Geri bildirimleriniz doğrultusunda iyileştirmeler yaparak onayınızı alırız.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">05</div>
+      <h3>Teslimat ve Destek</h3>
+      <p>Tüm dosyaları teslim eder, üretim sürecinde teknik destek sağlarız.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ARAÇLAR -->
+<div class="tools-section">
+  <div class="tools-inner">
+    <h2 class="section-title">Kullandığımız Yazılımlar ve Teknolojiler</h2>
+    <p class="section-sub" style="margin-bottom:0">Endüstri standardı araçlarla profesyonel çözümler üretiyoruz.</p>
+    <div class="tools-list">
+      <span class="tool-tag">SolidWorks</span>
+      <span class="tool-tag">CATIA V5</span>
+      <span class="tool-tag">Autodesk Inventor</span>
+      <span class="tool-tag">Fusion 360</span>
+      <span class="tool-tag">AutoCAD</span>
+      <span class="tool-tag">ANSYS</span>
+      <span class="tool-tag">FEA Analizi</span>
+      <span class="tool-tag">GD&T</span>
+      <span class="tool-tag">ISO Toleransları</span>
+      <span class="tool-tag">Teknik Resim</span>
+      <span class="tool-tag">Prototip Üretimi</span>
+      <span class="tool-tag">3D Baskı Tasarımı</span>
+    </div>
+  </div>
+</div>
+
+<!-- SSS -->
+<section class="section">
+  <h2 class="section-title">Sıkça Sorulan Sorular</h2>
+  <p class="section-sub">Mekanik tasarım hizmetlerimiz hakkında merak edilenler.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <h3>Mekanik tasarım için ne kadar süre gerekir?</h3>
+      <p>Projenin karmaşıklığına bağlı olarak basit parça tasarımları 2-5 iş günü, orta karmaşıklıkta mekanizmalar 1-3 hafta, tam makine tasarımları 2-8 hafta sürebilir. İlk görüşmede projenize özel zaman tahmini verilir.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Hangi dosya formatlarında teslim yapıyorsunuz?</h3>
+      <p>STEP, IGES, STL, DXF, DWG, PDF (teknik resim) ve kullandığınız CAD yazılımının native formatında teslim yapıyoruz. Talep halinde farklı formatlar da sağlanabilir.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Yurt dışından da çalışabilir misiniz?</h3>
+      <p>Evet, tüm projeler dijital ortamda yürütüldüğünden Türkiye dışındaki müşterilerle de çalışıyoruz. Video konferans ve dijital dosya paylaşımı ile sorunsuz iletişim sağlıyoruz.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Tasarım sonrası üretim desteği veriyor musunuz?</h3>
+      <p>Evet, tasarım sonrası imalatçı seçimi, teknik şartname hazırlama ve üretim sürecinde ortaya çıkan teknik sorularda danışmanlık desteği sağlıyoruz.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Gizlilik anlaşması (NDA) imzalıyor musunuz?</h3>
+      <p>Kesinlikle. Tüm projeler için NDA imzalıyoruz. Fikri mülkiyet haklarınız ve ticari sırlarınız güvence altındadır.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Projenizi Hayata Geçirelim</h2>
+  <p>Ücretsiz keşif görüşmesi için bugün iletişime geçin.<br>Projenizi dinleyelim, size özel çözüm sunalım.</p>
+  <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+    <a href="https://mechanistrail.com/#iletisim" class="btn-primary">
+      <i class="ti ti-mail"></i> İletişime Geç
+    </a>
+    <a href="https://mechanistrail.com" class="btn-secondary">
+      <i class="ti ti-home"></i> Ana Sayfaya Dön
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Mechanistrail | Mekanik Tasarım & Mühendislik Danışmanlığı | Antalya, Türkiye</p>
+  <p style="margin-top:0.5rem;">
+    <a href="https://mechanistrail.com">Ana Sayfa</a> ·
+    <a href="mekanik-tasarim.html">Mekanik Tasarım</a> ·
+    <a href="https://mechanistrail.com/#iletisim">İletişim</a>
+  </p>
+</footer>
+
+</body>
+</html>
