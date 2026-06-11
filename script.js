@@ -29,6 +29,7 @@ const projects = {
     { title:"Soğutma Termal Analizi", desc:"Yüksek güçlü elektronik soğutma sistemi simülasyonu.", img:"lokomotif_4.jpg", icon:"ti-ripple", iconColor:"#AFA9EC", iconBg:"rgba(127,119,221,0.1)", tags:["Termal","FEA","Soğutma"] },
     { title:"Özel Makine Tasarımı", desc:"Kinematik analiz, yapısal hesap ve prototip üretimi.", img:"lokomotif_5.jpg", icon:"ti-3d-cube-sphere", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mekanik","Kinematik","Prototip"] },
     { title:"Motor Kontrol Sistemi", desc:"Servo motor sürücü kartı ve kontrol yazılımı.", img:"lokomotif_6.jpg", icon:"ti-engine", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["Elektronik","Kontrol","Yazılım"] },
+    { title:"Katlanabilir Laptop Standı", desc:"Ergonomik, taşınabilir alüminyum laptop standı — mekanik tasarım, kinematik analiz ve prototip üretimi.", img:"laptop-standi-1.png", icon:"ti-device-laptop", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mekanik Tasarım","Prototip","Ürün Geliştirme"] },
   ],
   en: [
     { title:"Industrial Conveyor System", desc:"Mechanical design, PLC software and thermal analysis.", img:"lokomotif_1.jpg", icon:"ti-robot", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical","PLC","Thermal"] },
@@ -37,6 +38,7 @@ const projects = {
     { title:"Cooling Thermal Analysis", desc:"High-power electronics cooling system simulation.", img:"lokomotif_4.jpg", icon:"ti-ripple", iconColor:"#AFA9EC", iconBg:"rgba(127,119,221,0.1)", tags:["Thermal","FEA","Cooling"] },
     { title:"Custom Machine Design", desc:"Kinematic analysis, structural calculation and prototype manufacturing.", img:"lokomotif_5.jpg", icon:"ti-3d-cube-sphere", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical","Kinematics","Prototype"] },
     { title:"Motor Control System", desc:"Servo motor driver board and control software.", img:"lokomotif_6.jpg", icon:"ti-engine", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["Electronics","Control","Software"] },
+    { title:"Foldable Laptop Stand", desc:"Ergonomic, portable aluminium laptop stand — mechanical design, kinematic analysis and prototype manufacturing.", img:"laptop-standi-1.png", icon:"ti-device-laptop", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical Design","Prototype","Product Development"] },
   ]
 };
 
