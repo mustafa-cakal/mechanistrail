@@ -23,22 +23,26 @@ const GALLERY_INTERVAL = 10000;
    ============================================= */
 const projects = {
   tr: [
-    { title:"Endüstriyel Konveyör Sistemi", desc:"Mekanik tasarım, PLC yazılımı ve termal analiz.", img:"lokomotif_1.jpg", icon:"ti-robot", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mekanik","PLC","Termal"] },
-    { title:"HVAC Akış Optimizasyonu", desc:"CFD simülasyonu ile enerji verimliliği %23 artırıldı.", img:"lokomotif_2.jpg", icon:"ti-wind", iconColor:"#EF9F27", iconBg:"rgba(186,117,23,0.1)", tags:["CFD","HVAC","Akış"] },
-    { title:"Akıllı Sensör PCB Kartı", desc:"Çok katmanlı PCB tasarımı ve gömülü yazılım.", img:"lokomotif_3.jpg", icon:"ti-cpu", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["PCB","IoT","Yazılım"] },
-    { title:"Soğutma Termal Analizi", desc:"Yüksek güçlü elektronik soğutma sistemi simülasyonu.", img:"lokomotif_4.jpg", icon:"ti-ripple", iconColor:"#AFA9EC", iconBg:"rgba(127,119,221,0.1)", tags:["Termal","FEA","Soğutma"] },
-    { title:"Özel Makine Tasarımı", desc:"Kinematik analiz, yapısal hesap ve prototip üretimi.", img:"lokomotif_5.jpg", icon:"ti-3d-cube-sphere", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mekanik","Kinematik","Prototip"] },
-    { title:"Motor Kontrol Sistemi", desc:"Servo motor sürücü kartı ve kontrol yazılımı.", img:"lokomotif_6.jpg", icon:"ti-engine", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["Elektronik","Kontrol","Yazılım"] },
-    { title:"Katlanabilir Laptop Standı", desc:"Ergonomik, taşınabilir alüminyum laptop standı — mekanik tasarım, kinematik analiz ve prototip üretimi.", img:"laptop-standi-1.png", icon:"ti-device-laptop", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mekanik Tasarım","Prototip","Ürün Geliştirme"] },
+    { title:"Endüstriyel Konveyör Sistemi", desc:"Mekanik tasarım, PLC yazılımı ve termal analiz.", img:"lokomotif_1.jpg", icon:"ti-robot", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mekanik","PLC","Termal"], link:"konveyor-sistemi.html" },
+    { title:"HVAC Akış Optimizasyonu", desc:"CFD simülasyonu ile enerji verimliliği %23 artırıldı.", img:"lokomotif_2.jpg", icon:"ti-wind", iconColor:"#EF9F27", iconBg:"rgba(186,117,23,0.1)", tags:["CFD","HVAC","Akış"], link:"hvac-akis-optimizasyonu.html" },
+    { title:"Akıllı Sensör PCB Kartı", desc:"Çok katmanlı PCB tasarımı ve gömülü yazılım.", img:"lokomotif_3.jpg", icon:"ti-cpu", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["PCB","IoT","Yazılım"], link:"akilli-sensor-pcb.html" },
+    { title:"Soğutma Termal Analizi", desc:"Yüksek güçlü elektronik soğutma sistemi simülasyonu.", img:"lokomotif_4.jpg", icon:"ti-ripple", iconColor:"#AFA9EC", iconBg:"rgba(127,119,221,0.1)", tags:["Termal","FEA","Soğutma"], link:"sogutma-termal-analiz.html" },
+    { title:"Özel Makine Tasarımı", desc:"Kinematik analiz, yapısal hesap ve prototip üretimi.", img:"lokomotif_5.jpg", icon:"ti-3d-cube-sphere", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mekanik","Kinematik","Prototip"], link:"ozel-makine-tasarimi.html" },
+    { title:"Motor Kontrol Sistemi", desc:"Servo motor sürücü kartı ve kontrol yazılımı.", img:"lokomotif_6.jpg", icon:"ti-engine", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["Elektronik","Kontrol","Yazılım"], link:"motor-kontrol-sistemi.html" },
+    { title:"Katlanabilir Laptop Standı", desc:"Ergonomik, taşınabilir alüminyum laptop standı — mekanik tasarım, kinematik analiz ve prototip üretimi.", img:"laptop-standi-1.png", icon:"ti-device-laptop", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mekanik Tasarım","Prototip","Ürün Geliştirme"], link:"laptop-standi.html" },
+    { title:"Ananas Soyma Makinası", desc:"Gıda endüstrisine yönelik endüstriyel ananas soyma makinası — mekanik tasarım, kinematik analiz ve prototip üretimi.", img:"ananas_render1.png", icon:"ti-tool", iconColor:"#97C459", iconBg:"rgba(99,153,34,0.1)", tags:["Mekanik","Gıda Makinesi","Prototip"], link:"ananas-soyma-makinasi.html" },
+    { title:"Duvar Yazıcısı", desc:"CNC kontrollü duvar boyama makinası — X-Y-Z eksen hareketi, alüminyum profil yapı ve komple prototip üretimi.", img:"duvar yazıcısı/DUVAR BOYAMA MONTAJI.png", icon:"ti-printer", iconColor:"#60a5fa", iconBg:"rgba(59,130,246,0.1)", tags:["CNC","Mekanik Tasarım","Prototip"], link:"duvar-yazicisi.html" },
   ],
   en: [
-    { title:"Industrial Conveyor System", desc:"Mechanical design, PLC software and thermal analysis.", img:"lokomotif_1.jpg", icon:"ti-robot", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical","PLC","Thermal"] },
-    { title:"HVAC Flow Optimization", desc:"Energy efficiency increased by 23% with CFD simulation.", img:"lokomotif_2.jpg", icon:"ti-wind", iconColor:"#EF9F27", iconBg:"rgba(186,117,23,0.1)", tags:["CFD","HVAC","Flow"] },
-    { title:"Smart Sensor PCB Board", desc:"Multi-layer PCB design and embedded software.", img:"lokomotif_3.jpg", icon:"ti-cpu", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["PCB","IoT","Software"] },
-    { title:"Cooling Thermal Analysis", desc:"High-power electronics cooling system simulation.", img:"lokomotif_4.jpg", icon:"ti-ripple", iconColor:"#AFA9EC", iconBg:"rgba(127,119,221,0.1)", tags:["Thermal","FEA","Cooling"] },
-    { title:"Custom Machine Design", desc:"Kinematic analysis, structural calculation and prototype manufacturing.", img:"lokomotif_5.jpg", icon:"ti-3d-cube-sphere", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical","Kinematics","Prototype"] },
-    { title:"Motor Control System", desc:"Servo motor driver board and control software.", img:"lokomotif_6.jpg", icon:"ti-engine", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["Electronics","Control","Software"] },
-    { title:"Foldable Laptop Stand", desc:"Ergonomic, portable aluminium laptop stand — mechanical design, kinematic analysis and prototype manufacturing.", img:"laptop-standi-1.png", icon:"ti-device-laptop", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical Design","Prototype","Product Development"] },
+    { title:"Industrial Conveyor System", desc:"Mechanical design, PLC software and thermal analysis.", img:"lokomotif_1.jpg", icon:"ti-robot", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical","PLC","Thermal"], link:"konveyor-sistemi.html" },
+    { title:"HVAC Flow Optimization", desc:"Energy efficiency increased by 23% with CFD simulation.", img:"lokomotif_2.jpg", icon:"ti-wind", iconColor:"#EF9F27", iconBg:"rgba(186,117,23,0.1)", tags:["CFD","HVAC","Flow"], link:"hvac-akis-optimizasyonu.html" },
+    { title:"Smart Sensor PCB Board", desc:"Multi-layer PCB design and embedded software.", img:"lokomotif_3.jpg", icon:"ti-cpu", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["PCB","IoT","Software"], link:"akilli-sensor-pcb.html" },
+    { title:"Cooling Thermal Analysis", desc:"High-power electronics cooling system simulation.", img:"lokomotif_4.jpg", icon:"ti-ripple", iconColor:"#AFA9EC", iconBg:"rgba(127,119,221,0.1)", tags:["Thermal","FEA","Cooling"], link:"sogutma-termal-analiz.html" },
+    { title:"Custom Machine Design", desc:"Kinematic analysis, structural calculation and prototype manufacturing.", img:"lokomotif_5.jpg", icon:"ti-3d-cube-sphere", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical","Kinematics","Prototype"], link:"ozel-makine-tasarimi.html" },
+    { title:"Motor Control System", desc:"Servo motor driver board and control software.", img:"lokomotif_6.jpg", icon:"ti-engine", iconColor:"#5DCAA5", iconBg:"rgba(29,158,117,0.1)", tags:["Electronics","Control","Software"], link:"motor-kontrol-sistemi.html" },
+    { title:"Foldable Laptop Stand", desc:"Ergonomic, portable aluminium laptop stand — mechanical design, kinematic analysis and prototype manufacturing.", img:"laptop-standi-1.png", icon:"ti-device-laptop", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical Design","Prototype","Product Development"], link:"laptop-standi.html" },
+    { title:"Pineapple Peeling Machine", desc:"Industrial pineapple peeling machine for the food industry — mechanical design, kinematic analysis and prototype manufacturing.", img:"ananas_render1.png", icon:"ti-tool", iconColor:"#97C459", iconBg:"rgba(99,153,34,0.1)", tags:["Mechanical","Food Machine","Prototype"], link:"ananas-soyma-makinasi.html" },
+    { title:"Wall Printer", desc:"CNC-controlled wall painting machine — X-Y-Z axis motion, aluminium profile structure and complete prototype manufacturing.", img:"duvar yazıcısı/DUVAR BOYAMA MONTAJI.png", icon:"ti-printer", iconColor:"#60a5fa", iconBg:"rgba(59,130,246,0.1)", tags:["CNC","Mechanical Design","Prototype"], link:"duvar-yazicisi.html" },
   ]
 };
 
@@ -210,7 +214,9 @@ function renderProjects(){
   (projects[currentLang]||projects.tr).forEach(function(p){
     var thumb=p.img?'<img src="'+p.img+'" alt="'+p.title+'">':'<i class="ti '+p.icon+'" style="font-size:40px;color:'+p.iconColor+'" aria-hidden="true"></i>';
     var tags=p.tags.map(function(t){return '<span class="ptag">'+t+'</span>';}).join('');
-    grid.innerHTML+='<div class="proj-card"><div class="proj-thumb" style="background:'+(p.img?'#000':p.iconBg)+'">'+thumb+'</div><div class="proj-body"><h3>'+p.title+'</h3><p>'+p.desc+'</p><div class="proj-tags">'+tags+'</div></div></div>';
+    var cardStart=p.link?'<a class="proj-card" href="'+p.link+'" style="text-decoration:none;color:inherit;display:block;">':'<div class="proj-card">';
+    var cardEnd=p.link?'</a>':'</div>';
+    grid.innerHTML+=cardStart+'<div class="proj-thumb" style="background:'+(p.img?'#0d1117':p.iconBg)+'">'+thumb+'</div><div class="proj-body"><h3>'+p.title+'</h3><p>'+p.desc+'</p><div class="proj-tags">'+tags+'</div></div>'+cardEnd;
   });
 }
 
