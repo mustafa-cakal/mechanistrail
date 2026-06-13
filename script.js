@@ -16,6 +16,7 @@ const galleryPhotos = [
   { src: "ananas_render1.png", caption: "Ananas Soyma Makinası — Mechanistrail" },
   { src: "duvar-yazicisi-1.png", caption: "Duvar Yazıcısı — Mechanistrail" },
   { src: "nohut_ayıklama1.png", caption: "Nohut Ayıklama Makinası — Mechanistrail" },
+  { src: "ipek_gerdirme1.png", caption: "İpek Gerdirme Makinası — Mechanistrail" },
 ];
 const GALLERY_INTERVAL = 10000;
 
@@ -36,6 +37,7 @@ const projects = {
     { title:"Ananas Soyma Makinası", desc:"Gıda endüstrisine yönelik endüstriyel ananas soyma makinası — mekanik tasarım, kinematik analiz ve prototip üretimi.", img:"ananas_render1.png", icon:"ti-tool", iconColor:"#97C459", iconBg:"rgba(99,153,34,0.1)", tags:["Mekanik","Gıda Makinesi","Prototip"], link:"ananas-soyma-makinasi.html" },
     { title:"Duvar Yazıcısı", desc:"CNC kontrollü duvar boyama makinası — X-Y-Z eksen hareketi, alüminyum profil yapı ve komple prototip üretimi.", img:"duvar yazıcısı/DUVAR BOYAMA MONTAJI.png", icon:"ti-printer", iconColor:"#60a5fa", iconBg:"rgba(59,130,246,0.1)", tags:["CNC","Mekanik Tasarım","Prototip"], link:"duvar-yazicisi.html" },
     { title:"Nohut Ayıklama Makinası", desc:"Gıda endüstrisine yönelik endüstriyel nohut ayıklama makinası — mekanik tasarım, titreşim analizi ve prototip üretimi.", img:"nohut_ayıklama1.png", icon:"ti-grain", iconColor:"#EF9F27", iconBg:"rgba(186,117,23,0.1)", tags:["Mekanik","Gıda Makinesi","Titreşim"], link:"nohut-ayiklama-makinasi.html" },
+    { title:"İpek Gerdirme Makinası", desc:"Tekstil endüstrisine yönelik endüstriyel ipek gerdirme makinası — mekanik tasarım, gerilme analizi ve prototip üretimi.", img:"ipek_gerdirme1.png", icon:"ti-needle", iconColor:"#a78bfa", iconBg:"rgba(167,139,250,0.1)", tags:["Mekanik","Tekstil Makinesi","Gerilme"], link:"ipek-gerdirme-makinasi.html" },
   ],
   en: [
     { title:"Industrial Conveyor System", desc:"Mechanical design, PLC software and thermal analysis.", img:"lokomotif_1.jpg", icon:"ti-robot", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical","PLC","Thermal"], link:"konveyor-sistemi.html" },
@@ -48,6 +50,7 @@ const projects = {
     { title:"Pineapple Peeling Machine", desc:"Industrial pineapple peeling machine for the food industry — mechanical design, kinematic analysis and prototype manufacturing.", img:"ananas_render1.png", icon:"ti-tool", iconColor:"#97C459", iconBg:"rgba(99,153,34,0.1)", tags:["Mechanical","Food Machine","Prototype"], link:"ananas-soyma-makinasi.html" },
     { title:"Wall Printer", desc:"CNC-controlled wall painting machine — X-Y-Z axis motion, aluminium profile structure and complete prototype manufacturing.", img:"duvar yazıcısı/DUVAR BOYAMA MONTAJI.png", icon:"ti-printer", iconColor:"#60a5fa", iconBg:"rgba(59,130,246,0.1)", tags:["CNC","Mechanical Design","Prototype"], link:"duvar-yazicisi.html" },
     { title:"Chickpea Sorting Machine", desc:"Industrial chickpea sorting machine for the food industry — mechanical design, vibration analysis and prototype manufacturing.", img:"nohut_ayıklama1.png", icon:"ti-grain", iconColor:"#EF9F27", iconBg:"rgba(186,117,23,0.1)", tags:["Mechanical","Food Machine","Vibration"], link:"nohut-ayiklama-makinasi.html" },
+    { title:"Silk Stretching Machine", desc:"Industrial silk stretching machine for the textile industry — mechanical design, tension analysis and prototype manufacturing.", img:"ipek_gerdirme1.png", icon:"ti-needle", iconColor:"#a78bfa", iconBg:"rgba(167,139,250,0.1)", tags:["Mechanical","Textile Machine","Tension"], link:"ipek-gerdirme-makinasi.html" },
   ]
 };
 
