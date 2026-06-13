@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motor Kontrol Sistemi | Mechanistrail</title>
+  <meta name="description" content="Servo motor sürücü kartı ve gerçek zamanlı kontrol yazılımı geliştirme projesi. Mechanistrail mühendislik.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mechanistrail.com/motor-kontrol-sistemi.html">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    :root { --bg-dark:#0d1117; --bg-card:#161b22; --bg-nav:#0d1117ee; --accent:#3b82f6; --accent-light:#60a5fa; --text-primary:#f0f6fc; --text-secondary:#8b949e; --border:#30363d; --c:#5DCAA5; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg-dark); color:var(--text-primary); font-family:'Segoe UI',system-ui,sans-serif; line-height:1.6; }
+    nav { position:sticky; top:0; z-index:100; background:var(--bg-nav); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:0 2rem; display:flex; align-items:center; justify-content:space-between; height:64px; }
+    .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:700; font-size:1.1rem; color:var(--text-primary); }
+    .nav-logo img { height:36px; }
+    .nav-links { display:flex; gap:1.5rem; list-style:none; }
+    .nav-links a { color:var(--text-secondary); text-decoration:none; font-size:0.9rem; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--accent-light); }
+    .nav-cta { background:var(--accent); color:white !important; padding:0.4rem 1rem; border-radius:6px; font-weight:600; }
+    .hero { padding:80px 2rem 60px; max-width:1100px; margin:0 auto; }
+    .breadcrumb { font-size:0.85rem; color:var(--text-secondary); margin-bottom:1.5rem; }
+    .breadcrumb a { color:var(--accent-light); text-decoration:none; }
+    .breadcrumb span { margin:0 0.5rem; }
+    .hero-badge { display:inline-block; background:rgba(29,158,117,0.15); color:var(--c); border:1px solid rgba(29,158,117,0.3); padding:0.3rem 1rem; border-radius:20px; font-size:0.85rem; margin-bottom:1.5rem; }
+    .hero h1 { font-size:clamp(2rem,4vw,3rem); font-weight:800; line-height:1.2; margin-bottom:1.5rem; }
+    .hero h1 span { color:var(--c); }
+    .hero-desc { font-size:1.1rem; color:var(--text-secondary); max-width:680px; margin-bottom:2.5rem; }
+    .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; }
+    .btn-primary { background:var(--accent); color:white; padding:0.75rem 1.75rem; border-radius:8px; text-decoration:none; font-weight:600; font-size:1rem; transition:background 0.2s,transform 0.1s; display:inline-flex; align-items:center; gap:0.5rem; }
+    .btn-primary:hover { background:#2563eb; transform:translateY(-1px); }
+    .btn-secondary { background:transparent; color:var(--text-primary); padding:0.75rem 1.75rem; border-radius:8px; text-decoration:none; font-weight:600; font-size:1rem; border:1px solid var(--border); transition:border-color 0.2s; display:inline-flex; align-items:center; gap:0.5rem; }
+    .btn-secondary:hover { border-color:var(--accent-light); }
+    .section { padding:60px 2rem; max-width:1100px; margin:0 auto; }
+    .section-title { font-size:1.6rem; font-weight:700; margin-bottom:0.5rem; }
+    .section-sub { color:var(--text-secondary); margin-bottom:2.5rem; }
+    .gallery-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    @media(max-width:640px){ .gallery-grid { grid-template-columns:1fr; } }
+    .gallery-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color 0.2s,transform 0.2s; }
+    .gallery-card:hover { border-color:var(--c); transform:translateY(-2px); }
+    .gallery-placeholder { width:100%; height:280px; background:#1a1f26; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:0.75rem; color:var(--text-secondary); font-size:0.9rem; }
+    .gallery-info { padding:1rem 1.25rem; border-top:1px solid var(--border); }
+    .gallery-info h3 { font-size:1rem; font-weight:600; margin-bottom:0.25rem; }
+    .gallery-info p { font-size:0.875rem; color:var(--text-secondary); }
+    .specs-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-bottom:3rem; }
+    .spec-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:1.25rem; display:flex; gap:1rem; align-items:flex-start; }
+    .spec-icon { width:40px; height:40px; background:rgba(29,158,117,0.12); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--c); font-size:1.2rem; }
+    .spec-label { font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.2rem; }
+    .spec-value { font-size:0.95rem; font-weight:600; }
+    .process-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
+    .step-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:1.5rem; }
+    .step-num { font-size:2rem; font-weight:800; color:rgba(29,158,117,0.25); line-height:1; margin-bottom:0.75rem; }
+    .step-card h4 { font-size:1rem; font-weight:600; margin-bottom:0.4rem; }
+    .step-card p { font-size:0.875rem; color:var(--text-secondary); }
+    .cta-section { background:var(--bg-card); border-top:1px solid var(--border); padding:60px 2rem; text-align:center; }
+    .cta-section h2 { font-size:2rem; font-weight:700; margin-bottom:1rem; }
+    .cta-section p { color:var(--text-secondary); max-width:500px; margin:0 auto 2rem; font-size:1.05rem; }
+    footer { background:var(--bg-dark); border-top:1px solid var(--border); padding:2rem; text-align:center; color:var(--text-secondary); font-size:0.875rem; }
+    footer a { color:var(--accent-light); text-decoration:none; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="Mechanistrail Logo">Mechanistrail</a>
+  <ul class="nav-links">
+    <li><a href="index.html#hizmetler">Hizmetler</a></li>
+    <li><a href="index.html#projeler">Projeler</a></li>
+    <li><a href="index.html#hakkimizda">Hakkımızda</a></li>
+    <li><a href="index.html#iletisim" class="nav-cta">İletişim</a></li>
+  </ul>
+</nav>
+<section class="hero">
+  <div class="breadcrumb"><a href="index.html">Ana Sayfa</a><span>›</span><a href="index.html#projeler">Projeler</a><span>›</span>Motor Kontrol Sistemi</div>
+  <div class="hero-badge"><i class="ti ti-engine"></i> Elektronik & Kontrol</div>
+  <h1>Motor<br><span>Kontrol Sistemi</span></h1>
+  <p class="hero-desc">Servo motor sürücü kartı tasarımı ve gerçek zamanlı kontrol yazılımı geliştirme projesi. Yüksek hassasiyetli konum ve hız kontrolü sağlandı.</p>
+  <div class="hero-actions">
+    <a href="index.html#iletisim" class="btn-primary"><i class="ti ti-send"></i> Benzer Proje Talep Et</a>
+    <a href="index.html#projeler" class="btn-secondary"><i class="ti ti-arrow-left"></i> Tüm Projeler</a>
+  </div>
+</section>
+<section class="section">
+  <h2 class="section-title">Proje Görselleri</h2>
+  <p class="section-sub">Sürücü kartı ve sistem görüntüleri</p>
+  <div class="gallery-grid">
+    <div class="gallery-card"><div class="gallery-placeholder"><i class="ti ti-photo-off" style="font-size:2rem;"></i><span>Görsel yakında eklenecek</span></div><div class="gallery-info"><h3>Sürücü Kartı</h3><p>Servo motor driver PCB tasarımı</p></div></div>
+    <div class="gallery-card"><div class="gallery-placeholder"><i class="ti ti-photo-off" style="font-size:2rem;"></i><span>Görsel yakında eklenecek</span></div><div class="gallery-info"><h3>Kontrol Yazılımı</h3><p>Gerçek zamanlı kontrol algoritması</p></div></div>
+    <div class="gallery-card"><div class="gallery-placeholder"><i class="ti ti-photo-off" style="font-size:2rem;"></i><span>Görsel yakında eklenecek</span></div><div class="gallery-info"><h3>Test Düzeneği</h3><p>Motor test ve kalibrasyon ortamı</p></div></div>
+    <div class="gallery-card"><div class="gallery-placeholder"><i class="ti ti-photo-off" style="font-size:2rem;"></i><span>Görsel yakında eklenecek</span></div><div class="gallery-info"><h3>Entegrasyon</h3><p>Makine sistemiyle entegrasyon</p></div></div>
+  </div>
+</section>
+<section class="section" style="padding-top:0;">
+  <h2 class="section-title">Teknik Özellikler</h2>
+  <p class="section-sub">Sistem detayları</p>
+  <div class="specs-grid">
+    <div class="spec-card"><div class="spec-icon"><i class="ti ti-engine"></i></div><div><p class="spec-label">Motor Tipi</p><p class="spec-value">Servo motor</p></div></div>
+    <div class="spec-card"><div class="spec-icon"><i class="ti ti-cpu"></i></div><div><p class="spec-label">Kontrol</p><p class="spec-value">Gerçek zamanlı yazılım</p></div></div>
+    <div class="spec-card"><div class="spec-icon"><i class="ti ti-circuit-resistor"></i></div><div><p class="spec-label">Donanım</p><p class="spec-value">Özel sürücü kartı</p></div></div>
+    <div class="spec-card"><div class="spec-icon"><i class="ti ti-target"></i></div><div><p class="spec-label">Hassasiyet</p><p class="spec-value">Yüksek hassasiyetli konum kontrolü</p></div></div>
+  </div>
+</section>
+<section class="section" style="padding-top:0;">
+  <h2 class="section-title">Proje Süreci</h2>
+  <p class="section-sub">Tasarımdan devreye almaya adım adım</p>
+  <div class="process-steps">
+    <div class="step-card"><div class="step-num">01</div><h4>Sistem Tasarımı</h4><p>Kontrol gereksinimleri ve motor parametreleri belirlendi.</p></div>
+    <div class="step-card"><div class="step-num">02</div><h4>Sürücü Kartı</h4><p>Servo motor sürücü PCB tasarlandı ve üretildi.</p></div>
+    <div class="step-card"><div class="step-num">03</div><h4>Yazılım Geliştirme</h4><p>Gerçek zamanlı kontrol algoritması ve arayüz geliştirildi.</p></div>
+    <div class="step-card"><div class="step-num">04</div><h4>Test & Entegrasyon</h4><p>Sistem test edildi, makineye entegre edildi.</p></div>
+  </div>
+</section>
+<section class="cta-section">
+  <h2>Motor kontrol sistemi mi istiyorsunuz?</h2>
+  <p>Elektronik tasarım ve kontrol yazılımı için bizimle iletişime geçin.</p>
+  <a href="index.html#iletisim" class="btn-primary" style="display:inline-flex;"><i class="ti ti-send"></i> Proje Başlat</a>
+</section>
+<footer><p>© 2024 <a href="index.html">Mechanistrail</a>. Tüm hakları saklıdır.</p></footer>
+</body>
+</html>
