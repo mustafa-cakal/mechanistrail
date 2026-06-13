@@ -15,6 +15,7 @@ const galleryPhotos = [
   { src: "laptop-standi-4.png", caption: "Katlanabilir Laptop Standı — Mechanistrail" },
   { src: "ananas_render1.png", caption: "Ananas Soyma Makinası — Mechanistrail" },
   { src: "duvar-yazicisi-1.png", caption: "Duvar Yazıcısı — Mechanistrail" },
+  { src: "nohut_ayıklama1.png", caption: "Nohut Ayıklama Makinası — Mechanistrail" },
 ];
 const GALLERY_INTERVAL = 10000;
 
@@ -34,6 +35,7 @@ const projects = {
     { title:"Katlanabilir Laptop Standı", desc:"Ergonomik, taşınabilir alüminyum laptop standı — mekanik tasarım, kinematik analiz ve prototip üretimi.", img:"laptop-standi-1.png", icon:"ti-device-laptop", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mekanik Tasarım","Prototip","Ürün Geliştirme"], link:"laptop-standi.html" },
     { title:"Ananas Soyma Makinası", desc:"Gıda endüstrisine yönelik endüstriyel ananas soyma makinası — mekanik tasarım, kinematik analiz ve prototip üretimi.", img:"ananas_render1.png", icon:"ti-tool", iconColor:"#97C459", iconBg:"rgba(99,153,34,0.1)", tags:["Mekanik","Gıda Makinesi","Prototip"], link:"ananas-soyma-makinasi.html" },
     { title:"Duvar Yazıcısı", desc:"CNC kontrollü duvar boyama makinası — X-Y-Z eksen hareketi, alüminyum profil yapı ve komple prototip üretimi.", img:"duvar yazıcısı/DUVAR BOYAMA MONTAJI.png", icon:"ti-printer", iconColor:"#60a5fa", iconBg:"rgba(59,130,246,0.1)", tags:["CNC","Mekanik Tasarım","Prototip"], link:"duvar-yazicisi.html" },
+    { title:"Nohut Ayıklama Makinası", desc:"Gıda endüstrisine yönelik endüstriyel nohut ayıklama makinası — mekanik tasarım, titreşim analizi ve prototip üretimi.", img:"nohut_ayıklama1.png", icon:"ti-grain", iconColor:"#EF9F27", iconBg:"rgba(186,117,23,0.1)", tags:["Mekanik","Gıda Makinesi","Titreşim"], link:"nohut-ayiklama-makinasi.html" },
   ],
   en: [
     { title:"Industrial Conveyor System", desc:"Mechanical design, PLC software and thermal analysis.", img:"lokomotif_1.jpg", icon:"ti-robot", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical","PLC","Thermal"], link:"konveyor-sistemi.html" },
@@ -45,6 +47,7 @@ const projects = {
     { title:"Foldable Laptop Stand", desc:"Ergonomic, portable aluminium laptop stand — mechanical design, kinematic analysis and prototype manufacturing.", img:"laptop-standi-1.png", icon:"ti-device-laptop", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical Design","Prototype","Product Development"], link:"laptop-standi.html" },
     { title:"Pineapple Peeling Machine", desc:"Industrial pineapple peeling machine for the food industry — mechanical design, kinematic analysis and prototype manufacturing.", img:"ananas_render1.png", icon:"ti-tool", iconColor:"#97C459", iconBg:"rgba(99,153,34,0.1)", tags:["Mechanical","Food Machine","Prototype"], link:"ananas-soyma-makinasi.html" },
     { title:"Wall Printer", desc:"CNC-controlled wall painting machine — X-Y-Z axis motion, aluminium profile structure and complete prototype manufacturing.", img:"duvar yazıcısı/DUVAR BOYAMA MONTAJI.png", icon:"ti-printer", iconColor:"#60a5fa", iconBg:"rgba(59,130,246,0.1)", tags:["CNC","Mechanical Design","Prototype"], link:"duvar-yazicisi.html" },
+    { title:"Chickpea Sorting Machine", desc:"Industrial chickpea sorting machine for the food industry — mechanical design, vibration analysis and prototype manufacturing.", img:"nohut_ayıklama1.png", icon:"ti-grain", iconColor:"#EF9F27", iconBg:"rgba(186,117,23,0.1)", tags:["Mechanical","Food Machine","Vibration"], link:"nohut-ayiklama-makinasi.html" },
   ]
 };
 
