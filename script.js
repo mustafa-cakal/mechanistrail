@@ -12,7 +12,8 @@ const galleryPhotos = [
   { src: "lokomotif_4.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
   { src: "lokomotif_5.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
   { src: "lokomotif_6.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
-  { src: "lokomotif_7.jpg", caption: "Mechanistrail — Mühendislik Projelerimizden" },
+  { src: "ananas_render1.png", caption: "Ananas Soyma Makinası — Mechanistrail" },
+  { src: "duvar-yazicisi-1.png", caption: "Duvar Yazıcısı — Mechanistrail" },
 ];
 const GALLERY_INTERVAL = 10000;
 
