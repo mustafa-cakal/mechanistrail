@@ -860,8 +860,8 @@ var translations = {
     /* Galeri & Slider */
     gallery_label: "Çalışmalarımızdan",
     gallery_title: "Projelerden kareler",
-    slider_label:  "Ürünlerimiz",
-    slider_title:  "Tamamlanan projelerden örnekler",
+    slider_label:  "Hizmetlerimiz",
+    slider_title:  "Eksiksiz mühendislik çözümleri",
 
     /* Mühendislik Hizmetleri */
     eng_label: "Mühendislik Hizmetleri",
@@ -1038,8 +1038,8 @@ var translations = {
     /* Gallery & Slider */
     gallery_label: "From Our Work",
     gallery_title: "Project Snapshots",
-    slider_label:  "Our Products",
-    slider_title:  "Examples from completed projects",
+    slider_label:  "Our Services",
+    slider_title:  "Complete engineering solutions",
 
     /* Engineering Services */
     eng_label: "Engineering Services",
