@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aydınlatma Direği Tasarımı | Mechanistrail</title>
+  <meta name="description" content="Belediyeler ve şirketler için özel aydınlatma direği tasarımı. Estetik, dayanıklı ve kuruma özel çözümler. Mechanistrail mühendislik projesi.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mechanistrail.com/aydinlatma-diregi.html">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    :root { --bg-dark:#0d1117; --bg-card:#161b22; --bg-nav:#0d1117ee; --accent:#3b82f6; --accent-light:#60a5fa; --text-primary:#f0f6fc; --text-secondary:#8b949e; --border:#30363d; --c:#f59e0b; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg-dark); color:var(--text-primary); font-family:'Segoe UI',system-ui,sans-serif; line-height:1.6; }
+    nav { position:sticky; top:0; z-index:100; background:var(--bg-nav); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:0 2rem; display:flex; align-items:center; justify-content:space-between; height:64px; }
+    .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:700; font-size:1.1rem; color:var(--text-primary); }
+    .nav-logo img { height:36px; }
+    .nav-links { display:flex; gap:1.5rem; list-style:none; }
+    .nav-links a { color:var(--text-secondary); text-decoration:none; font-size:0.9rem; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--accent-light); }
+    .nav-cta { background:var(--accent); color:white !important; padding:0.4rem 1rem; border-radius:6px; font-weight:600; }
+    .hero { padding:80px 2rem 60px; max-width:1100px; margin:0 auto; }
+    .breadcrumb { font-size:0.85rem; color:var(--text-secondary); margin-bottom:1.5rem; }
+    .breadcrumb a { color:var(--accent-light); text-decoration:none; }
+    .breadcrumb span { margin:0 0.5rem; }
+    .hero-badge { display:inline-block; background:rgba(245,158,11,0.15); color:var(--c); border:1px solid rgba(245,158,11,0.3); padding:0.3rem 1rem; border-radius:20px; font-size:0.85rem; margin-bottom:1.5rem; }
+    .hero h1 { font-size:clamp(2rem,4vw,3rem); font-weight:800; line-height:1.2; margin-bottom:1.5rem; }
+    .hero h1 span { color:var(--c); }
+    .hero-desc { font-size:1.1rem; color:var(--text-secondary); max-width:680px; margin-bottom:2.5rem; }
+    .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; }
+    .btn-primary { background:var(--accent); color:white; padding:0.75rem 1.75rem; border-radius:8px; text-decoration:none; font-weight:600; font-size:1rem; transition:background 0.2s,transform 0.1s; display:inline-flex; align-items:center; gap:0.5rem; }
+    .btn-primary:hover { background:#2563eb; transform:translateY(-1px); }
+    .btn-secondary { background:transparent; color:var(--text-primary); padding:0.75rem 1.75rem; border-radius:8px; text-decoration:none; font-weight:600; font-size:1rem; border:1px solid var(--border); transition:border-color 0.2s; display:inline-flex; align-items:center; gap:0.5rem; }
+    .btn-secondary:hover { border-color:var(--accent-light); }
+    .info-banner { background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.25); border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:3rem; display:flex; gap:1rem; align-items:flex-start; }
+    .info-banner i { color:var(--c); font-size:1.4rem; margin-top:2px; flex-shrink:0; }
+    .info-banner p { color:var(--text-secondary); font-size:0.95rem; line-height:1.6; }
+    .info-banner strong { color:var(--text-primary); }
+    .section { padding:60px 2rem; max-width:1100px; margin:0 auto; }
+    .section-title { font-size:1.6rem; font-weight:700; margin-bottom:0.5rem; }
+    .section-sub { color:var(--text-secondary); margin-bottom:2.5rem; }
+    .gallery-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    @media(max-width:640px){ .gallery-grid { grid-template-columns:1fr; } }
+    .gallery-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; overflow:hidden; cursor:pointer; transition:border-color 0.2s,transform 0.2s; }
+    .gallery-card:hover { border-color:var(--c); transform:translateY(-2px); }
+    .gallery-img { width:100%; height:280px; object-fit:contain; background:#1a1f26; display:block; padding:1.5rem; }
+    .gallery-info { padding:1rem 1.25rem; border-top:1px solid var(--border); }
+    .gallery-info h3 { font-size:1rem; font-weight:600; margin-bottom:0.25rem; }
+    .gallery-info p { font-size:0.875rem; color:var(--text-secondary); }
+    .specs-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-bottom:3rem; }
+    .spec-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:1.25rem; display:flex; gap:1rem; align-items:flex-start; }
+    .spec-icon { width:40px; height:40px; background:rgba(245,158,11,0.12); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--c); font-size:1.2rem; }
+    .spec-label { font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.2rem; }
+    .spec-value { font-size:0.95rem; font-weight:600; }
+    .process-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
+    .step-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:1.5rem; }
+    .step-num { font-size:2rem; font-weight:800; color:rgba(245,158,11,0.25); line-height:1; margin-bottom:0.75rem; }
+    .step-card h4 { font-size:1rem; font-weight:600; margin-bottom:0.4rem; }
+    .step-card p { font-size:0.875rem; color:var(--text-secondary); }
+    .cta-section { background:var(--bg-card); border-top:1px solid var(--border); padding:60px 2rem; text-align:center; }
+    .cta-section h2 { font-size:2rem; font-weight:700; margin-bottom:1rem; }
+    .cta-section p { color:var(--text-secondary); max-width:540px; margin:0 auto 2rem; font-size:1.05rem; }
+    footer { background:var(--bg-dark); border-top:1px solid var(--border); padding:2rem; text-align:center; color:var(--text-secondary); font-size:0.875rem; }
+    footer a { color:var(--accent-light); text-decoration:none; }
+    .lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:9999; align-items:center; justify-content:center; }
+    .lightbox.active { display:flex; }
+    .lightbox img { max-width:90vw; max-height:90vh; object-fit:contain; border-radius:8px; }
+    .lightbox-close { position:absolute; top:20px; right:28px; color:#fff; font-size:2.5rem; cursor:pointer; line-height:1; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="Mechanistrail Logo">Mechanistrail</a>
+  <ul class="nav-links">
+    <li><a href="index.html#hizmetler">Hizmetler</a></li>
+    <li><a href="index.html#projeler">Projeler</a></li>
+    <li><a href="index.html#hakkimizda">Hakkımızda</a></li>
+    <li><a href="index.html#iletisim" class="nav-cta">İletişim</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="breadcrumb"><a href="index.html">Ana Sayfa</a><span>›</span><a href="index.html#projeler">Projeler</a><span>›</span>Aydınlatma Direği Tasarımı</div>
+  <div class="hero-badge"><i class="ti ti-bulb"></i> Kentsel & Kurumsal Tasarım</div>
+  <h1>Aydınlatma<br><span>Direği Tasarımı</span></h1>
+  <p class="hero-desc">Belediyeler ve şirketler için kuruma özel aydınlatma direği tasarımı. Estetik, dayanıklı ve marka kimliğiyle uyumlu direk çözümleri mekanik tasarım ve yapısal analizle hayata geçirildi.</p>
+  <div class="hero-actions">
+    <a href="index.html#iletisim" class="btn-primary"><i class="ti ti-send"></i> Özel Tasarım Talep Et</a>
+    <a href="index.html#projeler" class="btn-secondary"><i class="ti ti-arrow-left"></i> Tüm Projeler</a>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0; padding-bottom:0;">
+  <div class="info-banner">
+    <i class="ti ti-info-circle"></i>
+    <p><strong>Belediyeler ve şirketler için özel tasarım:</strong> Standart katalog ürünlerinin ötesinde, kurumunuzun kimliğini ve bölgenin dokusunu yansıtan özgün aydınlatma direkleri tasarlıyoruz. Farklı boyut, form ve malzeme seçenekleriyle her ölçekte projeye uygun çözüm sunuyoruz.</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2 class="section-title">Proje Görselleri</h2>
+  <p class="section-sub">Tasarım render ve teknik görüntüler</p>
+  <div class="gallery-grid">
+    <div class="gallery-card" onclick="openLightbox('aydınlatma-direk1.png')">
+      <img src="aydınlatma-direk1.png" alt="Aydınlatma Direği — genel görünüm" class="gallery-img">
+      <div class="gallery-info"><h3>Genel Görünüm</h3><p>Direğin genel form ve tasarım görünümü</p></div>
+    </div>
+    <div class="gallery-card" onclick="openLightbox('aydınlatma-direk2.png')">
+      <img src="aydınlatma-direk2.png" alt="Aydınlatma Direği — detay görünüm" class="gallery-img">
+      <div class="gallery-info"><h3>Detay Görünüm</h3><p>Bağlantı ve bileşen detayları</p></div>
+    </div>
+    <div class="gallery-card" onclick="openLightbox('aydınlatma-direk3.png')">
+      <img src="aydınlatma-direk3.png" alt="Aydınlatma Direği — alternatif tasarım" class="gallery-img">
+      <div class="gallery-info"><h3>Alternatif Tasarım</h3><p>Farklı form ve konsept seçeneği</p></div>
+    </div>
+    <div class="gallery-card" onclick="openLightbox('aydınlatma-direk4.png')">
+      <img src="aydınlatma-direk4.png" alt="Aydınlatma Direği — sokak montaj görünümü" class="gallery-img">
+      <div class="gallery-info"><h3>Montaj Görünümü</h3><p>Sokak ve alan uygulaması</p></div>
+    </div>
+    <div class="gallery-card" onclick="openLightbox('aydınlatma-direk5.png')">
+      <img src="aydınlatma-direk5.png" alt="Aydınlatma Direği — teknik çizim" class="gallery-img">
+      <div class="gallery-info"><h3>Teknik Görünüm</h3><p>Yapısal ve boyutsal detaylar</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <h2 class="section-title">Teknik Özellikler</h2>
+  <p class="section-sub">Tasarım detayları</p>
+  <div class="specs-grid">
+    <div class="spec-card"><div class="spec-icon"><i class="ti ti-tool"></i></div><div><p class="spec-label">Tasarım</p><p class="spec-value">Mekanik & estetik tasarım</p></div></div>
+    <div class="spec-card"><div class="spec-icon"><i class="ti ti-ruler"></i></div><div><p class="spec-label">Analiz</p><p class="spec-value">Yapısal & rüzgar yük analizi</p></div></div>
+    <div class="spec-card"><div class="spec-icon"><i class="ti ti-building-community"></i></div><div><p class="spec-label">Müşteri</p><p class="spec-value">Belediyeler & şirketler</p></div></div>
+    <div class="spec-card"><div class="spec-icon"><i class="ti ti-palette"></i></div><div><p class="spec-label">Kapsam</p><p class="spec-value">Kuruma özel form & renk</p></div></div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <h2 class="section-title">Proje Süreci</h2>
+  <p class="section-sub">Fikirden üretime adım adım</p>
+  <div class="process-steps">
+    <div class="step-card"><div class="step-num">01</div><h4>İhtiyaç & Konsept</h4><p>Kurumun kimliği, bölge dokusu ve fonksiyonel gereksinimler doğrultusunda konsept belirlendi.</p></div>
+    <div class="step-card"><div class="step-num">02</div><h4>3D Tasarım</h4><p>Form, boyut ve malzeme seçenekleri 3D olarak modellendi; estetik ve yapısal denge kuruldu.</p></div>
+    <div class="step-card"><div class="step-num">03</div><h4>Yapısal Analiz</h4><p>Rüzgar yükü ve zemin bağlantı hesapları yapılarak yapısal güvenlik doğrulandı.</p></div>
+    <div class="step-card"><div class="step-num">04</div><h4>Üretim Dosyaları</h4><p>Teknik çizimler ve üretim dosyaları hazırlanarak seri üretim ve tedarik süreçleri desteklendi.</p></div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>Kurumunuza özel aydınlatma direği mi istiyorsunuz?</h2>
+  <p>Belediyenizin veya şirketinizin kimliğini yansıtan özgün direk tasarımı için bizimle iletişime geçin.</p>
+  <a href="index.html#iletisim" class="btn-primary" style="display:inline-flex;"><i class="ti ti-send"></i> Proje Başlat</a>
+</section>
+
+<footer><p>© 2024 <a href="index.html">Mechanistrail</a>. Tüm hakları saklıdır.</p></footer>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>

@@ -17,6 +17,7 @@ const galleryPhotos = [
   { src: "duvar-yazicisi-1.png", caption: "Duvar Yazıcısı — Mechanistrail" },
   { src: "nohut_ayıklama1.png", caption: "Nohut Ayıklama Makinası — Mechanistrail" },
   { src: "ipek_gerdirme1.png", caption: "İpek Gerdirme Makinası — Mechanistrail" },
+  { src: "aydınlatma-direk1.png", caption: "Aydınlatma Direği Tasarımı — Mechanistrail" },
 ];
 const GALLERY_INTERVAL = 10000;
 
@@ -38,6 +39,7 @@ const projects = {
     { title:"Duvar Yazıcısı", desc:"CNC kontrollü duvar boyama makinası — X-Y-Z eksen hareketi, alüminyum profil yapı ve komple prototip üretimi.", img:"duvar yazıcısı/DUVAR BOYAMA MONTAJI.png", icon:"ti-printer", iconColor:"#60a5fa", iconBg:"rgba(59,130,246,0.1)", tags:["CNC","Mekanik Tasarım","Prototip"], link:"duvar-yazicisi.html" },
     { title:"Nohut Ayıklama Makinası", desc:"Gıda endüstrisine yönelik endüstriyel nohut ayıklama makinası — mekanik tasarım, titreşim analizi ve prototip üretimi.", img:"nohut_ayıklama1.png", icon:"ti-grain", iconColor:"#EF9F27", iconBg:"rgba(186,117,23,0.1)", tags:["Mekanik","Gıda Makinesi","Titreşim"], link:"nohut-ayiklama-makinasi.html" },
     { title:"İpek Gerdirme Makinası", desc:"Değirmen eleği üretiminde kullanılan ipek gerdirme makinası — ipek fileyi ahşap çıtalara özel yapıştırıcılarla gergin şekilde sabitleyen mekanik sistem.", img:"ipek_gerdirme1.png", icon:"ti-needle", iconColor:"#a78bfa", iconBg:"rgba(167,139,250,0.1)", tags:["Mekanik","Elek Makinesi","Değirmen"], link:"ipek-gerdirme-makinasi.html" },
+    { title:"Aydınlatma Direği Tasarımı", desc:"Belediyeler ve şirketler için kuruma özel aydınlatma direği tasarımı — özgün form, yapısal analiz ve marka kimliğiyle uyumlu çözümler.", img:"aydınlatma-direk1.png", icon:"ti-bulb", iconColor:"#f59e0b", iconBg:"rgba(245,158,11,0.1)", tags:["Kentsel Tasarım","Belediye","Kurumsal"], link:"aydinlatma-diregi.html" },
   ],
   en: [
     { title:"Industrial Conveyor System", desc:"Mechanical design, PLC software and thermal analysis.", img:"lokomotif_1.jpg", icon:"ti-robot", iconColor:"#378ADD", iconBg:"rgba(24,95,165,0.1)", tags:["Mechanical","PLC","Thermal"], link:"konveyor-sistemi.html" },
@@ -51,6 +53,7 @@ const projects = {
     { title:"Wall Printer", desc:"CNC-controlled wall painting machine — X-Y-Z axis motion, aluminium profile structure and complete prototype manufacturing.", img:"duvar yazıcısı/DUVAR BOYAMA MONTAJI.png", icon:"ti-printer", iconColor:"#60a5fa", iconBg:"rgba(59,130,246,0.1)", tags:["CNC","Mechanical Design","Prototype"], link:"duvar-yazicisi.html" },
     { title:"Chickpea Sorting Machine", desc:"Industrial chickpea sorting machine for the food industry — mechanical design, vibration analysis and prototype manufacturing.", img:"nohut_ayıklama1.png", icon:"ti-grain", iconColor:"#EF9F27", iconBg:"rgba(186,117,23,0.1)", tags:["Mechanical","Food Machine","Vibration"], link:"nohut-ayiklama-makinasi.html" },
     { title:"Silk Stretching Machine", desc:"Silk stretching machine for mill sieve production — stretches silk mesh onto wooden frames using special adhesives for uniform tension.", img:"ipek_gerdirme1.png", icon:"ti-needle", iconColor:"#a78bfa", iconBg:"rgba(167,139,250,0.1)", tags:["Mechanical","Sieve Machine","Mill"], link:"ipek-gerdirme-makinasi.html" },
+    { title:"Lighting Pole Design", desc:"Custom lighting pole design for municipalities and companies — unique form, structural analysis and brand-aligned solutions.", img:"aydınlatma-direk1.png", icon:"ti-bulb", iconColor:"#f59e0b", iconBg:"rgba(245,158,11,0.1)", tags:["Urban Design","Municipality","Corporate"], link:"aydinlatma-diregi.html" },
   ]
 };
 
