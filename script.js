@@ -213,8 +213,8 @@ function showPage(id){
     if(catsEl) catsEl.innerHTML='';
     setTimeout(renderShop, 50);
   }
-  /* URL hash güncelle */
-  if(history.pushState) history.pushState(null,'','#'+id);
+  /* URL hash güncelle — mevcut hash zaten aynıysa pushState yapma */
+  if(history.pushState && window.location.hash !== '#'+id) history.pushState({page:id},'','#'+id);
   /* Dil uygula */
   if(typeof currentLang !== 'undefined') setTimeout(function(){ applyLang(currentLang); }, 50);
 }
@@ -1171,16 +1171,33 @@ function setLang(lang) {
 
 document.addEventListener('DOMContentLoaded', function() {
   renderProjects(); initSlider(); initGallery();
-  /* URL hash varsa o sayfayı aç, yoksa ana sayfa */
-  var hash = window.location.hash.replace('#','');
   var validPages = ['home','engineering','services','calc','templates','shop','projects','about','contact'];
-  if(hash && validPages.indexOf(hash) !== -1) {
-    showPage(hash);
-  } else {
-    showPage('home');
-  }
+  /* URL hash varsa o sayfayı aç, yoksa ana sayfa — ilk yüklemede replaceState kullan */
+  var hash = window.location.hash.replace('#','');
+  var initialPage = (hash && validPages.indexOf(hash) !== -1) ? hash : 'home';
+  /* showPage pushState yapmasın diye önce state'i set et */
+  if(history.replaceState) history.replaceState({page:initialPage},'','#'+initialPage);
+  showPage(initialPage);
   /* Dil uygula */
   setLang(currentLang);
+
+  /* Geri/ileri tuşu: URL değişince doğru sayfayı göster */
+  window.addEventListener('popstate', function(e) {
+    var page = (e.state && e.state.page) ? e.state.page : window.location.hash.replace('#','');
+    if(page && validPages.indexOf(page) !== -1) {
+      /* pushState tetiklememek için doğrudan sayfa geçiş mantığını çalıştır */
+      var pages = document.querySelectorAll('.page');
+      pages.forEach(function(p){ p.classList.remove('active'); });
+      var btns = document.querySelectorAll('.nav-btn');
+      btns.forEach(function(b){ b.classList.remove('active'); });
+      var pg = document.getElementById('page-'+page);
+      var btn = document.getElementById('nb-'+page);
+      if(pg) pg.classList.add('active');
+      if(btn) btn.classList.add('active');
+      window.scrollTo(0,0);
+      if(typeof currentLang !== 'undefined') setTimeout(function(){ applyLang(currentLang); }, 50);
+    }
+  });
 });
 
 /* =============================================
