@@ -751,6 +751,8 @@ function openTool(tool) {
   if(tool==='bolt')     { calcBolt(); }
   document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
   var nb=document.getElementById('nb-calc'); if(nb) nb.classList.add('active');
+  /* Aktif aracı URL'ye kaydet */
+  if(history.replaceState) history.replaceState({page:'calc',tool:tool},'','#calc-'+tool);
 }
 
 function closeTool() {
@@ -759,6 +761,7 @@ function closeTool() {
     var el=document.getElementById('panel-'+t); if(el) el.style.display='none';
   });
   var ts=document.getElementById('tool-selector'); if(ts) ts.style.display='';
+  if(history.replaceState) history.replaceState({page:'calc'},'','#calc');
   window.scrollTo(0,0);
 }
 
@@ -1173,22 +1176,37 @@ function setLang(lang) {
 document.addEventListener('DOMContentLoaded', function() {
   renderProjects(); initSlider(); initGallery();
   var validPages = ['home','engineering','services','calc','templates','shop','projects','about','contact'];
-  /* URL hash varsa o sayfayı aç, yoksa ana sayfa — ilk yüklemede replaceState kullan */
+  var validTools = ['weight','converter','torque','inertia','beam','thermal','bolt'];
+
+  /* URL hash varsa o sayfayı aç, yoksa ana sayfa */
   var hash = window.location.hash.replace('#','');
-  var initialPage = (hash && validPages.indexOf(hash) !== -1) ? hash : 'home';
-  /* showPage pushState yapmasın diye önce state'i set et */
-  if(history.replaceState) history.replaceState({page:initialPage},'','#'+initialPage);
-  showPage(initialPage);
+
+  /* #calc-weight gibi araç hash'i mi? */
+  var toolMatch = hash.match(/^calc-(.+)$/);
+  if(toolMatch && validTools.indexOf(toolMatch[1]) !== -1) {
+    if(history.replaceState) history.replaceState({page:'calc',tool:toolMatch[1]},'','#calc-'+toolMatch[1]);
+    showPage('calc');
+    openTool(toolMatch[1]);
+  } else {
+    var initialPage = (hash && validPages.indexOf(hash) !== -1) ? hash : 'home';
+    if(history.replaceState) history.replaceState({page:initialPage},'','#'+initialPage);
+    showPage(initialPage);
+  }
+
   /* Dil uygula */
   setLang(currentLang);
 
   /* Geri/ileri tuşu: URL değişince doğru sayfayı göster */
   window.addEventListener('popstate', function(e) {
     var page = (e.state && e.state.page) ? e.state.page : window.location.hash.replace('#','');
+    var tool = e.state && e.state.tool;
     if(page && validPages.indexOf(page) !== -1) {
       _skipPushState = true;
       showPage(page);
       _skipPushState = false;
+      if(page === 'calc' && tool && validTools.indexOf(tool) !== -1) {
+        openTool(tool);
+      }
     }
   });
 });
