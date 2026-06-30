@@ -1173,8 +1173,66 @@ function setLang(lang) {
   applyLang(lang);
 }
 
+/* =============================================
+   SAYAÇ ANİMASYONU (data-count attribute'lu elemanlar)
+   ============================================= */
+function animateCounter(el){
+  var target = parseInt(el.getAttribute('data-count'), 10);
+  if(isNaN(target)) return;
+  var prefix = el.getAttribute('data-prefix') || '';
+  var suffix = el.getAttribute('data-suffix') || '';
+  var duration = 1200;
+  var startTime = null;
+  function step(ts){
+    if(!startTime) startTime = ts;
+    var progress = Math.min((ts - startTime) / duration, 1);
+    var val = Math.round(progress * target);
+    el.textContent = prefix + val + suffix;
+    if(progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+function initCounters(){
+  var els = document.querySelectorAll('[data-count]:not([data-counted])');
+  if(!els.length || typeof IntersectionObserver === 'undefined') return;
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.setAttribute('data-counted','1');
+        animateCounter(entry.target);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.4});
+  els.forEach(function(el){ obs.observe(el); });
+}
+
+/* =============================================
+   SCROLL REVEAL ANİMASYONU
+   ============================================= */
+var _revealObserver = (typeof IntersectionObserver !== 'undefined') ? new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      _revealObserver.unobserve(entry.target);
+    }
+  });
+}, {threshold:0.12}) : null;
+function initRevealAnimations(){
+  if(!_revealObserver) return;
+  var selectors = '.svc-card, .stat, .hero-stat-card, .proj-card, .slider-wrap, .gallery-section, .step-card';
+  var els = document.querySelectorAll(selectors);
+  els.forEach(function(el, i){
+    if(el.classList.contains('reveal')) return;
+    el.classList.add('reveal');
+    el.style.transitionDelay = (i % 8) * 60 + 'ms';
+    _revealObserver.observe(el);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   renderProjects(); initSlider(); initGallery();
+  initCounters(); initRevealAnimations();
   var validPages = ['home','engineering','services','calc','templates','shop','projects','about','contact'];
   var validTools = ['weight','converter','torque','inertia','beam','thermal','bolt'];
 
