@@ -214,7 +214,7 @@ function showPage(id){
     setTimeout(renderShop, 50);
   }
   /* URL hash güncelle */
-  if(history.replaceState) history.replaceState(null,'','#'+id);
+  if(history.pushState) history.pushState(null,'','#'+id);
   /* Dil uygula */
   if(typeof currentLang !== 'undefined') setTimeout(function(){ applyLang(currentLang); }, 50);
 }
