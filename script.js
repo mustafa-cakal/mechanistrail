@@ -199,6 +199,7 @@ async function submitForm() {
 function toggleMenu(){ document.getElementById('nav-links').classList.toggle('open'); document.getElementById('hamburger').classList.toggle('open'); }
 function closeMenu(){ document.getElementById('nav-links').classList.remove('open'); document.getElementById('hamburger').classList.remove('open'); }
 
+var _skipPushState = false;
 function showPage(id){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
@@ -213,8 +214,8 @@ function showPage(id){
     if(catsEl) catsEl.innerHTML='';
     setTimeout(renderShop, 50);
   }
-  /* URL hash güncelle — mevcut hash zaten aynıysa pushState yapma */
-  if(history.pushState && window.location.hash !== '#'+id) history.pushState({page:id},'','#'+id);
+  /* URL hash güncelle */
+  if(!_skipPushState && history.pushState && window.location.hash !== '#'+id) history.pushState({page:id},'','#'+id);
   /* Dil uygula */
   if(typeof currentLang !== 'undefined') setTimeout(function(){ applyLang(currentLang); }, 50);
 }
@@ -1185,17 +1186,9 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('popstate', function(e) {
     var page = (e.state && e.state.page) ? e.state.page : window.location.hash.replace('#','');
     if(page && validPages.indexOf(page) !== -1) {
-      /* pushState tetiklememek için doğrudan sayfa geçiş mantığını çalıştır */
-      var pages = document.querySelectorAll('.page');
-      pages.forEach(function(p){ p.classList.remove('active'); });
-      var btns = document.querySelectorAll('.nav-btn');
-      btns.forEach(function(b){ b.classList.remove('active'); });
-      var pg = document.getElementById('page-'+page);
-      var btn = document.getElementById('nb-'+page);
-      if(pg) pg.classList.add('active');
-      if(btn) btn.classList.add('active');
-      window.scrollTo(0,0);
-      if(typeof currentLang !== 'undefined') setTimeout(function(){ applyLang(currentLang); }, 50);
+      _skipPushState = true;
+      showPage(page);
+      _skipPushState = false;
     }
   });
 });
