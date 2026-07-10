@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Mechanistrail — Yönetici Paneli</title>
+<link rel="icon" type="image/png" href="favicon-32.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 :root{
@@ -657,7 +661,7 @@ function renderDash(){
   products.slice(-6).reverse().forEach(function(p){
     var c=cats.find(function(x){return x.id===p.category;});
     var img=p.images&&p.images[0];
-    tb.innerHTML+='<tr><td>'+(img?'<img class="prod-thumb" src="'+img+'">':'<div class="no-img">📦</div>')+'</td>'+
+    tb.innerHTML+='<tr><td>'+(img?'<img class="prod-thumb" src="'+img+'" loading="lazy">':'<div class="no-img">📦</div>')+'</td>'+
       '<td><code style="font-size:11px;color:var(--mut)">'+p.id+'</code></td>'+
       '<td class="tn">'+p.name+'<small>'+p.brand+'</small></td>'+
       '<td>'+(c?c.icon+' '+c.name:p.category)+'</td>'+
@@ -684,7 +688,7 @@ function renderTable(){
     var c=cats.find(function(x){return x.id===p.category;});
     var img=p.images&&p.images[0];
     tb.innerHTML+='<tr>'+
-      '<td>'+(img?'<img class="prod-thumb" src="'+img+'">':'<div class="no-img">📦</div>')+'</td>'+
+      '<td>'+(img?'<img class="prod-thumb" src="'+img+'" loading="lazy">':'<div class="no-img">📦</div>')+'</td>'+
       '<td><code style="font-size:11px;color:var(--mut)">'+p.id+'</code></td>'+
       '<td class="tn">'+p.name+'<small>'+p.brand+' — '+p.model+'</small></td>'+
       '<td>'+(c?c.icon+' '+c.name:p.category)+'</td>'+
@@ -728,7 +732,7 @@ function switchTab(name){
 function renderImages(){
   var el=document.getElementById('img-preview'); el.innerHTML='';
   curImages.forEach(function(url,i){
-    el.innerHTML+='<div class="img-item"><img src="'+url+'" onerror="this.src=\'\'">'+
+    el.innerHTML+='<div class="img-item"><img src="'+url+'" onerror="this.src=\'\'" loading="lazy">'+
       '<button class="img-del" onclick="removeImg('+i+')">✕</button></div>';
   });
 }
